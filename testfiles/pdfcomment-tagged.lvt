@@ -1,0 +1,11 @@
+
+\DocumentMetadata{tagging=on}
+\input{regression-test}
+\documentclass{article}
+\usepackage{pdfcomment}
+\begin{document}
+\START
+\pdfcomment{Wow, that's nice!}
+
+\SHOWPDFTAGS
+\end{document}
