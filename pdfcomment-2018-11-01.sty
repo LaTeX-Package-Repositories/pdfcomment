@@ -20,7 +20,7 @@
 %% This work consists of all files listed in manifest.txt.
 %%
 %
-\ProvidesPackage{pdfcomment}[2018/11/01 pdfcomment.sty v2.4a - Josef Kleber (C) 2008-2012, 2015-2016, 2018]%
+\ProvidesPackage{pdfcomment-2018-11-01}[2018/11/01 pdfcomment.sty v2.4a - Josef Kleber (C) 2008-2012, 2015-2016, 2018]%
 %
 \RequirePackage{xkeyval}%
 %
@@ -212,7 +212,7 @@
 \gdef\pc@lpc@format{\pc@lopt@author\ - \pc@lopt@subject}%
 \gdef\pc@lopt@liststyle{AuthorSubject}%
 %
-\define@key{pdfcomment.sty}{avatar}[]%
+\define@key{pdfcomment-2018-11-01.sty}{avatar}[]%
 {% thanks to Ulrike Fischer Msg-Id: <rba0oaiflbjf.dlg@nililand.de>
   \edef\pc@edef@avatar{pc@avatar@#1}%
   \@ifundefined{\pc@edef@avatar}%
@@ -221,7 +221,7 @@
                                 skip assignment}%
   }%
   {%
-    \edef\pc@gopt@loadavatar{\noexpand\setkeys{pdfcomment.sty}{\csname pc@avatar@#1\endcsname}}%
+    \edef\pc@gopt@loadavatar{\noexpand\setkeys{pdfcomment-2018-11-01.sty}{\csname pc@avatar@#1\endcsname}}%
     \pc@gopt@loadavatar%
   }%
 }%
@@ -254,7 +254,7 @@
 \pc@define@key@avatar{pdfreply}%
 \pc@define@key@avatar{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{style}[]%
+\define@key{pdfcomment-2018-11-01.sty}{style}[]%
 {%
   \edef\pc@edef@style{pc@style@#1}%
   \@ifundefined{\pc@edef@style}%
@@ -263,7 +263,7 @@
                                 skip assignment}%
   }%
   {%
-    \edef\pc@gopt@loadstyle{\noexpand\setkeys{pdfcomment.sty}{\csname pc@style@#1\endcsname}}%
+    \edef\pc@gopt@loadstyle{\noexpand\setkeys{pdfcomment-2018-11-01.sty}{\csname pc@style@#1\endcsname}}%
     \pc@gopt@loadstyle%
   }%
 }%
@@ -296,7 +296,7 @@
 \pc@define@key@style{pdfreply}%
 \pc@define@key@style{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{subject}[\pc@goptd@subject]%
+\define@key{pdfcomment-2018-11-01.sty}{subject}[\pc@goptd@subject]%
 {%
   \gdef\pc@gopt@subject{#1}%
 }%
@@ -320,7 +320,7 @@
 \pc@define@key@subject{pdfreply}%
 \pc@define@key@subject{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{color}[\pc@goptd@color]%
+\define@key{pdfcomment-2018-11-01.sty}{color}[\pc@goptd@color]%
 {%
   \gdef\pc@gopt@color{#1}%
 }%
@@ -344,7 +344,7 @@
 \pc@define@key@color{pdfreply}%
 \pc@define@key@color{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{author}[\pc@goptd@author]%
+\define@key{pdfcomment-2018-11-01.sty}{author}[\pc@goptd@author]%
 {%
   \gdef\pc@gopt@author{#1}%
 }%
@@ -368,7 +368,7 @@
 \pc@define@key@author{pdfreply}%
 \pc@define@key@author{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{deadline}[\pc@goptd@deadline]%
+\define@key{pdfcomment-2018-11-01.sty}{deadline}[\pc@goptd@deadline]%
 {%
   \gdef\pc@gopt@deadline{#1}%
 }%
@@ -392,7 +392,7 @@
 \pc@define@key@deadline{pdfreply}%
 \pc@define@key@deadline{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{icon}[\pc@goptd@icon]%
+\define@key{pdfcomment-2018-11-01.sty}{icon}[\pc@goptd@icon]%
 {%
   \gdef\pc@gopt@icon{#1}%
 }%
@@ -416,7 +416,7 @@
 \pc@define@key@icon{pdfreply}%
 \pc@define@key@icon{pdftooltip}%
 %
-\define@choicekey*{pdfcomment.sty}{open}[\pc@gopt@open\nr]{true,false}[false]%
+\define@choicekey*{pdfcomment-2018-11-01.sty}{open}[\pc@gopt@open\nr]{true,false}[false]%
 {%
   \ifcase\nr\relax%
     \gdef\pc@gopt@open{true}%
@@ -448,7 +448,7 @@
 \pc@define@key@open{pdfreply}%
 \pc@define@key@open{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{hspace}[\pc@goptd@hspace]%
+\define@key{pdfcomment-2018-11-01.sty}{hspace}[\pc@goptd@hspace]%
 {%
   \gdef\pc@gopt@hspace{#1}%
 }%
@@ -472,7 +472,7 @@
 \pc@define@key@hspace{pdfreply}%
 \pc@define@key@hspace{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{voffset}[\pc@goptd@voffset]%
+\define@key{pdfcomment-2018-11-01.sty}{voffset}[\pc@goptd@voffset]%
 {%
   \gdef\pc@gopt@voffset{#1}%
 }%
@@ -496,7 +496,7 @@
 \pc@define@key@voffset{pdfreply}%
 \pc@define@key@voffset{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{hoffset}[\pc@goptd@hoffset]%
+\define@key{pdfcomment-2018-11-01.sty}{hoffset}[\pc@goptd@hoffset]%
 {%
   \gdef\pc@gopt@hoffset{#1}%
 }%
@@ -520,7 +520,7 @@
 \pc@define@key@hoffset{pdfreply}%
 \pc@define@key@hoffset{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{width}[\pc@goptd@width]%
+\define@key{pdfcomment-2018-11-01.sty}{width}[\pc@goptd@width]%
 {%
   \gdef\pc@gopt@width{#1}%
 }%
@@ -544,7 +544,7 @@
 \pc@define@key@width{pdfreply}%
 \pc@define@key@width{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{height}[\pc@goptd@height]%
+\define@key{pdfcomment-2018-11-01.sty}{height}[\pc@goptd@height]%
 {%
   \gdef\pc@gopt@height{#1}%
 }%
@@ -568,7 +568,7 @@
 \pc@define@key@height{pdfreply}%
 \pc@define@key@height{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{depth}[\pc@goptd@depth]%
+\define@key{pdfcomment-2018-11-01.sty}{depth}[\pc@goptd@depth]%
 {%
   \gdef\pc@gopt@depth{#1}%
 }%
@@ -592,7 +592,7 @@
 \pc@define@key@depth{pdfreply}%
 \pc@define@key@depth{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{opacity}[\pc@goptd@opacity]%
+\define@key{pdfcomment-2018-11-01.sty}{opacity}[\pc@goptd@opacity]%
 {%
   \gdef\pc@gopt@opacity{#1}%
 }%
@@ -616,7 +616,7 @@
 \pc@define@key@opacity{pdfreply}%
 \pc@define@key@opacity{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{markup}[\pc@goptd@markup]%
+\define@key{pdfcomment-2018-11-01.sty}{markup}[\pc@goptd@markup]%
 {%
   \gdef\pc@gopt@markup{#1}%
 }%
@@ -640,7 +640,7 @@
 \pc@define@key@markup{pdfreply}%
 \pc@define@key@markup{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{font}[\pc@goptd@font]%
+\define@key{pdfcomment-2018-11-01.sty}{font}[\pc@goptd@font]%
 {%
   \gdef\pc@gopt@font{#1}%
 }%
@@ -664,7 +664,7 @@
 \pc@define@key@font{pdfreply}%
 \pc@define@key@font{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{fontsize}[\pc@goptd@fontsize]%
+\define@key{pdfcomment-2018-11-01.sty}{fontsize}[\pc@goptd@fontsize]%
 {%
   \gdef\pc@gopt@fontsize{\pc@pttobp{#1}}%
 }%
@@ -688,7 +688,7 @@
 \pc@define@key@fontsize{pdfreply}%
 \pc@define@key@fontsize{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{fontcolor}[\pc@goptd@fontcolor]%
+\define@key{pdfcomment-2018-11-01.sty}{fontcolor}[\pc@goptd@fontcolor]%
 {%
   \gdef\pc@gopt@fontcolor{#1}%
 }%
@@ -712,7 +712,7 @@
 \pc@define@key@fontcolor{pdfreply}%
 \pc@define@key@fontcolor{pdftooltip}%
 %
-\define@choicekey*{pdfcomment.sty}{justification}[\pc@gopt@justification\nr]{left,center,right}[left]%
+\define@choicekey*{pdfcomment-2018-11-01.sty}{justification}[\pc@gopt@justification\nr]{left,center,right}[left]%
 {%
   \ifcase\nr\relax%
     \gdef\pc@gopt@justification{0}%
@@ -748,7 +748,7 @@
 \pc@define@key@justification{pdfreply}%
 \pc@define@key@justification{pdftooltip}%
 %
-\define@choicekey*{pdfcomment.sty}{borderstyle}[\pc@gopt@borderstyle\nr]{solid,dashed}[solid]%
+\define@choicekey*{pdfcomment-2018-11-01.sty}{borderstyle}[\pc@gopt@borderstyle\nr]{solid,dashed}[solid]%
 {%
   \ifcase\nr\relax%
     \gdef\pc@gopt@borderstyle{S}%
@@ -780,7 +780,7 @@
 \pc@define@key@borderstyle{pdfreply}%
 \pc@define@key@borderstyle{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{dashstyle}[\pc@goptd@dashstyle]%
+\define@key{pdfcomment-2018-11-01.sty}{dashstyle}[\pc@goptd@dashstyle]%
 {%
   \gdef\pc@gopt@dashstyle{#1}%
 }%
@@ -804,7 +804,7 @@
 \pc@define@key@dashstyle{pdfreply}%
 \pc@define@key@dashstyle{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{linewidth}[\pc@goptd@linewidth]%
+\define@key{pdfcomment-2018-11-01.sty}{linewidth}[\pc@goptd@linewidth]%
 {%
   \gdef\pc@gopt@linewidth{\pc@pttobp{#1}}%
 }%
@@ -828,7 +828,7 @@
 \pc@define@key@linewidth{pdfreply}%
 \pc@define@key@linewidth{pdftooltip}%
 %
-\define@choicekey*{pdfcomment.sty}{bse}[\pc@gopt@bse\nr]{none,cloudy}[none]%
+\define@choicekey*{pdfcomment-2018-11-01.sty}{bse}[\pc@gopt@bse\nr]{none,cloudy}[none]%
 {%
   \ifcase\nr\relax%
     \gdef\pc@gopt@bse{S}%
@@ -860,7 +860,7 @@
 \pc@define@key@bse{pdfreply}%
 \pc@define@key@bse{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{bsei}[\pc@goptd@bsei]%
+\define@key{pdfcomment-2018-11-01.sty}{bsei}[\pc@goptd@bsei]%
 {%
   \gdef\pc@gopt@bsei{#1}%
 }%
@@ -884,7 +884,7 @@
 \pc@define@key@bsei{pdfreply}%
 \pc@define@key@bsei{pdftooltip}%
 %
-\define@choicekey*{pdfcomment.sty}{type}[\pc@gopt@type\nr]{freetext,callout,typewriter,line,polyline,polygon}[freetext]%
+\define@choicekey*{pdfcomment-2018-11-01.sty}{type}[\pc@gopt@type\nr]{freetext,callout,typewriter,line,polyline,polygon}[freetext]%
 {%
   \ifcase\nr\relax%
     \gdef\pc@gopt@type{}%
@@ -932,7 +932,7 @@
 \pc@define@key@type{pdfreply}%
 \pc@define@key@type{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{lineend}[\pc@goptd@lineend]%
+\define@key{pdfcomment-2018-11-01.sty}{lineend}[\pc@goptd@lineend]%
 {%
   \gdef\pc@gopt@lineend{#1}%
 }%
@@ -956,7 +956,7 @@
 \pc@define@key@lineend{pdfreply}%
 \pc@define@key@lineend{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{linebegin}[\pc@goptd@linebegin]%
+\define@key{pdfcomment-2018-11-01.sty}{linebegin}[\pc@goptd@linebegin]%
 {%
   \gdef\pc@gopt@linebegin{#1}%
 }%
@@ -980,7 +980,7 @@
 \pc@define@key@linebegin{pdfreply}%
 \pc@define@key@linebegin{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{icolor}[\pc@goptd@icolor]%
+\define@key{pdfcomment-2018-11-01.sty}{icolor}[\pc@goptd@icolor]%
 {%
   \gdef\pc@gopt@icolor{#1}%
 }%
@@ -1004,7 +1004,7 @@
 \pc@define@key@icolor{pdfreply}%
 \pc@define@key@icolor{pdftooltip}%
 %
-\define@choicekey*{pdfcomment.sty}{caption}[\pc@gopt@caption\nr]{none,inline,top}[inline]%
+\define@choicekey*{pdfcomment-2018-11-01.sty}{caption}[\pc@gopt@caption\nr]{none,inline,top}[inline]%
 {%
   \ifcase\nr\relax%
     \gdef\pc@gopt@caption{none}%
@@ -1040,7 +1040,7 @@
 \pc@define@key@caption{pdfreply}%
 \pc@define@key@caption{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{line}[\pc@goptd@line]%
+\define@key{pdfcomment-2018-11-01.sty}{line}[\pc@goptd@line]%
 {%
   \gdef\pc@gopt@line{#1}%
 }%
@@ -1064,7 +1064,7 @@
 \pc@define@key@line{pdfreply}%
 \pc@define@key@line{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{captionhoffset}[\pc@goptd@captionhoffset]%
+\define@key{pdfcomment-2018-11-01.sty}{captionhoffset}[\pc@goptd@captionhoffset]%
 {%
   \gdef\pc@gopt@captionhoffset{\pc@pttobp{#1}}%
 }%
@@ -1088,7 +1088,7 @@
 \pc@define@key@captionhoffset{pdfreply}%
 \pc@define@key@captionhoffset{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{captionvoffset}[\pc@goptd@captionvoffset]%
+\define@key{pdfcomment-2018-11-01.sty}{captionvoffset}[\pc@goptd@captionvoffset]%
 {%
   \gdef\pc@gopt@captionvoffset{\pc@pttobp{#1}}%
 }%
@@ -1112,7 +1112,7 @@
 \pc@define@key@captionvoffset{pdfreply}%
 \pc@define@key@captionvoffset{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{linesep}[\pc@goptd@linesep]%
+\define@key{pdfcomment-2018-11-01.sty}{linesep}[\pc@goptd@linesep]%
 {%
   \gdef\pc@gopt@linesep{\pc@pttobp{#1}}%
 }%
@@ -1136,7 +1136,7 @@
 \pc@define@key@linesep{pdfreply}%
 \pc@define@key@linesep{pdftooltip}%
 %
-\define@choicekey*{pdfcomment.sty}{disable}[\pc@gopt@disable\nr]{true,false}[true]%
+\define@choicekey*{pdfcomment-2018-11-01.sty}{disable}[\pc@gopt@disable\nr]{true,false}[true]%
 {%
   \ifcase\nr\relax%
     \global\pc@gopt@disabletrue%
@@ -1187,7 +1187,7 @@
 \pc@define@key@id{pdfreply}%
 \pc@define@key@id{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{date}[\pc@goptd@date]%
+\define@key{pdfcomment-2018-11-01.sty}{date}[\pc@goptd@date]%
 {%
   \gdef\pc@gopt@date{#1}%
 }%
@@ -1211,7 +1211,7 @@
 \pc@define@key@date{pdfreply}%
 \pc@define@key@date{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{timezone}[\pc@goptd@timezone]%
+\define@key{pdfcomment-2018-11-01.sty}{timezone}[\pc@goptd@timezone]%
 {%
   \gdef\pc@gopt@timezone{#1}%
 }%
@@ -1235,7 +1235,7 @@
 \pc@define@key@timezone{pdfreply}%
 \pc@define@key@timezone{pdftooltip}%
 %
-\define@choicekey*{pdfcomment.sty}{printSOfinal}[\pc@gpSOf\nr]{true,false}[true]%
+\define@choicekey*{pdfcomment-2018-11-01.sty}{printSOfinal}[\pc@gpSOf\nr]{true,false}[true]%
 {%
   \ifcase\nr\relax%
     \gdef\pc@gopt@printSOfinal{true}%
@@ -1267,22 +1267,22 @@
 \pc@define@key@printSOfinal{pdfreply}%
 \pc@define@key@printSOfinal{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{dvipdfmx}[\pc@goptd@dvipdfmx]%
+\define@key{pdfcomment-2018-11-01.sty}{dvipdfmx}[\pc@goptd@dvipdfmx]%
 {%
   \expandafter\global\csname pc@gopt@dvipdfmx#1\endcsname%
 }%
 %
-\define@key{pdfcomment.sty}{final}[]%
+\define@key{pdfcomment-2018-11-01.sty}{final}[]%
 {%
   \global\pc@gopt@finaltrue%
 }%
 %
-\define@key{pdfcomment.sty}{draft}[]%
+\define@key{pdfcomment-2018-11-01.sty}{draft}[]%
 {%
   \global\pc@gopt@finalfalse%
 }%
 %
-\define@choicekey{pdfcomment.sty}{version}[\pc@version\nr]{1,2}[2]%
+\define@choicekey{pdfcomment-2018-11-01.sty}{version}[\pc@version\nr]{1,2}[2]%
 {%
   \ifcase\nr\relax%
     \global\pc@opt@unskipfalse%
@@ -1410,10 +1410,10 @@
 % and a warning is issued by xkeyval.sty, if used.
 \AtBeginDocument%
 {%
-  \disable@keys{pdfcomment.sty}{draft}%
-  \disable@keys{pdfcomment.sty}{final}%
-  \disable@keys{pdfcomment.sty}{dvipdfmx}%
-  \disable@keys{pdfcomment.sty}{version}%
+  \disable@keys{pdfcomment-2018-11-01.sty}{draft}%
+  \disable@keys{pdfcomment-2018-11-01.sty}{final}%
+  \disable@keys{pdfcomment-2018-11-01.sty}{dvipdfmx}%
+  \disable@keys{pdfcomment-2018-11-01.sty}{version}%
 }%
 \newcommand{\pdfcomment}[2][]%
 {%
@@ -2646,7 +2646,7 @@
     \globaldefs=-1%
   \fi%
   % Change global options if specified
-  \setkeys{pdfcomment.sty}{#2}%
+  \setkeys{pdfcomment-2018-11-01.sty}{#2}%
   \ifpc@local%
     \globaldefs=\pc@local@gd%
   \fi%
