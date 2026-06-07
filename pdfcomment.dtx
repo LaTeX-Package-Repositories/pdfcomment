@@ -1351,15 +1351,7 @@
 \ProcessOptionsX\relax%
 %
 \RequirePackage{etoolbox}%
-% luatex v0.85+ ???
-\ifdef\pdffeedback
-{%
-  \RequirePackage{luatex85}%
-  \RequirePackage{datetime2}[2016/06/04]%
-}%
-{%
-  \RequirePackage{datetime2}%
-}%
+\RequirePackage{datetime2}%
 \RequirePackage{zref-savepos}[2007/04/22]%
 \zref@require@unique%
 \RequirePackage{refcount}%
@@ -1370,61 +1362,7 @@
 \RequirePackage{ifluatex}%
 \RequirePackage{soulpos}%
 %
-%hyperref setup
-\ifpdf%
-  \ifluatex%
-    \@ifpackageloaded{hyperref}%
-    {%
-      \hypersetup{luatex}%
-    }%
-    {%
-      \RequirePackage[luatex,pdfencoding=auto]{hyperref}[2016/05/18]%
-    }%
-  \else%
-    \@ifpackageloaded{hyperref}%
-    {%
-      \hypersetup{pdftex}%
-    }%
-    {%
-      \RequirePackage[pdftex,pdfencoding=auto]{hyperref}[2007/06/12]%
-    }%
-  \fi%
-\else%
-  % to avoid problems with different default page size in
-  % pdflatex (dvi mode) and dvipdfmx/dvips
-  \pdfpageheight=\paperheight%
-  \pdfpagewidth=\paperwidth%
-  %auto-set dvipdfmx driver in case of xetex
-  \expandafter\ifx\csname XeTeXrevision\endcsname\relax%
-    \ifpc@gopt@dvipdfmx%
-      \@ifpackageloaded{hyperref}%
-      {%
-        \hypersetup{dvipdfmx}%
-      }%
-      {%
-        \RequirePackage[dvipdfmx,pdfencoding=auto]{hyperref}[2007/06/12]%
-      }%
-    \else%
-      \@ifpackageloaded{hyperref}%
-      {%
-        \hypersetup{dvips}%
-      }%
-      {%
-        \RequirePackage[dvips,pdfencoding=auto]{hyperref}[2007/06/12]%
-      }%
-    \fi%
-  \else%
-    \global\pc@gopt@dvipdfmxtrue%
-    \global\pc@gopt@xelatextrue%
-    \@ifpackageloaded{hyperref}%
-    {%
-      \hypersetup{xetex}%
-    }%
-    {%
-      \RequirePackage[xetex,pdfencoding=auto]{hyperref}[2007/06/12]%
-    }%
-  \fi%
-\fi%
+\RequirePackage{hyperref}
 %
 % Using the options draft, final and dvipdfmx in \pdfcommentsetup makes absolutely no sense!
 % Therefore, they are switched off at "\AtBeginDocument"
@@ -1436,37 +1374,66 @@
   \disable@keys{pdfcomment.sty}{dvipdfmx}%
   \disable@keys{pdfcomment.sty}{version}%
 }%
+\ExplSyntaxOn
 \newcommand{\pdfcomment}[2][]%
 {%
   \ifhmode\ifpc@opt@unskip\unskip\fi\fi%
   \ifvmode\leavevmode\fi%
+  \group_begin:
   % Copy all global options to local options
   \pc@copy@gopt@lopt%
   % Change local options if specified
   \setkeys{pdfcomment}{#1}%
-  % Encode Contents, Author and Subject to pdf encodings (PD or PU) with hyperref's \pdfstringdef
-  % and transform color input to pdf color
+%    \end{macrocode}
+%  Encode Contents, Author and Subject to pdf encodings  
+%  and transform color input to pdf color
+%  
+%    \begin{macrocode}
   \pc@encode@PDF{#2}%
-  \ifthenelse{\equal{\pc@lopt@color}{}}%
-  {%
-    \gdef\pc@lopt@c{}%
-  }%
-  {%
-    \gdef\pc@lopt@c{/C [\pc@hyenc@color]}%
-  }%
-  \ifthenelse{\equal{\pc@lopt@date}{}}%
-  {%
-    \gdef\pc@lopt@cdate{/CreationDate (\pc@pdfdate@auto)\space/M (\pc@pdfdate@auto)}%
-  }%
-  {%
-    \gdef\pc@lopt@cdate{/CreationDate (\pc@lopt@date)\space/M (\pc@lopt@date)}%
-  }%
+  \tl_if_empty:NF \pc@lopt@color
+   {
+     \pdfannot_dict_put:nne{widget}{C}{[\pc@hyenc@color]}
+   }  
+  %\ifthenelse{\equal{\pc@lopt@color}{}}%
+%  {%
+%    \gdef\pc@lopt@c{}%
+%  }%
+%  {%
+%    \gdef\pc@lopt@c{/C [\pc@hyenc@color]}%
+%    
+%  }%
+  \tl_if_empty:NTF \pc@lopt@date
+   {
+     \pdfannot_dict_put:nne{widget}{CreationDate}{(\pc@pdfdate@auto)}
+     \pdfannot_dict_put:nne{widget}{M}{(\pc@pdfdate@auto)}
+   }
+   {
+     \pdfannot_dict_put:nne{widget}{CreationDate}{(\pc@lopt@date)}
+     \pdfannot_dict_put:nne{widget}{M}{(\pc@lopt@date)}
+   }
+%    \end{macrocode}
+% from \cs{pc@annot@text}:
+%    \begin{macrocode}
+     \pdfannot_dict_put:nne{widget}{Subtype}{/Text}
+     \pdfannot_dict_put:nne{widget}{CA}{\pc@lopt@opacity}
+     \pdfannot_dict_put:nne{widget}{T}{(\pc@pdfenc@author)}
+     \pdfannot_dict_put:nne{widget}{Subj}{(\pc@pdfenc@subject)}
+     \pdfannot_dict_put:nne{widget}{Name}{(\pc@lopt@icon)}
+     \pdfannot_dict_put:nne{widget}{Contents}{(\pc@pdfenc@contents)}
+     \pdfannot_dict_put:nne{widget}{Open}{\pc@lopt@open}
+     \pdfannot_dict_put:nne{widget}{F}{4} 
+  %\ifthenelse{\equal{\pc@lopt@date}{}}%
+%  {%
+%    \gdef\pc@lopt@cdate{/CreationDate (\pc@pdfdate@auto)\space/M (\pc@pdfdate@auto)}%
+%  }%
+%  {%
+%    \gdef\pc@lopt@cdate{/CreationDate (\pc@lopt@date)\space/M (\pc@lopt@date)}%
+%  }%
   \ifpc@gopt@final\else%
     \ifpc@lopt@disable\else%
       \hspace*{0pt}%
       \pc@create@lpc%
       % typeset text annotation (see: PDF Reference)
-      \ifpdf%
         \vbox%
         {%
           \hsize=0pt%
@@ -1476,66 +1443,23 @@
           {%
             \vsize=0pt%
             \hskip\pc@lopt@hoffset%
-            \pdfannot width \normalbaselineskip height \normalbaselineskip depth 0pt%
-            {%
-              /Subtype /Text%
-              \pc@annot@text%
-            }%
+            \pdfannot_widget_box:nnn{\normalbaselineskip}{\normalbaselineskip}{0pt}
             \ifthenelse{\equal{\pc@lopt@id}{}}%
             {}%
             {%
-              \xdef\pc@collect@PDFOBJID{\pc@collect@PDFOBJID,\the\pdflastannot}%
+              \xdef\pc@collect@PDFOBJID{\pc@collect@PDFOBJID,\pdfannot_ref_last:}%
               \pc@save@PDFOBJID{\pc@lopt@id}%
             }%
             \hss%
           }%
         }%
-      \else%
-        \ifpc@gopt@dvipdfmx%
-          \vbox%
-          {%
-            \hsize=0pt%
-            \noindent%
-            \vspace{\pc@lopt@voffset}%
-            \hbox to 0pt%
-            {%
-              \vsize=0pt%
-              \hskip\pc@lopt@hoffset%
-              \special{pdf: ann width \the\normalbaselineskip\space height \the\normalbaselineskip\space depth 0pt%
-                <<%
-                  /Subtype /Text%
-                  \pc@annot@text%
-                >>%
-              }%
-              \hss%
-            }%
-          }%
-        \else%
-          \vbox%
-          {%
-            \hsize=0pt%
-            \noindent%
-            \vspace{\pc@lopt@voffset}%
-            \hbox to 0pt%
-            {%
-              \vsize=0pt%
-              \hskip\pc@lopt@hoffset%
-              \pdfmark[\rule{\normalbaselineskip}{0pt}\rule{0pt}{\normalbaselineskip}]%
-              {%
-                pdfmark=/ANN,%
-                Subtype=/Text,%
-                Raw={\pc@annot@text}%
-              }%
-              \hss%
-            }%
-          }%
-        \fi%
-      \fi%
       \hspace{\pc@lopt@hspace}%
     \fi%
   \fi%
+  \group_end:
 }%
 %
+\ExplSyntaxOff
 \newcommand{\pdfmargincomment}[2][]%
 {%
   \ifhmode\ifpc@opt@unskip\unskip\fi\fi%
