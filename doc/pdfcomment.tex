@@ -1,8 +1,6 @@
 \documentclass[a4paper]{ltxdoc}%
 \usepackage[english]{babel}%
-\usepackage[latin1]{inputenc}%
 \usepackage[T1]{fontenc}%
-\usepackage{textcomp}%
 \usepackage{lmodern}%
 \usepackage{bera}%
 \usepackage{microtype}%
@@ -16,7 +14,7 @@
 \usetikzlibrary{calc}%
 \usepackage{ragged2e}%
 \usepackage{url}%
-\usepackage[automark,nouppercase]{scrpage2}
+\usepackage[automark,nouppercase]{scrlayer-scrpage}
 \usepackage{pdfcomment}%
 %
 \makeatletter
@@ -184,16 +182,16 @@ I want to thank the following persons for contributions to the development of th
 
 \item \textbf{Ulrike Fischer} for answering my stupid questions on d.c.t.t. for making the avatar and style system possible and much more.
 
-\item \textbf{Christian Feuers‰nger} for contributing new ideas in form of his package \package{pdfmarginpar.sty} and for solving the printing problem\footnote{see section \ref{sec:print}} of PDF annotations and popups.
+\item \textbf{Christian Feuers√§nger} for contributing new ideas in form of his package \package{pdfmarginpar.sty} and for solving the printing problem\footnote{see section \ref{sec:print}} of PDF annotations and popups.
 
 \item \textbf{Ross Moore} for contributing ideas and code for his own feature request to support \texttt{\string\pdfmarkupcomment} in math mode.
 
 \item \textbf{Heiko Oberdiek} also for answering my stupid questions on d.c.t.t., as well as for the development of dozens of very usefull packages, especially \file{hyperref.sty}, \file{hycolor.sty} and \file{zref.sty}, which made this package possible.
 
-\item \textbf{Herbert Voﬂ} also for answering my stupid questions on d.c.t.t.
+\item \textbf{Herbert Vo√ü} also for answering my stupid questions on d.c.t.t.
 \end{itemize}
 
-I also want to thank the following persons for bug reports, feature requests, ...: Til Birnstiel, Jannis von Buttlar, Gabriel Cardona, Thomas Feller, Florent Chervet, Jin-Hwan Cho, Marcel Dausend, Andrew Dawson, diabonas, Max Funk, Zvi Gilboa, Thomas Kˆnig, Marc-AndrÈ Michel, Guillaume Millet, Fritz Moore, Michael Niedermair, Stefan Pinnow, RenÈ Schwarz
+I also want to thank the following persons for bug reports, feature requests, ...: Til Birnstiel, Jannis von Buttlar, Gabriel Cardona, Thomas Feller, Florent Chervet, Jin-Hwan Cho, Marcel Dausend, Andrew Dawson, diabonas, Max Funk, Zvi Gilboa, Thomas K√∂nig, Marc-Andr√© Michel, Guillaume Millet, Fritz Moore, Michael Niedermair, Stefan Pinnow, Ren√© Schwarz
 \clearpage
 \section{Options}
 \subsection{Global options}
@@ -220,7 +218,7 @@ You can use the option \styleoption{opacity} for defining the opacity of PDF ann
 \subsubsection[\texttt{icon}]{\styleoption{icon} (\underline{\texttt{Comment}})}\label{sec:icon}
 You can use the option \styleoption{icon} for defining the graphic used for the PDF text annotations. The following icons are defined as mandatory by the PDF reference:
 
-\pdfcommentsetup{author={Josef Kleber},subject={Icon ‹bersicht},width=17mm}
+\pdfcommentsetup{author={Josef Kleber},subject={Icon √úbersicht},width=17mm}
 {\renewcommand{\arraystretch}{2.5}
 \begin{center}
 \begin{tabular}{rlrlrl}
@@ -539,7 +537,7 @@ Possible \margcs{\cmd\pdftooltip\oarg{options}\\\marg{object}\marg{comment}}opti
 \bigskip
 With the command \cmd\pdftooltip{} you can annotate any object with a tooltip - provided the the object can be set into a box to measure its size. Therefore you can smoothly use tooltips with \pdftooltip{\textcolor{red}{words}}{This is a tooltip!} or in a chemical notation: $\pdftooltip{H_{2}SO_{4}}{Sulfuric acid}$ 
 
-Of course, it also works in equations: \[\pdftooltip[mathstyle=\displaystyle]{\sum_{i=1}^{n}i=\frac{1}{2}n\cdot(n+1)}{little Gauﬂ}\]
+Of course, it also works in equations: \[\pdftooltip[mathstyle=\displaystyle]{\sum_{i=1}^{n}i=\frac{1}{2}n\cdot(n+1)}{little Gau√ü}\]
 
 Please notice the comments about usage in math mode in section \ref{sec:pdfmarkupcomment}.
 

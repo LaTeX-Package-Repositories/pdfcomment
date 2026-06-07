@@ -1,0 +1,110 @@
+\DocumentMetadata{tagging=on,tagging-setup={math/setup=mathml-SE}}
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage{unicode-math}
+\usepackage[svgnames,rgb]{xcolor}
+\usepackage{listings}
+\usepackage[author={Ulrike Fischer},subject={Math test},color=Khaki]{pdfcomment}
+
+\usepackage{parskip}
+
+\author{Ulrike Fischer}
+\title{Using \texttt{\string\pdfmarkupcomment}\ in math mode}
+
+\hypersetup{pdfauthor={Ulrike Fischer},pdftitle={Using \textbackslash{}pdfmarkupcomment in math mode},pdfsubject={An example file for demonstrating the usage of \textbackslash{}pdfmarkupcomment in math mode},pdfborder={0 0 0},linkcolor=blue,citecolor=blue}%
+
+\defineavatar{Joe}{author=Joe,color=yellow}
+\defineavatar{Bob}{author=Bob,color=green}
+
+\begin{document}
+
+\lstset{language=[LaTeX]TeX,numbers=left,numberstyle=\tiny,basicstyle=\ttfamily\small,frame=single,backgroundcolor=\color{LightGoldenrodYellow},keywordstyle=\color{Blue},emph={mathstyle,style}, emphstyle=\color{Tomato},emph={[2]mathpopup},emphstyle={[2]\color{SeaGreen}},morekeywords={pdfmarkupcomment,[,]}}
+
+\definestyle{mathpopup}{author={},subject={},color=NavajoWhite,markup=Highlight}
+
+\maketitle
+\section{Simple formulas}
+PDF annotations work in inline formula ($\pdfmarkupcomment[style=mathpopup]{\sum_{i=1}^{n}i=\frac{1}{2}n\cdot(n+1)}{comment}$), as well as in display mode:
+
+\[\pdfmarkupcomment[id=1,style=mathpopup,mathstyle=\displaystyle,open=true]{f(x)=\prod_{i=1}^{n}\left(i-\frac{1}{2i}\right)}{comment}\]
+
+\bigskip
+Of course, you can only comment parts of a formula:
+
+\bigskip
+\begin{tabular}{p{0.26\linewidth}p{0.68\linewidth}}
+\[(a+b=c)^{\pdfmarkupcomment[style=mathpopup]{d+e}{comment}}\]
+&
+\begin{lstlisting}
+\[(a+b=c)^{\pdfmarkupcomment[style=mathpopup]
+{d+e}{comment}}\]
+\end{lstlisting}
+\end{tabular}
+
+\bigskip
+As you can see the size of the PDF annoation is too big! The math content is set into a box to measure the size. Unfortunately, the math context gets lost, which results in a wrong size, as the math snippets are set as inline formula into the box by default. You can correct this with the option \texttt{mathstyle} (\texttt{\string\textstyle, \string\displaystyle, \string\scriptstyle, \string\scriptscriptstyle}) 
+
+\bigskip
+\begin{tabular}{p{0.26\linewidth}p{0.68\linewidth}}
+\[(a+b=c)^{\pdfmarkupcomment[style=mathpopup,mathstyle=\scriptstyle]{d+e}{comment}}\]
+&
+\begin{lstlisting}
+\[(a+b=c)^{\pdfmarkupcomment[style=mathpopup,
+mathstyle=\scriptstyle]{d+e}{comment}}\]
+\end{lstlisting}
+\end{tabular}
+
+\bigskip
+Of course, it also works with equations:
+
+\bigskip
+\begin{tabular}{p{0.41\linewidth}p{0.52\linewidth}}
+\begin{equation}
+\pdfmarkupcomment[style=mathpopup,mathstyle=\displaystyle]{\sum_{i=1}^{n}i=\frac{1}{2}n\cdot(n+1)}{comment}
+\end{equation}\label{eq:display}
+&
+\begin{lstlisting}
+\begin{equation}
+\pdfmarkupcomment[style=mathpopup,
+mathstyle=\displaystyle]
+{\sum_{i=1}^{n}i=\frac{1}{2}n
+\cdot(n+1)}{comment}
+\end{equation}\label{eq:display}
+\end{lstlisting}
+\end{tabular}
+
+\bigskip
+In formula \ref{eq:display} \texttt{mathsytle=\string\displaystyle} was used.
+
+\section{Complex formulas}
+If you use more complex environments like \texttt{eqnarry*}, you can no longer comment the complete formula, as this would break the internals of the environment. Remember that you can only comment, what you can put into a math box (\${}math stuff\${}). Therefore, you can only comment parts of the complex formula:
+
+\bigskip
+\begin{tabular}{p{0.4\linewidth}p{0.53\linewidth}}
+\begin{eqnarray*}
+\pdfmarkupcomment[style=mathpopup]{\mathrm{left}}{comment} & 
+\pdfmarkupcomment[style=mathpopup]{\mathrm{middle}}{comment} & \pdfmarkupcomment[style=mathpopup]{\mathrm{right}}{comment}\\
+\pdfmarkupcomment[style=mathpopup,mathstyle=\displaystyle]{\frac{1}{\sqrt{n}}}{comment} = & \pdfmarkupcomment[style=mathpopup,mathstyle=\displaystyle]{\frac{\sqrt{n}}{n}}{comment} = & \pdfmarkupcomment[style=mathpopup,mathstyle=\displaystyle]{\frac{n}{n\sqrt{n}}}{comment}
+\end{eqnarray*}
+&
+\begin{lstlisting}
+\begin{eqnarray*}
+\pdfmarkupcomment[style=mathpopup]
+{\mathrm{left}}{comment} & 
+\pdfmarkupcomment[style=mathpopup]
+{\mathrm{middle}}{comment} & 
+\pdfmarkupcomment[style=mathpopup]
+{\mathrm{right}}{comment}\\
+\pdfmarkupcomment[style=mathpopup,
+mathstyle=\displaystyle]
+{\frac{1}{\sqrt{n}}}{comment} = & 
+\pdfmarkupcomment[style=mathpopup,
+mathstyle=\displaystyle]
+{\frac{\sqrt{n}}{n}}{comment} = & 
+\pdfmarkupcomment[style=mathpopup,
+mathstyle=\displaystyle]
+{\frac{n}{n\sqrt{n}}}{comment}
+\end{eqnarray*}
+\end{lstlisting}
+\end{tabular}
+\end{document} 
