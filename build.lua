@@ -13,10 +13,13 @@ checkruns = 3
 
 docfiledir = "./doc"
 
-docfiles =  {"*.tex"}
+docfiles =  {"CHANGES"}
 installfiles={"pdfcomment.sty","pdfcomment-2018-11-01.sty"}
 sourcefiles={"pdfcomment.dtx","pdfcomment-2018-11-01.sty","pdfcomment.ins"}
 unpackfiles = {"pdfcomment.ins"}
+
+typesetfiles     = {"*.tex"}
+
 
 function docinit_hook() 
 cp("pdfcomment.sty", unpackdir, typesetdir)
