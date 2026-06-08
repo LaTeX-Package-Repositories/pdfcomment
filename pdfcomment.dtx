@@ -45,7 +45,10 @@
 
 \RequirePackage{xkeyval}%
 %
-% default values for global package options
+%    \end{macrocode}
+%\subsection{Variables} 
+% Default values for global package options, the commands use \texttt{goptd}.
+%    \begin{macrocode}
 \gdef\pc@goptd@subject{}%
 \gdef\pc@goptd@color{0 0 1}%
 \gdef\pc@goptd@author{}%
@@ -85,7 +88,9 @@
 \gdef\pc@goptd@dvipdfmx{true}%
 \gdef\pc@goptd@printSOfinal{true}%
 %
-% values for global package options
+%    \end{macrocode}
+% Variables for global package options
+%    \begin{macrocode}
 \gdef\pc@gopt@subject{}%
 \gdef\pc@gopt@color{}%
 \gdef\pc@gopt@author{}%
@@ -123,8 +128,9 @@
 \gdef\pc@gopt@date{}%
 \gdef\pc@gopt@timezone{}%
 \gdef\pc@gopt@printSOfinal{}%
-%
-% values for local command options
+%    \end{macrocode}
+% Variables for local command options
+%    \begin{macrocode} 
 \gdef\pc@lopt@subject{}%
 \gdef\pc@lopt@color{}%
 \gdef\pc@lopt@author{}%
@@ -165,6 +171,9 @@
 \gdef\pc@lopt@timezone{}%
 \gdef\pc@lopt@printSOfinal{}%
 %
+%    \end{macrocode}
+% This can probably go at some time. 
+%    \begin{macrocode}
 \gdef\pc@lopt@c{}%
 \gdef\pc@lopt@ic{}%
 \gdef\pc@lopt@cdate{}%
@@ -174,6 +183,9 @@
 \gdef\pc@lopt@cp{}%
 \gdef\pc@lopt@co{}%
 %
+%    \end{macrocode}
+% Booleans
+%    \begin{macrocode}
 \newif\ifpc@gopt@dvipdfmx\pc@gopt@dvipdfmxfalse%
 \newif\ifpc@gopt@xelatex\pc@gopt@xelatexfalse%
 \newif\ifpc@gopt@final\pc@gopt@finalfalse%
@@ -228,11 +240,16 @@
 %
 \newcommand{\pc@raggedleftmarginnote}{\centering}%
 \newcommand{\pc@raggedrightmarginnote}{\centering}%
-%
+%    \end{macrocode}
+% \subsection{List of pdfcomments}
+%    \begin{macrocode}
 \newcommand{\lpcname}{List of pdfcomments}%
 \gdef\pc@lpc@format{\pc@lopt@author\ - \pc@lopt@subject}%
 \gdef\pc@lopt@liststyle{AuthorSubject}%
 %
+%    \end{macrocode}
+% \subsection{Avatar code}
+%    \begin{macrocode}
 \define@key{pdfcomment.sty}{avatar}[]%
 {% thanks to Ulrike Fischer Msg-Id: <rba0oaiflbjf.dlg@nililand.de>
   \edef\pc@edef@avatar{pc@avatar@#1}%
@@ -1376,7 +1393,8 @@
 }%
 \ExplSyntaxOn
 %    \end{macrocode}
-% \subsection{Tagging Sockets}
+%
+% \subsection{Tagging Socket}
 %    \begin{macrocode}
 \NewTaggingSocket{pdfcomment/annot}{2}
 \NewTaggingSocketPlug{pdfcomment/annot}{default}
@@ -1521,7 +1539,28 @@
     }
  }
 %    \end{macrocode}
- 
+%    \begin{macrocode}
+\cs_new_protected:Npn\@@_dict_store_tooltip:
+ {
+   \pdfannot_dict_put:nne{widget}{TU}{(\pc@pdfenc@contents)}
+   \pdfannot_dict_put:nne{widget}{T}{(tooltip \thezref@unique)}
+   \pdfannot_dict_put:nne{widget}{FT}{/Btn}
+   \pdfannot_dict_put:nne{widget}{F}{768}
+   \pdfannot_dict_put:nne{widget}{Ff}{65536}
+   \pdfannot_dict_put:nne{widget}{H}{/N}
+   \pdfannot_dict_put:nne{widget/BS}{W}{0}
+ }
+%    \end{macrocode}
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_store_objid:
+ {
+   \tl_if_empty:eT{\pc@lopt@id}
+    {
+      \tl_gput_right:Ne\pc@collect@PDFOBJID{,\pdfannot_ref_last:}
+    }
+   \pc@save@PDFOBJID{\pc@lopt@id}%  
+ }
+%    \end{macrocode}
 % \subsection{The \cs{pdfcomment}}
 %    \begin{macrocode}
 \newcommand{\pdfcomment}[2][]%
@@ -1572,12 +1611,7 @@
 %    \end{macrocode}
 % TODO: check purpose
 %    \begin{macrocode}
-            \ifthenelse{\equal{\pc@lopt@id}{}}%
-            {}%
-            {%
-              \xdef\pc@collect@PDFOBJID{\pc@collect@PDFOBJID,\pdfannot_ref_last:}%
-              \pc@save@PDFOBJID{\pc@lopt@id}%
-            }%
+            \@@_store_objid:
             \hss%
           }%
         }%
@@ -1626,12 +1660,7 @@
                 \UseTaggingSocket{pdfcomment/annot}
                 {}
                 {\pdfannot_widget_box:nnn{\normalbaselineskip}{\normalbaselineskip}{0pt}}
-                \ifthenelse{\equal{\pc@lopt@id}{}}%
-                 {}%
-                 {%
-                  \xdef\pc@collect@PDFOBJID{\pc@collect@PDFOBJID,\the\pdflastannot}%
-                  \pc@save@PDFOBJID{\pc@lopt@id}%
-                 }%
+                \@@_store_objid:
                 \hss%
               }%
             }%
@@ -1682,12 +1711,7 @@
                {\dim_eval:n{\pc@lopt@height+0pt}}
                {\dim_eval:n{\pc@lopt@depth+0pt}}
               }            
-            \ifthenelse{\equal{\pc@lopt@id}{}}%
-            {}%
-            {%
-              \xdef\pc@collect@PDFOBJID{\pc@collect@PDFOBJID,\the\pdflastannot}%
-              \pc@save@PDFOBJID{\pc@lopt@id}%
-            }%
+             \@@_store_objid:
           \hss%
           }%
         \vss%
@@ -1734,12 +1758,7 @@
                {\dim_eval:n{\pc@lopt@height+0pt}}
                {\dim_eval:n{\pc@lopt@depth+0pt}}
               }                        
-            \ifthenelse{\equal{\pc@lopt@id}{}}%
-            {}%
-            {%
-              \xdef\pc@collect@PDFOBJID{\pc@collect@PDFOBJID,\the\pdflastannot}%
-              \pc@save@PDFOBJID{\pc@lopt@id}%
-            }%
+            \@@_store_objid:
             \hss%
           }%
           \vss%
@@ -1786,12 +1805,7 @@
                {\dim_eval:n{\pc@lopt@height+0pt}}
                {\dim_eval:n{\pc@lopt@depth+0pt}}
              }                      
-            \ifthenelse{\equal{\pc@lopt@id}{}}%
-            {}%
-            {%
-              \xdef\pc@collect@PDFOBJID{\pc@collect@PDFOBJID,\the\pdflastannot}%
-              \pc@save@PDFOBJID{\pc@lopt@id}%
-            }%
+            \@@_store_objid:
             \hss%
           }%
           \vss%
@@ -1836,12 +1850,7 @@
                {\dim_eval:n{\pc@lopt@height+0pt}}
                {\dim_eval:n{\pc@lopt@depth+0pt}}
              }  
-            \ifthenelse{\equal{\pc@lopt@id}{}}%
-            {}%
-            {%
-              \xdef\pc@collect@PDFOBJID{\pc@collect@PDFOBJID,\the\pdflastannot}%
-              \pc@save@PDFOBJID{\pc@lopt@id}%
-            }%
+            \@@_store_objid:
             \hss%
           }%
           \vss%
@@ -2308,6 +2317,12 @@
   \fi%
 }%
 %
+%
+%
+%    \end{macrocode}
+% \subsection{\cs{pdftooltip}}
+%    \begin{macrocode}
+\ExplSyntaxOn
 \newcommand{\pdftooltip}[3][]%
 {%
   \leavevmode%
@@ -2316,80 +2331,31 @@
   % Change local options if specified
   \setkeys{pdftooltip}{#1}%
   \ifmmode%
-    \setbox\pc@nullbox=\hbox{\pc@encode@PDF@math{#3}}%
-    \ifpc@lopt@disable%
-      #2%
-    \else%
-      \settowidth{\pc@box@width}{$\pc@lopt@mathstyle#2$}%
-      \settoheight{\pc@box@height}{$\pc@lopt@mathstyle#2$}%
-      \settodepth{\pc@box@depth}{$\pc@lopt@mathstyle#2$}%
-      \ifpdf%
-        \pdfannot width \the\pc@box@width height \the\pc@box@height depth \the\pc@box@depth%
-        {%
-          /Subtype /Widget\space%
-          \pc@annot@tooltip%
-        }%
-        #2%
-      \else%
-        \ifpc@gopt@dvipdfmx%
-          \special{pdf: ann width \the\pc@box@width\space height \the\pc@box@height\space depth \the\pc@box@depth%
-            <<%
-              /Subtype /Widget\space%
-              \pc@annot@tooltip%
-            >>%
-          }%
-          #2%
-        \else%
-          \pdfmark[\pc@lopt@mathstyle#2]%
-          {%
-            pdfmark=/ANN,%
-            Subtype=/Widget,%
-            Raw={\pc@annot@tooltip}%
-          }%
-        \fi%
-      \fi%
-    \fi%
+    \setbox\pc@nullbox=\hbox{\SuspendTagging{}\pc@encode@PDF@math{#3}}%
+    \setbox\pc@nullbox=\hbox{\SuspendTagging{}$\pc@lopt@mathstyle#2$}
+  \else 
+    \pc@encode@PDF{#3}%
+    \setbox\pc@nullbox=\hbox{\SuspendTagging{}#2}
+  \fi   
+  \ifpc@lopt@disable%
+     #2%
   \else%
-    \expandafter\pc@encode@PDF{#3}%
-    \ifpc@lopt@disable%
-      #2%
-    \else%
-      \hspace*{0pt}%
-      \settowidth{\pc@box@width}{#2}%
-      \settoheight{\pc@box@height}{#2}%
-      \settodepth{\pc@box@depth}{#2}%
-      \ifpdf%
-        \pdfannot width \the\pc@box@width height \the\pc@box@height depth \the\pc@box@depth%
-        {%
-          /Subtype /Widget\space%
-          \pc@annot@tooltip%
-        }%
-        #2%
-      \else%
-        \ifpc@gopt@dvipdfmx%
-          \special{pdf: ann width \the\pc@box@width\space height \the\pc@box@height\space depth \the\pc@box@depth%
-            <<%
-              /Subtype /Widget\space%
-              \pc@annot@tooltip%
-            >>%
-          }%
-          #2%
-        \else%
-          \pdfmark[#2]%
-          {%
-            pdfmark=/ANN,%
-            Subtype=/Widget,%
-            Raw={\pc@annot@tooltip}%
-          }%
-        \fi%
-      \fi%
-    \fi%
-  \fi%
+  \@@_dict_store_tooltip:
+  \UseTaggingSocket{pdfcomment/annot}
+    {}
+    {
+     \pdfannot_widget_box:nnn
+            {\wd\pc@nullbox}
+            {\ht\pc@nullbox}
+            {\dp\pc@nullbox}
+    }  
+    #2%
+   \fi%
   \stepcounter{zref@unique}%
   %only local!
   \gdef\pc@lopt@mathstyle{}%
 }%
-%
+\ExplSyntaxOff
 % reset global options
 \newcommand{\pdfcommentsetup}[2][]%
 {%
@@ -2586,68 +2552,6 @@
   \pdfstringdef\pc@pdfenc@subject{\pc@lopt@subject}%
 }%
 %
-\newcommand{\pc@annot@text}%
-{%
-  \pc@lopt@c\space%
-  \pc@lopt@cdate\space%
-  /CA \pc@lopt@opacity\space%
-  /T (\pc@pdfenc@author)\space%
-  /Subj (\pc@pdfenc@subject)\space%
-  /Name /\pc@lopt@icon\space%
-  /Contents (\pc@pdfenc@contents)\space%
-  /Open \pc@lopt@open\space%
-  /F 4\space%
-}%
-%
-\newcommand{\pc@annot@freetext}%
-{%
-  \pc@lopt@c\space%
-  \pc@lopt@cdate\space%
-  /DA (/\pc@lopt@font\space \pc@lopt@fontsize\space Tf\space \pc@hyenc@fontcolor\space rg)\space%
-  /CA \pc@lopt@opacity\space%
-  /T (\pc@pdfenc@author)\space%
-  /Subj (\pc@pdfenc@subject)\space%
-  /Contents (\pc@pdfenc@contents)\space%
-  /F 4\space%
-  /Q \pc@lopt@justification\space%
-  /BS\space%
-  <<\space%
-    /W \pc@lopt@linewidth\space%
-    /S /\pc@lopt@borderstyle\space%
-    /D [\pc@lopt@dashstyle]\space%
-  >>\space%
-  /BE\space%
-  <<\space%
-    /S /\pc@lopt@bse\space%
-    /I \pc@lopt@bsei\space%
-  >>\space%
-  \pc@lopt@type\space%
-  /CL [\pc@lopt@line]\space%
-  /LE \pc@lopt@lineend\space%
-}%
-%
-\newcommand{\pc@annot@square}%
-{%
-  \pc@lopt@c\space%
-  \pc@lopt@ic\space%
-  \pc@lopt@cdate\space%
-  /CA \pc@lopt@opacity\space%
-  /T (\pc@pdfenc@author)\space%
-  /Subj (\pc@pdfenc@subject)\space%
-  /Contents (\pc@pdfenc@contents)\space%
-  /F 4\space%
-  /BS\space%
-  <<\space%
-    /W \pc@lopt@linewidth\space%
-    /S /\pc@lopt@borderstyle\space%
-    /D [\pc@lopt@dashstyle]\space%
-  >>\space%
-  /BE\space%
-  <<\space%
-    /S /\pc@lopt@bse\space%
-    /I \pc@lopt@bsei\space%
-  >>\space%
-}%
 %
 \newcommand{\pc@annot@line}%
 {%
@@ -2732,17 +2636,6 @@
   }%
 }%
 %
-\newcommand{\pc@annot@tooltip}%
-{%
-  /TU (\pc@pdfenc@contents)\space%
-  /T (tooltip \thezref@unique)\space%
-  /C [ ]\space%
-  /FT/Btn\space%
-  /F 768\space%
-  /Ff 65536\space%
-  /H/N\space%
-  /BS << /W 0 >>\space%
-}%
 %
 \newcommand{\pc@create@pdfannotopt}%
 {%

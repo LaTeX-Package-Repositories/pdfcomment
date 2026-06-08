@@ -129,18 +129,33 @@
 \makeatother
 %
 \setlength\parindent{0pt}%
-\hypersetup{pdfauthor={Josef Kleber},pdftitle={A user-friendly interface to PDF annotations},pdfsubject={Documentation for LaTeX style \filename}}%
+\hypersetup{pdfauthor={UlrikeFischer,Josef Kleber},pdftitle={A user-friendly interface to PDF annotations},pdfsubject={Documentation for LaTeX style \filename}}%
 %
 \begin{document}
-%\pdfcommentsetup{date=D:20101212153723+01'00'}
-\date{2018/11/01}
+\date{2026-06-08}
 \bibliographystyle{alphadin}
 \title{\filename}%
 \Subtitle{A user-friendly interface to PDF annotations}%
-\author{Josef Kleber}
-\Fileversion{v2.4a}
-\Refline{\href{mailto:pdfcomment@jklatex.de}{\texttt{pdfcomment@jklatex.de}}\\\href{http://pdfcomment.jklatex.de}{\texttt{http://pdfcomment.jklatex.de}}}
+\author{Ulrike Fischer/Josef Kleber}
+\Fileversion{v3.0a}
 \maketitle
+
+\section*{Introduction to Version 3.0}
+The original author of the package died some time ago and with version 3.0 the package has a new maintainer: Ulrike Fischer. 
+
+In this version the code has been splitted: 
+\begin{itemize}
+\item If the PDF management is \emph{not} loaded, the original package code from version 2.4a is used (with a few small adaptions for the split). 
+
+\item If the PDF management is loaded, either with \verb+\RequirePackage{pdfmanagement}+ or with \cs{DocumentMetadata}, then the annotations are created with the code from the PDF management and tagging support has added. 
+
+    This is big change and quite probably not everything will work from the start. 
+    
+        
+    Please report bugs and issues at XXXXXXX
+\end{itemize}
+
+
 \Headline{Abstract}
 \begin{abstract}
 For a long time \texttt{pdflatex} has offered the command \cmd\pdfannot{} for inserting arbitrary PDF annotations. However, the command is presented in a form where additional knowledge of the definition of the PDF format is indispensable. This package is an answer to the -- occasional -- questions in newsgroups, about how one could use the comment function of \texttt{Adobe Reader}. At least for the writer of \LaTeX{} code, the package offers a convenient and user-friendly means of using \cmd\pdfannot{} to provide comments in PDF files. Since version v1.1, \texttt{\filename{}} also supports: 
@@ -201,6 +216,9 @@ The option \styleoption{final} will set the package to final mode. The PDF annot
 The option \styleoption{draft} (default) will set the package to draft mode. Therefore, the PDF annotations will be typeset.
 \subsubsection[\texttt{dvipdfmx}]{\styleoption{dvipdfmx}}\label{sec:dvipdfmx}
 If you want to use the driver \texttt{dvipdfmx} for creating your documents, you have to use the option \styleoption{dvipdfmx}. The other drivers are recognized automatically.
+
+The option is ignored if the PDF management is used. The backend has to be declared with verb+backend=dvipdfmx+ when loading the PDF management.
+
 \subsubsection[\texttt{version}]{\styleoption{version}}\label{sec:version}
 Version v2.0 of \texttt{pdfcomment.sty} introduced a bugfix that removes unwanted whitespace before the comment commands. This may also change the reference point for options like \styleoption{hoffset}. If you want to preserve the old behavior for older documents simply use \texttt{version=1}. Otherwise \texttt{version=2} is used by default! 
 \subsection{Local options}
@@ -408,7 +426,7 @@ With the option \styleoption{printSOfinal} you can automatically delete PDF Stri
 
 \subsection{Comment environments}\label{sec:kommentarumgebungen}
 
-\subsubsection{\texorpdfstring{\cs{pdfsidelinecomment}}{\textbackslash pdfsidelinecomment}}
+\subsubsection{\texorpdfstring{pdfsidelinecomment}{\texttt{pdfsidelinecomment}}}
 \label{sec:sidelinecomment}
 Possible \marginnote{\raggedleft\scriptsize\envb{pdfsidelinecomment}\\\oarg{options}\marg{comment}\\\dots\\\enve{pdfsidelinecomment}}options: \styleoption{avatar}, \styleoption{style}, \styleoption{subject}, \styleoption{author}, \styleoption{color}, \styleoption{icolor}, \styleoption{opacity}, \styleoption{linewidth}, \styleoption{linebegin}, \styleoption{lineend}, \styleoption{linesep}, \styleoption{borderstyle}, \styleoption{dashstyle}, \styleoption{caption}, \styleoption{captionhoffset}, \styleoption{captionvoffset}, \styleoption{disable}, \styleoption{date}, \styleoption{timezone}
 
@@ -655,27 +673,7 @@ With the command \cmd\definestyle \margcs{\cmd\definestyle\marg{name}\marg{optio
 
 \section{Printing comments and popups}
 \label{sec:print}
-Basically, \texttt{Adobe Reader} is able to print PDF annotations. Therefore, you have to choose 'Document and Markups' in the field 'Comments and Forms' of the print dialog. Additionally, you have to configure the menu 'Edit $\rightarrow$ Preferences... $\rightarrow$ Commenting $\rightarrow$ Print notes and pop-ups'. This entry exists since the release of \texttt{Adobe Reader X}. For older versions, the only possibility is to edit the configuration files itself. 
-
-\begin{description}
-\item[Windows:] the registry needs to be changed (on your own risk!)
-
-Start the registry editor (\file{regedit.exe}) and open the following key, e.\,g. for \texttt{Adobe Reader 9.0}:
-
-\texttt{HKEY\_CURRENT\_USER/Software/Adobe/Acrobat Reader/9.0/Annots/\newline cPrefs}
-
-The key for other version will be similar, except version number and some letters in lower- or uppercase!
-
-Open or create (with closed \texttt{Adobe Reader}) the key \newline\texttt{bprintCommentPopups} and change the value to 1 (dword).
-
-\item[Linux:] open the configuration file:
-
-\nolinkurl{~/.adobe/Acrobat/8.0/Preferences/reader_prefs}
-
-with a text editor and change the entry 
-
-{\texttt{/printCommentPopups\,[/b false]} to \texttt{/printCommentPopups\,[/b true]}}
-\end{description}
+Basically, \texttt{Adobe Reader} is able to print PDF annotations. Therefore, you have to choose 'Document and Markups' in the field 'Comments and Forms' of the print dialog. Additionally, you have to configure the menu 'Edit $\rightarrow$ Preferences... $\rightarrow$ Commenting $\rightarrow$ Print notes and pop-ups'. This entry exists since the release of \texttt{Adobe Reader X}.
 
 Please note that only opened popups will be printed!
 
