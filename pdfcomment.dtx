@@ -1411,6 +1411,43 @@
 \AssignTaggingSocketPlug{pdfcomment/annot}{default} 
 %    \end{macrocode}
 %
+%  \subsection{Tagging support for marginnote}
+%  From https://github.com/latex3/tagging-project/issues/165
+%    \begin{macrocode}
+\long\def\@mn@@marginnote[#1]#2[#3]{%
+  \endgroup
+  \UseTaggingSocket{marginpar/begin}%<----------- 
+  \ifhmode
+    \@mn@@@marginnote[{#1}]{#2}[{#3}]%
+    \@esphack
+  \else
+    \@mn@@@marginnote[{#1}]{#2}[{#3}]%
+  \fi
+  \UseTaggingSocket{marginpar/end}%<----------
+}
+\renewcommand*{\mn@parboxrestore}{%
+    \UseTaggingSocket{para/restore}%<-----------
+    \@tempskipa\parskip
+    \@parboxrestore
+    \parskip\@tempskipa
+  }
+\renewcommand{\mn@zbox}[1]{%
+    \bgroup
+      \setbox\@tempboxa\vbox{#1\RawParEnd}%<--------- avoid para end 
+      \ht\@tempboxa\ht\strutbox
+      \dp\@tempboxa\dp\strutbox
+      \wd\@tempboxa\z@
+      \box\@tempboxa
+    \egroup
+  }%  
+\renewcommand{\mn@vadjust}[1]{%
+  \mn@zbox{\kern-\parskip
+    \tagpdfparaOff\leavevmode\tagpdfparaOn%<------------- avoid para begin structure
+    \vadjust{#1}%
+    \kern\parskip
+  }%
+}
+%    \end{macrocode}
 % \subsection{Standard building blocks}
 % 
 %    \begin{macrocode}
@@ -1554,13 +1591,14 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_store_objid:
  {
-   \tl_if_empty:eT{\pc@lopt@id}
+   \tl_if_empty:eF{\pc@lopt@id}
     {
       \tl_gput_right:Ne\pc@collect@PDFOBJID{,\pdfannot_ref_last:}
-    }
-   \pc@save@PDFOBJID{\pc@lopt@id}%  
+      \pc@save@PDFOBJID{\pc@lopt@id}%  
+    }   
  }
 %    \end{macrocode}
+%
 % \subsection{The \cs{pdfcomment}}
 %    \begin{macrocode}
 \newcommand{\pdfcomment}[2][]%
@@ -1622,7 +1660,7 @@
 }%
 %    \end{macrocode}
 % \subsection{\cs{pdfmargincomment}}
-% TODO (marginnote will need extra handling for tagging)
+% The marginnote is patched above. 
 %    \begin{macrocode}
 \newcommand{\pdfmargincomment}[2][]%
 {%
@@ -1631,8 +1669,8 @@
   % Copy all global options to local options
   \pc@copy@gopt@lopt%
   % Change local options if specified
-  \setkeys{pdfmargincomment}{#1}%
-  % Encode Contents, Author and Subject to pdf encodings (PD or PU) with hyperref's \pdfstringdef
+  \setkeys{pdfmargincomment}{#1}%  
+  % Encode Contents, Author and Subject 
   % and transform color input to pdf color
   \pc@encode@PDF{#2}%  
   \pc@encode@colors
@@ -1674,6 +1712,7 @@
 }%
 
 %    \end{macrocode}
+% \subsection{pdffreetextcomment}
 % 
 %    \begin{macrocode}
 \newcommand{\pdffreetextcomment}[2][]%
@@ -1723,6 +1762,7 @@
   \fi%
 }%
 %    \end{macrocode}
+%
 % \subsection{\cs{pdfsquarecomment}}
 %    \begin{macrocode}
 \newcommand{\pdfsquarecomment}[2][]%
@@ -1818,8 +1858,9 @@
     \fi%
   \fi%
 }%
-%
-
+%    \end{macrocode}
+% \subsection{\cs{pdflinecomment}}
+%    \begin{macrocode}
 \newcommand{\pdflinecomment}[2][]%
 {%
   \ifhmode\ifpc@opt@unskip\unskip\fi\fi%
@@ -1828,11 +1869,10 @@
   \pc@copy@gopt@lopt%
   % Change local options if specified
   \setkeys{pdflinecomment}{#1}%
-  % Encode Contents, Author and Subject to pdf encodings (PD or PU) with hyperref's \pdfstringdef
+  % Encode Contents, Author and Subject 
   % and transform color input to pdf color
   \pc@encode@PDF{#2}%
-  \pc@encode@colors
-  %create options for \pdfannot
+  \pc@encode@colors  
   \ifpc@gopt@final\else%
     \ifpc@lopt@disable\else%
       \hspace*{0pt}%
@@ -1864,22 +1904,26 @@
     \fi%
   \fi%
 }%
-\ExplSyntaxOff
-%
-\newcommand{\pdfmarkupcomment}[3][]%
+%    \end{macrocode}
+% \subsection{\cs{pdfmarkupcomment}}
+% These are not yet tagged. TODO: We need to get rid of soul with luatex.
+%    \begin{macrocode}
+\newcommand{\pdfmarkupcomment}[3][]%#1 option, #2 text, #3 comment
 {%
   \leavevmode%
   % Copy all global options to local options
   \pc@copy@gopt@lopt%
   % Change local options if specified
   \setkeys{pdfmarkupcomment}{#1}%
-  \ifthenelse{\equal{\pc@lopt@date}{}}%
-  {%
-    \gdef\pc@lopt@cdate{/CreationDate (\pc@pdfdate@auto)\space/M (\pc@pdfdate@auto)}%
-  }%
-  {%
-    \gdef\pc@lopt@cdate{/CreationDate (\pc@lopt@date)\space/M (\pc@lopt@date)}%
-  }%
+  \tl_if_empty:eTF{\pc@lopt@date}
+   {
+    \tl_set:Ne \pc@lopt@cdate 
+     { /CreationDate (\c_sys_timestamp_str)\space/M~(\c_sys_timestamp_str)}
+   }
+   {
+     \tl_set:Ne \pc@lopt@cdate 
+     { /CreationDate (\pc@lopt@date)\space/M~(\pc@lopt@date)}
+   }   %
   \ifmmode%
     \zsavepos{pdfcomment:\thezref@unique}%
     \zref@refused{pdfcomment:\thezref@unique}%
@@ -1890,33 +1934,19 @@
     \setlength{\pc@Eposy}{\zposy{pdfcomment:\thezref@unique}sp}%
     \ifpc@gopt@final\else%
       \ifpc@lopt@disable\else%
-        %changed \pc@encode@PDF, \pdfstringdef does not work in math mode ???
+        %uses \marginnote because \pdfstringdef does not work in math mode? really TODO check ???
         \marginnote{\pc@encode@PDF{#3}}%
-        \HyColor@XZeroOneThreeFour{\pc@lopt@color}{\pc@hyenc@color}{pdfcomment}{color}%
-        \HyColor@XZeroOneThreeFour{\pc@lopt@fontcolor}{\pc@hyenc@fontcolor}{pdfcomment}{color}%
-        \HyColor@XZeroOneThreeFour{\pc@lopt@icolor}{\pc@hyenc@icolor}{pdfcomment}{color}%
-        \settowidth{\pc@box@width}{$\pc@lopt@mathstyle#2$}%
-        \settoheight{\pc@box@height}{$\pc@lopt@mathstyle#2$}%
-        \settodepth{\pc@box@depth}{$\pc@lopt@mathstyle#2$}%
-        \setbox\pc@mathannot@box=\hbox to\pc@box@width%
+        \pc@encode@colors
+        \setbox\pc@nullbox=\hbox{\SuspendTagging{}$\pc@lopt@mathstyle#2$}        
+        \setbox\pc@mathannot@box=\hbox to\wd\pc@nullbox%
         {%
-          \vrule height\pc@box@height depth\pc@box@depth width\z@%
+          \vrule height\ht\pc@nullbox~depth\dp\pc@nullbox~width\z@%
           \hfill%
           \pc@annot@calc@pos@math%
           \xdef\pc@annot@quadpoints{\pc@x@one\space\pc@y@one\space\pc@x@two\space\pc@y@two\space\pc@x@three\space\pc@y@three\space\pc@x@four\space\pc@y@four}%
-          \ifpdf%
-            \pc@annot@markup@pdf%
-          \else%
-            \ifpc@gopt@dvipdfmx%
-              \pc@annot@markup@dvipdfmx%
-            \else%
-              \pc@annot@markup@dvips%
-            \fi%
-          \fi%
+          \UseTaggingSocket{pdfcomment/annot}{}{\pc@annot@markup}          
         }%
-        \ifthenelse{\equal{\pc@lopt@id}{}}%
-        {}%
-        {\xdef\pc@collect@PDFOBJID{\pc@collect@PDFOBJID,\the\pdflastannot}}%
+        \@@_store_objid:
         \wd\pc@mathannot@box\z@%
         \ht\pc@mathannot@box\z@%
         \dp\pc@mathannot@box\z@%
@@ -1975,6 +2005,15 @@
     }%
     \let\SOUL@postamble\ulp@postamble%
     \let\SOUL@everyspace\ulp@everyspace%
+%    \end{macrocode}
+% For tagging we need a fake space:
+%    \begin{macrocode}
+    \def\SOUL@everyspace##1
+     {
+      \ulp@stepput\@ne
+       ##1\use:c{pdffakespace}\space
+     \ulp@stepput\@ne
+     }
     \let\SOUL@everyhyphen\ulp@everyhyphen%
     \let\SOUL@everyexhyphen\ulp@everyexhyphen%
     \let\SOUL@everysyllable\@empty%
@@ -1983,7 +2022,7 @@
       \ifthenelse{\equal{\pc@lopt@markup}{StrikeOut}}%
       {%
         \ifthenelse{\equal{\pc@lopt@printSOfinal}{true}}%
-        {\SOUL@{#2}\global\pc@ignorespacesfalse}%
+        {\SuspendTagging{}\SOUL@{#2}\ResumeTagging{}\global\pc@ignorespacesfalse}%
         {\global\pc@ignorespacestrue}%
       }%
       {%
@@ -2001,7 +2040,7 @@
           #2\global\pc@ignorespacesfalse%
         }%
       \else%
-        \SOUL@{#2}\global\pc@ignorespacesfalse%
+        \SuspendTagging{}\SOUL@{#2}\ResumeTagging{}\global\pc@ignorespacesfalse%
       \fi%
     \fi%
   \fi%
@@ -2013,14 +2052,14 @@
   %only local!
   \gdef\pc@lopt@mathstyle{}%
   %
-  \ifthenelse{\equal{\pc@lopt@id}{}}%
-  {}%
-  {\pc@save@PDFOBJID{\pc@lopt@id}}%
+  \@@_store_objid:
   \ifpc@ignorespaces%
     \ignorespaces%
   \fi%
 }%
-%
+%    \end{macrocode}
+% \subsection{pdfsidelinecomment}
+%    \begin{macrocode}
 \newenvironment{pdfsidelinecomment}[2][]%
 {%
   \ifhmode\ifpc@opt@unskip\unskip\fi\fi%
@@ -2029,7 +2068,7 @@
   \pc@copy@gopt@lopt%
   % Change local options if specified
   \setkeys{pdfsidelinecomment}{#1}%
-  % Encode Contents, Author and Subject to pdf encodings (PD or PU) with hyperref's \pdfstringdef
+  % Encode Contents, Author and Subject 
   % and transform color input to pdf color
   \pc@encode@PDF{#2}%
   \pc@encode@colors
@@ -2039,39 +2078,39 @@
     \gdef\pc@lopt@c{}%
   }%
   {%
-    \gdef\pc@lopt@c{/C [\pc@hyenc@color]}%
+    \gdef\pc@lopt@c{/C~[\pc@hyenc@color]}%
   }%
   \ifthenelse{\equal{\pc@lopt@icolor}{}}%
   {%
     \gdef\pc@lopt@ic{}%
   }%
   {%
-    \gdef\pc@lopt@ic{/IC [\pc@hyenc@icolor]}%
+    \gdef\pc@lopt@ic{/IC~[\pc@hyenc@icolor]}%
   }%
   \ifthenelse{\equal{\pc@lopt@date}{}}%
   {%
-    \gdef\pc@lopt@cdate{/CreationDate (\pc@pdfdate@auto)\space/M (\pc@pdfdate@auto)}%
+    \gdef\pc@lopt@cdate{/CreationDate (\c_sys_timestamp_str)\space/M (\c_sys_timestamp_str)}%
   }%
   {%
     \gdef\pc@lopt@cdate{/CreationDate (\pc@lopt@date)\space/M (\pc@lopt@date)}%
   }%
-  \gdef\pc@lopt@le{/LE [\pc@lopt@linebegin\space\pc@lopt@lineend]}%
+  \gdef\pc@lopt@le{/LE~[\pc@lopt@linebegin\space\pc@lopt@lineend]}%
   \ifthenelse{\equal{\pc@lopt@type}{Line}}%
   {%
     \ifthenelse{\equal{\pc@lopt@caption}{none}}%
     {%
-      \gdef\pc@lopt@cap{/Cap false}%
+      \gdef\pc@lopt@cap{/Cap~false}%
       \gdef\pc@lopt@cp{}%
     }%
     {%
-      \gdef\pc@lopt@cap{/Cap true}%
+      \gdef\pc@lopt@cap{/Cap~true}%
       \gdef\pc@lopt@cp{/CP /\pc@lopt@caption}%
     }%
-    \gdef\pc@lopt@l{/L [\pc@lopt@line]}%
-    \gdef\pc@lopt@co{/CO [\pc@lopt@captionhoffset\space \pc@lopt@captionvoffset]}%
+    \gdef\pc@lopt@l{/L~[\pc@lopt@line]}%
+    \gdef\pc@lopt@co{/CO~[\pc@lopt@captionhoffset\space \pc@lopt@captionvoffset]}%
   }%
   {%
-    \gdef\pc@lopt@l{/Vertices [\pc@lopt@line]}%
+    \gdef\pc@lopt@l{/Vertices~[\pc@lopt@line]}%
     \gdef\pc@lopt@cap{}%
     \gdef\pc@lopt@cp{}%
     \gdef\pc@lopt@co{}%
@@ -2114,9 +2153,9 @@
         \if@twocolumn%
           \ifpc@Sfirstcolumn%
             \PackageError{pdfcomment}{%
-            \string\pdfsidelinecomment\space supports only one\MessageBreak%
-            column or page break in twocolumn mode!!\MessageBreak%
-            Your comment is too long!}%
+            \string\pdfsidelinecomment\space supports~only~one\MessageBreak%
+            column~or~ page~ break~ in~ twocolumn~ mode!!\MessageBreak%
+            Your~ comment~ is~ too~ long!}%
           \else%
           % start in second column
             \global\pc@annot@secondpagefalse%
@@ -2131,10 +2170,10 @@
           \pc@calc@sidelinepos%
           \renewcommand{\pc@y@two}{\pc@y@bottom@text}%
           \gdef\pc@lopt@line{\pc@x@two\space\pc@y@one\space\pc@x@two\space\pc@y@two}%
-          \gdef\pc@lopt@le{/LE [\pc@lopt@linebegin\space/None]}%
+          \gdef\pc@lopt@le{/LE~[\pc@lopt@linebegin\space/None]}%
           \marginnote{\pc@create@lpc\pc@create@annot@sideline}%
           \gdef\pc@lopt@line{\pc@x@one\space\pc@y@two\space\pc@x@one\space\pc@y@one}%
-          \gdef\pc@lopt@le{/LE [/None\space\pc@lopt@linebegin]}%
+          \gdef\pc@lopt@le{/LE~[/None\space\pc@lopt@linebegin]}%
           \marginnote{\pc@create@annot@sideline}%
         \fi%
       \fi%
@@ -2166,13 +2205,13 @@
               \pc@calc@sidelinepos%
               \renewcommand{\pc@y@two}{\pc@y@bottom@text}%
               \gdef\pc@lopt@line{\pc@x@one\space\pc@y@two\space\pc@x@one\space\pc@y@one}%
-              \gdef\pc@lopt@le{/LE [/None\space\pc@lopt@linebegin]}%
+              \gdef\pc@lopt@le{/LE~[/None\space\pc@lopt@linebegin]}%
               \marginnote{\pc@create@lpc\pc@create@annot@sideline}%
               \global\pc@firstcolumnfalse%
               \pc@calc@sidelinepos%
               \renewcommand{\pc@y@one}{\pc@y@top@text}%
               \gdef\pc@lopt@line{\pc@x@two\space\pc@y@one\space\pc@x@two\space\pc@y@two}%
-              \gdef\pc@lopt@le{/LE [/None\space\pc@lopt@lineend]}%
+              \gdef\pc@lopt@le{/LE~[/None\space\pc@lopt@lineend]}%
               \marginnote{\pc@create@annot@sideline}%
             \fi%
           \else%
@@ -2210,19 +2249,19 @@
             \marginnote{\pc@create@annot@sideline}%
           \else%
             \PackageError{pdfcomment}{%
-            \string\pdfsidelinecomment\space supports only one\MessageBreak%
-            column or page break in twocolumn mode!\MessageBreak%
-            Your comment is too long!}%
+            \string\pdfsidelinecomment\space supports~ only~ one\MessageBreak%
+            column~ or~ page~ break~ in~ twocolumn~ mode!\MessageBreak%
+            Your~ comment~ is~ too~ long!}%
           \fi%
         \else%
           \global\pc@annot@secondpagetrue%
           \pc@calc@sidelinepos%
           \renewcommand{\pc@y@one}{\pc@y@top@text}%
           \gdef\pc@lopt@line{\pc@x@two\space\pc@y@one\space\pc@x@two\space\pc@y@two}%
-          \gdef\pc@lopt@le{/LE [/None\space\pc@lopt@lineend]}%
+          \gdef\pc@lopt@le{/LE~ [/None\space\pc@lopt@lineend]}%
           \marginnote{\pc@create@annot@sideline}%
           \gdef\pc@lopt@line{\pc@x@one\space\pc@y@two\space\pc@x@one\space\pc@y@one}%
-          \gdef\pc@lopt@le{/LE [\pc@lopt@lineend\space/None]}%
+          \gdef\pc@lopt@le{/LE~ [\pc@lopt@lineend\space/None]}%
           \marginnote{\pc@create@annot@sideline}%
         \fi%
       \fi%
@@ -2254,7 +2293,7 @@
   }%
   \ifthenelse{\equal{\pc@lopt@date}{}}%
   {%
-    \gdef\pc@lopt@cdate{/CreationDate (\pc@pdfdate@auto)\space/M (\pc@pdfdate@auto)}%
+    \gdef\pc@lopt@cdate{/CreationDate (\c_sys_timestamp_str)\space/M (\c_sys_timestamp_str)}%
   }%
   {%
     \gdef\pc@lopt@cdate{/CreationDate (\pc@lopt@date)\space/M (\pc@lopt@date)}%
@@ -2299,9 +2338,7 @@
                     \pc@irt%%
                     /F 4\space%
                   }%
-                  \ifthenelse{\equal{\pc@lopt@id}{}}%
-                  {}%
-                  {\xdef\pc@collect@PDFOBJID{\pc@collect@PDFOBJID,\the\pdflastannot}}%
+                  \@@_store_objid:
                   \hss%
                 }%
               }%
@@ -2579,13 +2616,16 @@
 }%
 %
 \ExplSyntaxOn
-\newcommand{\pc@annot@markup@pdf}%
+%    \end{macrocode}
+% This should use dictionaries so that we can add the StructParent.
+%    \begin{macrocode}
+\newcommand\pc@annot@markup%
 {%
   \pdfannot_box:nnne {0pt} {0pt} {0pt}
   {%
     /Subtype /\pc@lopt@markup\space%
     /C~[\pc@hyenc@color]\space%
-    \pc@lopt@cdate\space%
+    \pc@lopt@cdate\space% <------------------
     /CA~\pc@lopt@opacity\space%
     /T (\pc@pdfenc@author)\space%
     /Subj~(\pc@pdfenc@subject)\space%
@@ -2596,44 +2636,6 @@
   }%
 }%
 
-\newcommand{\pc@annot@markup@dvipdfmx}%
-{%
-  \special{pdf: ann width 0pt height 0pt depth 0pt%
-    <<\space%
-      /Subtype /\pc@lopt@markup\space%
-      /C [\pc@hyenc@color]\space%
-      \pc@lopt@cdate\space%
-      /CA \pc@lopt@opacity\space%
-      /T (\pc@pdfenc@author)\space%
-      /Subj (\pc@pdfenc@subject)\space%
-      /Contents (\pc@pdfenc@contents)\space%
-      /Open \pc@lopt@open\space%
-      /QuadPoints [\pc@annot@quadpoints]\space%
-      /F 4\space%
-    >>\space%
-  }%
-}%
-%
-\newcommand{\pc@annot@markup@dvips}%
-{%
-  \pdfmark[\rule{0pt}{0pt}]%
-  {%
-    pdfmark=/ANN,%
-    Subtype=/\pc@lopt@markup,%
-    Raw={%
-      /C [\pc@hyenc@color]\space%
-      \pc@lopt@cdate\space%
-      /CA \pc@lopt@opacity\space%
-      /T (\pc@pdfenc@author)\space%
-      /Subj (\pc@pdfenc@subject)\space%
-      /Contents (\pc@pdfenc@contents)\space%
-      /Open \pc@lopt@open\space%
-      /QuadPoints [\pc@annot@quadpoints]\space%
-      /F 4\space%
-    }%
-  }%
-}%
-%
 %
 \newcommand{\pc@create@pdfannotopt}%
 {%
@@ -2658,27 +2660,7 @@
   \strip@pt\dimexpr .996264\dimexpr #1\relax\relax%
 }%
 %
-\newcommand*{\pc@pdfdate@auto}%
-{%
-  \ifpc@gopt@xelatex
-    D:\@dtm@currentyear%
-    \DTMtwodigits{\@dtm@currentmonth}%
-    \DTMtwodigits{\@dtm@currentday}%
-    \DTMtwodigits{\@dtm@currenthour}%
-    \DTMtwodigits{\@dtm@currentminute}%
-    \DTMtwodigits{\@dtm@currentsecond}%
-    \pc@lopt@timezone%
-  \else%
-    D:\@dtm@currentyear%
-    \DTMtwodigits{\@dtm@currentmonth}%
-    \DTMtwodigits{\@dtm@currentday}%
-    \DTMtwodigits{\@dtm@currenthour}%
-    \DTMtwodigits{\@dtm@currentminute}%
-    \DTMtwodigits{\@dtm@currentsecond}%
-    \ifnum\@dtm@currenttimezonehour<0\else+\fi\DTMtwodigits{\@dtm@currenttimezonehour}%
-    \DTMtwodigits{\@dtm@currenttimezoneminute}%
-  \fi%
-}%
+
 %
 \newcommand{\pc@annot@calc@pos}%
 {%
@@ -2709,84 +2691,40 @@
 }%
 %
 \newcommand{\pc@create@annot@sideline}%
-{%
-%create options for \pdfannot
-  \pc@create@pdfannotopt%
+{%  
   \ifpc@gopt@final\else%
     % typeset line annotation (see: PDF Reference)
-    \ifpdf%
       \vbox to 0pt%
-      {%
+      {\tagpdfparaOff%
         \hsize=0pt%
         \noindent%
         \hbox to 0pt%
         {%
           \vsize=0pt%
-          \expandafter\pdfannot \pc@pdfannotopt%
-          {%
-          /Subtype /Line\space%
-          \pc@annot@line%
-          }%
+          \pdfannot_box:nnne
+           {\dim_eval:n{\pc@lopt@width+0pt}}            
+           {\dim_eval:n{\pc@lopt@height+0pt}} 
+           {\dim_eval:n{\pc@lopt@depth+0pt}}
+           {          
+             /Subtype /Line\space%
+             \pc@annot@line%
+           }
           \hss%
         }%
         \vss%
       }%
       \ifpc@annot@samepage%
-        \ifthenelse{\equal{\pc@lopt@id}{}}%
-        {}%
-        {\xdef\pc@collect@PDFOBJID{\pc@collect@PDFOBJID,\the\pdflastannot}}%
+        \@@_store_objid:
       \else%
         \ifpc@annot@secondpage%
-          \ifthenelse{\equal{\pc@lopt@id}{}}%
-          {}%
-          {\xdef\pc@collect@PDFOBJID{\pc@collect@PDFOBJID,\the\pdflastannot}}%
+          \@@_store_objid:
         \else%
         \fi%
       \fi%
-    \else%
-      \ifpc@gopt@dvipdfmx%
-        \vbox to 0pt%
-        {%
-          \hsize=0pt%
-          \noindent%
-          \hbox to 0pt%
-          {%
-            \vsize=0pt%
-            \special{pdf: ann \pc@pdfannotopt%
-              <<%
-                /Subtype /Line\space%
-                \pc@annot@line%
-              >>%
-            }%
-            \hss%
-          }%
-          \vss%
-        }%
-      \else%
-        \vbox to 0pt%
-        {%
-          \hsize=0pt%
-          \noindent%
-          \hbox to 0pt%
-          {%
-            \vsize=0pt%
-            %create dimensions of annotation
-            \pdfmark[\rule{0pt}{\pc@lopt@height}\rule{\pc@lopt@width}{0pt}]%
-            {%
-              pdfmark=/ANN,%
-              Subtype=/Line,%
-              Raw={\pc@annot@line}%
-            }%
-            \hss%
-          }%
-          \vss%
-        }%
-      \fi%
     \fi%
-  \fi%
 }%
 %
-\ExplSyntaxOn
+
 \newcommand{\pc@annot@complete}%
 {%
   \renewcommand{\pc@x@one}{\pc@pttobp{\pc@Sposx}}%
@@ -2798,7 +2736,7 @@
   \renewcommand{\pc@y@three}{\pc@pttobp{\dimexpr \pc@Sposy - \pc@box@depth - 1pt\relax}}%
   \renewcommand{\pc@y@four}{\pc@pttobp{\dimexpr \pc@Eposy - \pc@box@depth - 1pt\relax}}%
   \xdef\pc@annot@quadpoints{\pc@x@one\space\pc@y@one\space\pc@x@two\space\pc@y@two\space\pc@x@three\space\pc@y@three\space\pc@x@four\space\pc@y@four}%
-    \pc@annot@markup@pdf%
+    \pc@annot@markup%
     \@@_store_objid:
 }%
 \ExplSyntaxOff
@@ -2818,7 +2756,7 @@
   \setlength{\pc@Eposx}{\pc@Sposx}%
   \addtolength{\pc@Eposx}{\ulwidth}%
   \setlength{\pc@Eposy}{\pc@Sposy}%
-  \pc@annot@complete%
+  \pc@annot@complete% tagging should go here, but we need the structparent
 }%
 %
 \newcommand{\pc@calc@textblockpos}%

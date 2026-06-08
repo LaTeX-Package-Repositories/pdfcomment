@@ -147,7 +147,7 @@ In this version the code has been splitted:
 \begin{itemize}
 \item If the PDF management is \emph{not} loaded, the original package code from version 2.4a is used (with a few small adaptions for the split). 
 
-\item If the PDF management is loaded, either with \verb+\RequirePackage{pdfmanagement}+ or with \cs{DocumentMetadata}, then the annotations are created with the code from the PDF management and tagging support has added. 
+\item If the PDF management is loaded, either with \verb+\RequirePackage{pdfmanagement}+ or with \cs{DocumentMetadata}, then the annotations are created with the code from the PDF management and (basic) tagging support has added. 
 
     This is big change and quite probably not everything will work from the start. 
     
@@ -676,5 +676,18 @@ With the command \cmd\definestyle \margcs{\cmd\definestyle\marg{name}\marg{optio
 Basically, \texttt{Adobe Reader} is able to print PDF annotations. Therefore, you have to choose 'Document and Markups' in the field 'Comments and Forms' of the print dialog. Additionally, you have to configure the menu 'Edit $\rightarrow$ Preferences... $\rightarrow$ Commenting $\rightarrow$ Print notes and pop-ups'. This entry exists since the release of \texttt{Adobe Reader X}.
 
 Please note that only opened popups will be printed!
+
+\section{Tagging support}
+
+Tagging is enabled with \verb+\DocumentMetadata{tagging=on}+. 
+Not all commands work already properly in a such a tagged PDF. 
+
+Known restrictions are:
+\begin{itemize}
+\item \cs{pdfmarkupcomment} uses currently the soul package to get the dimension of the annotation. The soul package is not compatible with the tagging, and so tagging is suspended in the argument of the command.
+\item \cs{pdfmarkupcomment} is currently not tagged.
+    
+    
+\end{itemize}    
 
 \end{document}

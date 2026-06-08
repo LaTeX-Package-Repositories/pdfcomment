@@ -1,25 +1,13 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
 Package hyperref Info: bookmark level for unknown lpcsec defaults to 0 on input line ....
-Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Part'.
-(tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 7, text --> struct 8, text-unit
-Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
-(tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 8, text-unit --> struct 9, text
 Package marginnote Info: Margin note 1.1 is on absolute page 1 on input line ....
 Package marginnote Info: right page because not two side mode on input line ....
 Package marginnote Info: xpos seems to be 149.26999pt on input line ....
-Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Part'.
-(tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 9, text --> struct 10, text-unit
-Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
-(tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 10, text-unit --> struct 11, text
 ============================================================
 TEST 1: Show PDF Tags
 ============================================================
--------- pdfmargincomment-tagged-BAD.xml (start) ---------
+-------- pdfmargincomment-tagged.xml (start) ---------
 <PDF>
  <StructTreeRoot>
   <Document xmlns="http://iso.org/pdf2/ssn"
@@ -36,42 +24,34 @@ TEST 1: Show PDF Tags
        rolemaps-to="P"
       >
      <?MarkedContent page="1" ?>
+     <?MarkedContent page="1" ?>some text
+    </text>
+    <Aside xmlns="http://iso.org/pdf2/ssn"
+       id="ID.008"
+      >
      <text-unit xmlns="https://www.latex-project.org/ns/dflt"
-        id="ID.008"
+        id="ID.009"
         rolemaps-to="Part"
        >
       <text xmlns="https://www.latex-project.org/ns/dflt"
-         id="ID.009"
+         id="ID.010"
          xmlns:Layout="http://iso.org/pdf/ssn/Layout"
-         Layout:TextAlign="Justify"
+         Layout:TextAlign="Center"
          rolemaps-to="P"
         >
-       <?MarkedContent page="1" ?>
-       <text-unit xmlns="https://www.latex-project.org/ns/dflt"
-          id="ID.010"
-          rolemaps-to="Part"
+       <Annot xmlns="http://iso.org/pdf2/ssn"
+          id="ID.011"
          >
-        <text xmlns="https://www.latex-project.org/ns/dflt"
-           id="ID.011"
-           xmlns:Layout="http://iso.org/pdf/ssn/Layout"
-           Layout:TextAlign="Center"
-           rolemaps-to="P"
-          >
-         <Annot xmlns="http://iso.org/pdf2/ssn"
-            id="ID.012"
-           >
-          <?ReferencedObject type="Annot" page="1" ?>
-         </Annot>
-        </text>
-       </text-unit>
+        <?ReferencedObject type="Annot" page="1" ?>
+       </Annot>
       </text>
      </text-unit>
-    </text>
+    </Aside>
    </text-unit>
   </Document>
  </StructTreeRoot>
 </PDF>
--------- pdfmargincomment-tagged-BAD.xml (end) -----------
+-------- pdfmargincomment-tagged.xml (end) -----------
 ============================================================
 Completed box being shipped out [1]
 \vbox(633.0+0.0)x407.0, direction TLT
@@ -112,7 +92,7 @@ Completed box being shipped out [1]
 ...\glue(\lineskip) 0.0
 ...\vbox(550.0+0.0)x345.0, glue set 539.94232fil, direction TLT
 ....\write-{}
-....\openout3=pdfmargincomment-tagged-BAD.upa
+....\openout3=pdfmargincomment-tagged.upa
 ....\pdfdest name{Doc-Start} xyz
 ....\pdfdest name{Doc-Start} xyz
 ....\glue(\topskip) 1.60004
@@ -157,8 +137,6 @@ Completed box being shipped out [1]
 .......\glue(\rightskip) 0.0
 ......\vbox(0.0+0.0)x0.0, direction TLT
 .......\glue 0.0 plus 1.0fil minus 1.0fil
-.......\pdfliteral page <lua data reference ...>
-.......\pdfliteral page <lua data reference ...>
 .......\savepos
 .......\write1{\newmarginnote{note.1.1}{{\themn@abspage }{\number \mn@lastxpos sp}}}
 .......\hbox(0.0+0.0)x0.0, glue set - 406.0fil, direction TLT
@@ -182,8 +160,6 @@ Completed box being shipped out [1]
 ............\localleftbox=null
 ............\localrightbox=null
 ...........\hbox(0.0+0.0)x0.0, direction TLT
-...........\pdfliteral page <lua data reference ...>
-...........\pdfliteral page <lua data reference ...>
 ...........\rule(8.39996+3.60004)x0.0
 ...........\glue 0.0
 ...........\vbox(0.0+0.0)x0.0, direction TLT
@@ -210,6 +186,8 @@ Completed box being shipped out [1]
 ..........\glue 0.0 plus 1.0fil minus 1.0fil
 .........\glue 0.0 plus 1.0fil minus 1.0fil
 ........\glue 0.0 plus 1.0fil minus 1.0fil
+.....\pdfliteral page <lua data reference ...>
+.....\pdfliteral page <lua data reference ...>
 .....\TU/lmr/m/n/10 s
 .....\TU/lmr/m/n/10 o
 .....\TU/lmr/m/n/10 m
@@ -223,6 +201,8 @@ Completed box being shipped out [1]
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0
+....\pdfliteral page <lua data reference ...>
+....\pdfliteral page <lua data reference ...>
 ....\closeout3
 ....\write1{\string \ulp@afterend }
 ....\glue -3.60004
@@ -247,10 +227,10 @@ Completed box being shipped out [1]
 .\hbox(0.0+0.0)x0.0, direction TLT
 .\kern633.0
 .\pdfliteral page <lua data reference ...>
-<<latex-list-css.html>><<latex-align-css.html>> (pdfmargincomment-tagged-BAD.aux * soulpos - computing points - it may take a few seconds *
-(pdfmargincomment-tagged-BAD.upa))
+<<latex-list-css.html>><<latex-align-css.html>> (pdfmargincomment-tagged.aux * soulpos - computing points - it may take a few seconds *
+(pdfmargincomment-tagged.upa))
 Package tagpdf Info: Finalizing the tagging structure:
-(tagpdf)             Writing out ~12 structure objects
+(tagpdf)             Writing out ~11 structure objects
 (tagpdf)             with ~6 'MC' leaf nodes.
 (tagpdf)             Be patient if there are lots of objects!
 Package tagpdf Info: writing ParentTree
