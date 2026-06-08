@@ -4,8 +4,8 @@
 \documentclass{article}
 \usepackage{pdfcomment}
 \begin{document}
-\START
-\pdfcomment{Wow, that's nice!}
+\START\showoutput
+\pdfcomment{Wow, that's nice!}some text
 
 \SHOWPDFTAGS
-\end{document}
+\end{document} 

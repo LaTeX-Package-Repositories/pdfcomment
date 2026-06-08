@@ -1375,11 +1375,33 @@
   \disable@keys{pdfcomment.sty}{version}%
 }%
 \ExplSyntaxOn
+%    \end{macrocode}
+% \subsection{Tagging Sockets}
+%    \begin{macrocode}
+\NewTaggingSocket{pdfcomment/annot}{2}
+\NewTaggingSocketPlug{pdfcomment/annot}{default}
+ {   
+   \tag_mc_end_push:
+   \tag_struct_begin:n {tag=Annot,#1}
+   \pdfannot_dict_put:nne {widget}{StructParent}{ \tag_struct_parent_int: }
+   #2
+   \exp_args:Nee
+   \tag_struct_insert_annot:nn {\pdfannot_ref_last:}{ \tag_struct_parent_int: }
+   \tag_struct_end:
+   \tag_mc_begin_pop:n{}
+ }
+\AssignTaggingSocketPlug{pdfcomment/annot}{default} 
+%    \end{macrocode}
+% \subsection{The \cs{pdfcomment}}
+%    \begin{macrocode}
 \newcommand{\pdfcomment}[2][]%
 {%
   \ifhmode\ifpc@opt@unskip\unskip\fi\fi%
   \ifvmode\leavevmode\fi%
   \group_begin:
+%    \end{macrocode}
+% TODO review option handling ....
+%    \begin{macrocode}
   % Copy all global options to local options
   \pc@copy@gopt@lopt%
   % Change local options if specified
@@ -1390,22 +1412,14 @@
 %  
 %    \begin{macrocode}
   \pc@encode@PDF{#2}%
-  \tl_if_empty:NF \pc@lopt@color
+  \tl_if_empty:eF {\pc@lopt@color}
    {
      \pdfannot_dict_put:nne{widget}{C}{[\pc@hyenc@color]}
    }  
-  %\ifthenelse{\equal{\pc@lopt@color}{}}%
-%  {%
-%    \gdef\pc@lopt@c{}%
-%  }%
-%  {%
-%    \gdef\pc@lopt@c{/C [\pc@hyenc@color]}%
-%    
-%  }%
-  \tl_if_empty:NTF \pc@lopt@date
+  \tl_if_empty:eTF {\pc@lopt@date}
    {
-     \pdfannot_dict_put:nne{widget}{CreationDate}{(\pc@pdfdate@auto)}
-     \pdfannot_dict_put:nne{widget}{M}{(\pc@pdfdate@auto)}
+     \pdfannot_dict_put:nne{widget}{CreationDate}{(\c_sys_timestamp_str)}
+     \pdfannot_dict_put:nne{widget}{M}{(\c_sys_timestamp_str)}
    }
    {
      \pdfannot_dict_put:nne{widget}{CreationDate}{(\pc@lopt@date)}
@@ -1435,7 +1449,7 @@
       \pc@create@lpc%
       % typeset text annotation (see: PDF Reference)
         \vbox%
-        {%
+        {\tagpdfparaOff%
           \hsize=0pt%
           \noindent%
           \vspace{\pc@lopt@voffset}%
@@ -1443,7 +1457,9 @@
           {%
             \vsize=0pt%
             \hskip\pc@lopt@hoffset%
-            \pdfannot_widget_box:nnn{\normalbaselineskip}{\normalbaselineskip}{0pt}
+            \UseTaggingSocket{pdfcomment/annot}
+             {}
+             {\pdfannot_widget_box:nnn{\normalbaselineskip}{\normalbaselineskip}{0pt}}
             \ifthenelse{\equal{\pc@lopt@id}{}}%
             {}%
             {%
