@@ -1,0 +1,25 @@
+
+\DocumentMetadata{tagging=on}
+\input{regression-test}
+\documentclass{article}
+\usepackage{xcolor}
+\usepackage{pdfcomment}
+\begin{document}
+\START\showoutput
+\pdfsquarecomment[subject={square},height=2.5cm,width=5.8cm,voffset=-2.8cm,hoffset=1cm,opacity=1.0,
+justification=right,icolor=CornflowerBlue,bse=cloudy,bsei=2.5,linewidth=8pt]
+{This is a Square annotation!}
+
+
+
+\pdfcirclecomment[color=blue,subject={circle},height=2.5cm,width=5.8cm,voffset=-2.8cm,
+hoffset=8cm,opacity=1.0,justification=right,icolor={yellow},linewidth=12pt,borderstyle=dashed,dashstyle={10 5}]{This is a Circle annotation!}
+
+
+\pdflinecomment[type=polyline,subject={polyline},opacity=1,
+   line={150 120 260 120 300 150 400 80},
+   color=green,icolor=blue,linebegin={/Slash},lineend={/Diamond},linewidth=3bp,bse=cloudy]
+   {This is a Polyline comment!}
+
+\SHOWPDFTAGS
+\end{document} 

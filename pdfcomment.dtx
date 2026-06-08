@@ -1467,6 +1467,60 @@
     {\pdfannot_dict_put:nne{widget}{IT}{/\pc@lopt@type}}
  }
 %    \end{macrocode}
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_dict_store_geometric:n #1
+ {
+   \pdfannot_dict_put:nne{widget}{Subtype}{/#1}
+   \pdfannot_dict_put:nne{widget}{CA}{\pc@lopt@opacity}
+   \pdfannot_dict_put:nne{widget}{T}{(\pc@pdfenc@author)}
+   \pdfannot_dict_put:nne{widget}{Subj}{(\pc@pdfenc@subject)}
+   \pdfannot_dict_put:nne{widget}{Contents}{(\pc@pdfenc@contents)}
+   \pdfannot_dict_put:nne{widget}{F}{4}  
+   \pdfannot_dict_put:nne{widget/BS}{W}{\pc@lopt@linewidth}
+   \pdfannot_dict_put:nne{widget/BS}{S}{/\pc@lopt@borderstyle}
+   \pdfannot_dict_put:nne{widget/BS}{D}{[\pc@lopt@dashstyle]} 
+   \pdfannot_dict_put:nne{widget}{BE}{<</S /\pc@lopt@bse/I~\pc@lopt@bsei>>}
+   \tl_if_empty:eF{\pc@lopt@icolor}
+    {
+      \pdfannot_dict_put:nne{widget}{IC}{[\pc@hyenc@icolor]}
+    }
+ }
+%    \end{macrocode}
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_dict_store_line:
+ {
+   \pdfannot_dict_put:nne{widget}{Subtype}{/\pc@lopt@type}
+   \pdfannot_dict_put:nne{widget}{CA}{\pc@lopt@opacity}
+   \pdfannot_dict_put:nne{widget}{T}{(\pc@pdfenc@author)}
+   \pdfannot_dict_put:nne{widget}{Subj}{(\pc@pdfenc@subject)}
+   \pdfannot_dict_put:nne{widget}{Contents}{(\pc@pdfenc@contents)}
+   \pdfannot_dict_put:nne{widget}{F}{4}  
+   \pdfannot_dict_put:nne{widget/BS}{W}{\pc@lopt@linewidth}
+   \pdfannot_dict_put:nne{widget/BS}{S}{/\pc@lopt@borderstyle}
+   \pdfannot_dict_put:nne{widget/BS}{D}{[\pc@lopt@dashstyle]} 
+   \pdfannot_dict_put:nne{widget}{BE}{<</S /\pc@lopt@bse/I~\pc@lopt@bsei>>}
+   \tl_if_empty:eF{\pc@lopt@icolor}
+    {
+      \pdfannot_dict_put:nne{widget}{IC}{[\pc@hyenc@icolor]}
+    }
+   \pdfannot_dict_put:nne{widget}{LE}{[\pc@lopt@linebegin\space\pc@lopt@lineend]} 
+   \str_if_eq:eeTF{\pc@lopt@type}{Line}
+    {
+     \pdfannot_dict_put:nne{widget}{L}{[\pc@lopt@line]}     
+     \str_if_eq:eeTF{\pc@lopt@caption}{none}
+      {
+        \pdfannot_dict_put:nne{widget}{Cap}{false}       
+      }
+      {
+        \pdfannot_dict_put:nne{widget}{Cap}{true}       
+        \pdfannot_dict_put:nne{widget}{CP}{/\pc@lopt@caption}
+      }
+    }
+    {
+     \pdfannot_dict_put:nne{widget}{Vertices}{[\pc@lopt@line]}     
+    }
+ }
+%    \end{macrocode}
  
 % \subsection{The \cs{pdfcomment}}
 %    \begin{macrocode}
@@ -1599,11 +1653,8 @@
   \pc@copy@gopt@lopt%
   % Change local options if specified
   \setkeys{pdffreetextcomment}{#1}%
-  % Encode Contents, Author and Subject to pdf encodings (PD or PU) with hyperref's \pdfstringdef
-  % and transform color input to pdf color
-  \pc@encode@PDF{#2}% 
-  %create options for \pdfannot
-  \pc@create@pdfannotopt%
+  % Encode Contents, Author and Subject 
+  \pc@encode@PDF{#2}%  
   \ifpc@gopt@final\else%
     \ifpc@lopt@disable\else%
       \hspace*{0pt}%
@@ -1619,15 +1670,12 @@
             \hskip\pc@lopt@hoffset%
             \pc@create@lpc%
 %    \end{macrocode}
-% color is inside the freetext command
+% color is set inside the freetext command
 %    \begin{macrocode}
             \@@_dict_store_dates:
             \@@_dict_store_freetext:
             \UseTaggingSocket{pdfcomment/annot}
              {}
-%    \end{macrocode}
-% get size!!!
-%    \begin{macrocode}
              {
               \pdfannot_widget_box:nnn
                {\dim_eval:n{\pc@lopt@width+0pt}}
@@ -1648,9 +1696,8 @@
   \fi%
 }%
 %    \end{macrocode}
-%
+% \subsection{\cs{pdfsquarecomment}}
 %    \begin{macrocode}
-\ExplSyntaxOff
 \newcommand{\pdfsquarecomment}[2][]%
 {%
   \ifhmode\ifpc@opt@unskip\unskip\fi\fi%
@@ -1662,36 +1709,12 @@
   % Encode Contents, Author and Subject to pdf encodings (PD or PU) with hyperref's \pdfstringdef
   % and transform color input to pdf color
   \pc@encode@PDF{#2}%
-  \ifthenelse{\equal{\pc@lopt@color}{}}%
-  {%
-    \gdef\pc@lopt@c{}%
-  }%
-  {%
-    \gdef\pc@lopt@c{/C [\pc@hyenc@color]}%
-  }%
-  \ifthenelse{\equal{\pc@lopt@icolor}{}}%
-  {%
-    \gdef\pc@lopt@ic{}%
-  }%
-  {%
-    \gdef\pc@lopt@ic{/IC [\pc@hyenc@icolor]}%
-  }%
-  \ifthenelse{\equal{\pc@lopt@date}{}}%
-  {%
-    \gdef\pc@lopt@cdate{/CreationDate (\pc@pdfdate@auto)\space/M (\pc@pdfdate@auto)}%
-  }%
-  {%
-    \gdef\pc@lopt@cdate{/CreationDate (\pc@lopt@date)\space/M (\pc@lopt@date)}%
-  }%
-  %create options for \pdfannot
-  \pc@create@pdfannotopt%
   \ifpc@gopt@final\else%
     \ifpc@lopt@disable\else%
       \hspace*{0pt}%
       % typeset square annotation (see: PDF Reference)
-      \ifpdf%
         \vbox to 0pt%
-        {%
+        {\tagpdfparaOff%
           \hsize=0pt%
           \noindent%
           \vskip-\pc@lopt@voffset%
@@ -1700,11 +1723,17 @@
             \vsize=0pt%
             \hskip\pc@lopt@hoffset%
             \pc@create@lpc%
-            \expandafter\pdfannot \pc@pdfannotopt%
-            {%
-              /Subtype /Square\space%
-              \pc@annot@square%
-            }%
+            \@@_dict_store_color:
+            \@@_dict_store_dates:
+            \@@_dict_store_geometric:n{Square}
+            \UseTaggingSocket{pdfcomment/annot}
+             {}
+             {
+              \pdfannot_widget_box:nnn
+               {\dim_eval:n{\pc@lopt@width+0pt}}
+               {\dim_eval:n{\pc@lopt@height+0pt}}
+               {\dim_eval:n{\pc@lopt@depth+0pt}}
+              }                        
             \ifthenelse{\equal{\pc@lopt@id}{}}%
             {}%
             {%
@@ -1715,58 +1744,12 @@
           }%
           \vss%
         }%
-      \else%
-        \ifpc@gopt@dvipdfmx%
-          \vbox to 0pt%
-          {%
-            \hsize=0pt%
-            \noindent%
-            \vskip-\pc@lopt@voffset%
-            \hbox to 0pt%
-            {%
-              \vsize=0pt%
-              \hskip\pc@lopt@hoffset%
-              \pc@create@lpc%
-              \special{pdf: ann \pc@pdfannotopt%
-                <<%
-                  /Subtype /Square\space%
-                  \pc@annot@square%
-                >>%
-              }%
-              \hss%
-            }%
-            \vss%
-          }%
-        \else%
-          \vbox to 0pt%
-          {%
-            \hsize=0pt%
-            \noindent%
-            \vskip-\pc@lopt@voffset%
-            % add extra \vskip box height because of different reference point
-            \vskip-\pc@lopt@height%
-            \hbox to 0pt%
-            {%
-              \vsize=0pt%
-              \hskip\pc@lopt@hoffset%
-              \pc@create@lpc%
-              %create dimensions of annotation
-              \pdfmark[\rule{0pt}{\pc@lopt@height}\rule{\pc@lopt@width}{0pt}]%
-              {%
-                pdfmark=/ANN,%
-                Subtype=/Square,%
-                Raw={\pc@annot@square}%
-              }%
-              \hss%
-            }%
-            \vss%
-          }%
-        \fi%
-      \fi%
     \fi%
   \fi%
 }%
+%    \end{macrocode}
 %
+%    \begin{macrocode}
 \newcommand{\pdfcirclecomment}[2][]%
 {%
   \ifhmode\ifpc@opt@unskip\unskip\fi\fi%
@@ -1778,36 +1761,12 @@
   % Encode Contents, Author and Subject to pdf encodings (PD or PU) with hyperref's \pdfstringdef
   % and transform color input to pdf color
   \pc@encode@PDF{#2}%
-  \ifthenelse{\equal{\pc@lopt@color}{}}%
-  {%
-    \gdef\pc@lopt@c{}%
-  }%
-  {%
-    \gdef\pc@lopt@c{/C [\pc@hyenc@color]}%
-  }%
-  \ifthenelse{\equal{\pc@lopt@icolor}{}}%
-  {%
-    \gdef\pc@lopt@ic{}%
-  }%
-  {%
-    \gdef\pc@lopt@ic{/IC [\pc@hyenc@icolor]}%
-  }%
-  \ifthenelse{\equal{\pc@lopt@date}{}}%
-  {%
-    \gdef\pc@lopt@cdate{/CreationDate (\pc@pdfdate@auto)\space/M (\pc@pdfdate@auto)}%
-  }%
-  {%
-    \gdef\pc@lopt@cdate{/CreationDate (\pc@lopt@date)\space/M (\pc@lopt@date)}%
-  }%
-  %create options for \pdfannot
-  \pc@create@pdfannotopt%
   \ifpc@gopt@final\else%
     \ifpc@lopt@disable\else%
       \hspace*{0pt}%
       % typeset circle annotation (see: PDF Reference)
-      \ifpdf%
         \vbox to 0pt%
-        {%
+        {\tagpdfparaOff%
           \hsize=0pt%
           \noindent%
           \vskip-\pc@lopt@voffset%
@@ -1816,12 +1775,17 @@
             \vsize=0pt%
             \hskip\pc@lopt@hoffset%
             \pc@create@lpc%
-            \expandafter\pdfannot \pc@pdfannotopt%
-            {%
-              /Subtype /Circle\space%
-              % circle and square annatations differ only in /Subtype, so ...
-              \pc@annot@square%
-            }%
+            \@@_dict_store_color:
+            \@@_dict_store_dates:
+            \@@_dict_store_geometric:n{Circle}
+            \UseTaggingSocket{pdfcomment/annot}
+             {}
+             {
+              \pdfannot_widget_box:nnn
+               {\dim_eval:n{\pc@lopt@width+0pt}}
+               {\dim_eval:n{\pc@lopt@height+0pt}}
+               {\dim_eval:n{\pc@lopt@depth+0pt}}
+             }                      
             \ifthenelse{\equal{\pc@lopt@id}{}}%
             {}%
             {%
@@ -1832,58 +1796,11 @@
           }%
           \vss%
         }%
-      \else%
-        \ifpc@gopt@dvipdfmx%
-          \vbox to 0pt%
-          {%
-            \hsize=0pt%
-            \noindent%
-            \vskip-\pc@lopt@voffset%
-            \hbox to 0pt%
-            {%
-              \vsize=0pt%
-              \hskip\pc@lopt@hoffset%
-              \pc@create@lpc%
-              \special{pdf: ann \pc@pdfannotopt%
-                <<%
-                  /Subtype /Circle\space%
-                  \pc@annot@square%
-                >>%
-              }%
-              \hss%
-            }%
-            \vss%
-          }%
-        \else%
-          \vbox to 0pt%
-          {%
-            \hsize=0pt%
-            \noindent%
-            \vskip-\pc@lopt@voffset%
-            % add extra \vskip box height because of different reference point
-            \vskip-\pc@lopt@height%
-            \hbox to 0pt%
-            {%
-              \vsize=0pt%
-              \hskip\pc@lopt@hoffset%
-              \pc@create@lpc%
-              %create dimensions of annotation
-              \pdfmark[\rule{0pt}{\pc@lopt@height}\rule{\pc@lopt@width}{0pt}]%
-              {%
-                pdfmark=/ANN,%
-                Subtype=/Circle,%
-                Raw={\pc@annot@square}%
-              }%
-              \hss%
-            }%
-            \vss%
-          }%
-        \fi%
-      \fi%
     \fi%
   \fi%
 }%
 %
+
 \newcommand{\pdflinecomment}[2][]%
 {%
   \ifhmode\ifpc@opt@unskip\unskip\fi\fi%
@@ -1895,68 +1812,30 @@
   % Encode Contents, Author and Subject to pdf encodings (PD or PU) with hyperref's \pdfstringdef
   % and transform color input to pdf color
   \pc@encode@PDF{#2}%
-  \ifthenelse{\equal{\pc@lopt@color}{}}%
-  {%
-    \gdef\pc@lopt@c{}%
-  }%
-  {%
-    \gdef\pc@lopt@c{/C [\pc@hyenc@color]}%
-  }%
-  \ifthenelse{\equal{\pc@lopt@icolor}{}}%
-  {%
-    \gdef\pc@lopt@ic{}%
-  }%
-  {%
-    \gdef\pc@lopt@ic{/IC [\pc@hyenc@icolor]}%
-  }%
-  \ifthenelse{\equal{\pc@lopt@date}{}}%
-  {%
-    \gdef\pc@lopt@cdate{/CreationDate (\pc@pdfdate@auto)\space/M (\pc@pdfdate@auto)}%
-  }%
-  {%
-    \gdef\pc@lopt@cdate{/CreationDate (\pc@lopt@date)\space/M (\pc@lopt@date)}%
-  }%
-  \gdef\pc@lopt@le{/LE [\pc@lopt@linebegin\space\pc@lopt@lineend]}%
-  \ifthenelse{\equal{\pc@lopt@type}{Line}}%
-  {%
-    \ifthenelse{\equal{\pc@lopt@caption}{none}}%
-    {%
-      \gdef\pc@lopt@cap{/Cap false}%
-      \gdef\pc@lopt@cp{}%
-    }%
-    {%
-      \gdef\pc@lopt@cap{/Cap true}%
-      \gdef\pc@lopt@cp{/CP /\pc@lopt@caption}%
-    }%
-    \gdef\pc@lopt@l{/L [\pc@lopt@line]}%
-    \gdef\pc@lopt@co{/CO [\pc@lopt@captionhoffset\space \pc@lopt@captionvoffset]}%
-  }%
-  {%
-    \gdef\pc@lopt@l{/Vertices [\pc@lopt@line]}%
-    \gdef\pc@lopt@cap{}%
-    \gdef\pc@lopt@cp{}%
-    \gdef\pc@lopt@co{}%
-  }%
   %create options for \pdfannot
-  \pc@create@pdfannotopt%
   \ifpc@gopt@final\else%
     \ifpc@lopt@disable\else%
       \hspace*{0pt}%
       \pc@create@lpc%
-      % typeset line annotation (see: PDF Reference)
-      \ifpdf%
+      % typeset line annotation (see: PDF Reference) 
         \vbox to 0pt%
-        {%
+        {\tagpdfparaOff%
           \hsize=0pt%
           \noindent%
           \hbox to 0pt%
           {%
             \vsize=0pt%
-            \expandafter\pdfannot \pc@pdfannotopt%
-            {%
-              /Subtype /\pc@lopt@type\space%
-              \pc@annot@line%
-            }%
+            \@@_dict_store_color:
+            \@@_dict_store_dates:
+            \@@_dict_store_line:
+            \UseTaggingSocket{pdfcomment/annot}
+             {}
+             {
+              \pdfannot_widget_box:nnn
+               {\dim_eval:n{\pc@lopt@width+0pt}}
+               {\dim_eval:n{\pc@lopt@height+0pt}}
+               {\dim_eval:n{\pc@lopt@depth+0pt}}
+             }  
             \ifthenelse{\equal{\pc@lopt@id}{}}%
             {}%
             {%
@@ -1967,49 +1846,10 @@
           }%
           \vss%
         }%
-      \else%
-        \ifpc@gopt@dvipdfmx%
-          \vbox to 0pt%
-          {%
-            \hsize=0pt%
-            \noindent%
-            \hbox to 0pt%
-            {%
-              \vsize=0pt%
-              \special{pdf: ann \pc@pdfannotopt%
-                <<%
-                  /Subtype /\pc@lopt@type\space%
-                  \pc@annot@line%
-                >>%
-              }%
-              \hss%
-            }%
-            \vss%
-          }%
-        \else%
-          \vbox to 0pt%
-          {%
-            \hsize=0pt%
-            \noindent%
-            \hbox to 0pt%
-            {%
-              \vsize=0pt%
-              %create dimensions of annotation
-              \pdfmark[\rule{0pt}{\pc@lopt@height}\rule{\pc@lopt@width}{0pt}]%
-              {%
-                pdfmark=/ANN,%
-                Subtype=/\pc@lopt@type,%
-                Raw={\pc@annot@line}%
-              }%
-              \hss%
-            }%
-            \vss%
-          }%
-        \fi%
-      \fi%
     \fi%
   \fi%
 }%
+\ExplSyntaxOff
 %
 \newcommand{\pdfmarkupcomment}[3][]%
 {%

@@ -19,7 +19,7 @@ Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
 ============================================================
 TEST 1: Show PDF Tags
 ============================================================
--------- pdfmargincomment-tagged.xml (start) ---------
+-------- pdfmargincomment-tagged-BAD.xml (start) ---------
 <PDF>
  <StructTreeRoot>
   <Document xmlns="http://iso.org/pdf2/ssn"
@@ -71,7 +71,7 @@ TEST 1: Show PDF Tags
   </Document>
  </StructTreeRoot>
 </PDF>
--------- pdfmargincomment-tagged.xml (end) -----------
+-------- pdfmargincomment-tagged-BAD.xml (end) -----------
 ============================================================
 Completed box being shipped out [1]
 \vbox(633.0+0.0)x407.0, direction TLT
@@ -112,7 +112,7 @@ Completed box being shipped out [1]
 ...\glue(\lineskip) 0.0
 ...\vbox(550.0+0.0)x345.0, glue set 539.94232fil, direction TLT
 ....\write-{}
-....\openout3=pdfmargincomment-tagged.upa
+....\openout3=pdfmargincomment-tagged-BAD.upa
 ....\pdfdest name{Doc-Start} xyz
 ....\pdfdest name{Doc-Start} xyz
 ....\glue(\topskip) 1.60004
@@ -247,8 +247,8 @@ Completed box being shipped out [1]
 .\hbox(0.0+0.0)x0.0, direction TLT
 .\kern633.0
 .\pdfliteral page <lua data reference ...>
-<<latex-list-css.html>><<latex-align-css.html>> (pdfmargincomment-tagged.aux * soulpos - computing points - it may take a few seconds *
-(pdfmargincomment-tagged.upa))
+<<latex-list-css.html>><<latex-align-css.html>> (pdfmargincomment-tagged-BAD.aux * soulpos - computing points - it may take a few seconds *
+(pdfmargincomment-tagged-BAD.upa))
 Package tagpdf Info: Finalizing the tagging structure:
 (tagpdf)             Writing out ~12 structure objects
 (tagpdf)             with ~6 'MC' leaf nodes.
