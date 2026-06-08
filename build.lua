@@ -5,7 +5,7 @@ packagedate="2018-11-01"
 module   = "pdfcomment"
 ctanpkg  = "pdfcomment"
 
-checkengines = {"luatex","pdftex"}
+checkengines = {"luatex"}
 stdengine = "luatex"
 checkconfigs = {"build"}
 
