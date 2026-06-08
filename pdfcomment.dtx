@@ -1580,6 +1580,7 @@
 %  
 %    \begin{macrocode}
   \pc@encode@PDF{#2}%
+  \pc@encode@colors
 %    \end{macrocode}
 %
 %    \begin{macrocode}  
@@ -1634,6 +1635,7 @@
   % Encode Contents, Author and Subject to pdf encodings (PD or PU) with hyperref's \pdfstringdef
   % and transform color input to pdf color
   \pc@encode@PDF{#2}%  
+  \pc@encode@colors
   \ifpc@gopt@final\else%
     \ifpc@lopt@disable\else%
       \hspace*{0pt}%
@@ -1684,6 +1686,7 @@
   \setkeys{pdffreetextcomment}{#1}%
   % Encode Contents, Author and Subject 
   \pc@encode@PDF{#2}%  
+  \pc@encode@colors
   \ifpc@gopt@final\else%
     \ifpc@lopt@disable\else%
       \hspace*{0pt}%
@@ -1733,6 +1736,7 @@
   % Encode Contents, Author and Subject to pdf encodings (PD or PU) with hyperref's \pdfstringdef
   % and transform color input to pdf color
   \pc@encode@PDF{#2}%
+  \pc@encode@colors
   \ifpc@gopt@final\else%
     \ifpc@lopt@disable\else%
       \hspace*{0pt}%
@@ -1780,6 +1784,7 @@
   % Encode Contents, Author and Subject to pdf encodings (PD or PU) with hyperref's \pdfstringdef
   % and transform color input to pdf color
   \pc@encode@PDF{#2}%
+  \pc@encode@colors
   \ifpc@gopt@final\else%
     \ifpc@lopt@disable\else%
       \hspace*{0pt}%
@@ -1826,6 +1831,7 @@
   % Encode Contents, Author and Subject to pdf encodings (PD or PU) with hyperref's \pdfstringdef
   % and transform color input to pdf color
   \pc@encode@PDF{#2}%
+  \pc@encode@colors
   %create options for \pdfannot
   \ifpc@gopt@final\else%
     \ifpc@lopt@disable\else%
@@ -1884,8 +1890,8 @@
     \setlength{\pc@Eposy}{\zposy{pdfcomment:\thezref@unique}sp}%
     \ifpc@gopt@final\else%
       \ifpc@lopt@disable\else%
-        %changed \pc@encode@PDF, \pdfstringdef does not work in math mode
-        \marginnote{\pc@encode@PDF@math{#3}}%
+        %changed \pc@encode@PDF, \pdfstringdef does not work in math mode ???
+        \marginnote{\pc@encode@PDF{#3}}%
         \HyColor@XZeroOneThreeFour{\pc@lopt@color}{\pc@hyenc@color}{pdfcomment}{color}%
         \HyColor@XZeroOneThreeFour{\pc@lopt@fontcolor}{\pc@hyenc@fontcolor}{pdfcomment}{color}%
         \HyColor@XZeroOneThreeFour{\pc@lopt@icolor}{\pc@hyenc@icolor}{pdfcomment}{color}%
@@ -1948,6 +1954,7 @@
     \stepcounter{zref@unique}%
   \else%
     \pc@encode@PDF{#3}%
+    \pc@encode@colors
     \settoheight{\pc@box@height}{#2}%
     \ifthenelse{\equal{\pc@lopt@markup}{Underline}}%
     {%
@@ -2025,6 +2032,7 @@
   % Encode Contents, Author and Subject to pdf encodings (PD or PU) with hyperref's \pdfstringdef
   % and transform color input to pdf color
   \pc@encode@PDF{#2}%
+  \pc@encode@colors
   \gdef\pc@lopt@type{Line}%
   \ifthenelse{\equal{\pc@lopt@color}{}}%
   {%
@@ -2236,6 +2244,7 @@
   % Encode Contents, Author and Subject to pdf encodings (PD or PU) with hyperref's \pdfstringdef
   % and transform color input to pdf color
   \pc@encode@PDF{#2}%
+  \pc@encode@colors
   \ifthenelse{\equal{\pc@lopt@color}{}}%
   {%
     \gdef\pc@lopt@c{}%
@@ -2331,10 +2340,11 @@
   % Change local options if specified
   \setkeys{pdftooltip}{#1}%
   \ifmmode%
-    \setbox\pc@nullbox=\hbox{\SuspendTagging{}\pc@encode@PDF@math{#3}}%
+    \setbox\pc@nullbox=\hbox{\SuspendTagging{}\pc@encode@PDF{#3}}%
     \setbox\pc@nullbox=\hbox{\SuspendTagging{}$\pc@lopt@mathstyle#2$}
   \else 
     \pc@encode@PDF{#3}%
+    \pc@encode@colors
     \setbox\pc@nullbox=\hbox{\SuspendTagging{}#2}
   \fi   
   \ifpc@lopt@disable%
@@ -2531,27 +2541,14 @@
   }%
   \pdfstringdef\pc@pdfenc@author{\pc@lopt@author}%
   \pdfstringdef\pc@pdfenc@subject{\pc@lopt@subject}%
+}%
+%
+\newcommand\pc@encode@colors
+ {%
   \HyColor@XZeroOneThreeFour{\pc@lopt@color}{\pc@hyenc@color}{pdfcomment}{color}%
   \HyColor@XZeroOneThreeFour{\pc@lopt@fontcolor}{\pc@hyenc@fontcolor}{pdfcomment}{color}%
   \HyColor@XZeroOneThreeFour{\pc@lopt@icolor}{\pc@hyenc@icolor}{pdfcomment}{color}%
-}%
-%
-\newcommand{\pc@encode@PDF@math}[1]%
-{%
-  \gdef\pc@lopt@comment{#1}%
-  \ifthenelse{\equal{\pc@lopt@deadline}{}}%
-  {%
-    \gdef\pc@comment@deadline{\pc@lopt@comment}%
-    \pdfstringdef\pc@pdfenc@contents{\pc@comment@deadline}%
-  }%
-  {%
-    \gdef\pc@comment@deadline{\pc@lopt@comment\textCR(\pc@lopt@deadline)}%
-    \pdfstringdef\pc@pdfenc@contents{\pc@comment@deadline}%
-  }%
-  \pdfstringdef\pc@pdfenc@author{\pc@lopt@author}%
-  \pdfstringdef\pc@pdfenc@subject{\pc@lopt@subject}%
-}%
-%
+ }
 %
 \newcommand{\pc@annot@line}%
 {%
@@ -2581,23 +2578,24 @@
   >>\space%
 }%
 %
+\ExplSyntaxOn
 \newcommand{\pc@annot@markup@pdf}%
 {%
-  \pdfannot width 0pt height 0pt depth 0pt%
+  \pdfannot_box:nnne {0pt} {0pt} {0pt}
   {%
     /Subtype /\pc@lopt@markup\space%
-    /C [\pc@hyenc@color]\space%
+    /C~[\pc@hyenc@color]\space%
     \pc@lopt@cdate\space%
-    /CA \pc@lopt@opacity\space%
+    /CA~\pc@lopt@opacity\space%
     /T (\pc@pdfenc@author)\space%
-    /Subj (\pc@pdfenc@subject)\space%
-    /Contents (\pc@pdfenc@contents)\space%
-    /Open \pc@lopt@open\space%
-    /QuadPoints [\pc@annot@quadpoints]\space%
-    /F 4\space%
+    /Subj~(\pc@pdfenc@subject)\space%
+    /Contents~(\pc@pdfenc@contents)\space%
+    /Open~\pc@lopt@open\space%
+    /QuadPoints~[\pc@annot@quadpoints]\space%
+    /F~4\space%
   }%
 }%
-%
+
 \newcommand{\pc@annot@markup@dvipdfmx}%
 {%
   \special{pdf: ann width 0pt height 0pt depth 0pt%
@@ -2788,6 +2786,7 @@
   \fi%
 }%
 %
+\ExplSyntaxOn
 \newcommand{\pc@annot@complete}%
 {%
   \renewcommand{\pc@x@one}{\pc@pttobp{\pc@Sposx}}%
@@ -2799,19 +2798,10 @@
   \renewcommand{\pc@y@three}{\pc@pttobp{\dimexpr \pc@Sposy - \pc@box@depth - 1pt\relax}}%
   \renewcommand{\pc@y@four}{\pc@pttobp{\dimexpr \pc@Eposy - \pc@box@depth - 1pt\relax}}%
   \xdef\pc@annot@quadpoints{\pc@x@one\space\pc@y@one\space\pc@x@two\space\pc@y@two\space\pc@x@three\space\pc@y@three\space\pc@x@four\space\pc@y@four}%
-  \ifpdf%
     \pc@annot@markup@pdf%
-    \ifthenelse{\equal{\pc@lopt@id}{}}%
-    {}%
-    {\xdef\pc@collect@PDFOBJID{\pc@collect@PDFOBJID,\the\pdflastannot}}%
-  \else%
-    \ifpc@gopt@dvipdfmx%
-      \pc@annot@markup@dvipdfmx%
-    \else%
-      \pc@annot@markup@dvips%
-    \fi%
-  \fi%
+    \@@_store_objid:
 }%
+\ExplSyntaxOff
 %
 \newcommand*{\pc@soul@markup}%
 {%
