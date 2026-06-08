@@ -39,7 +39,11 @@
 %<*package>
 %    \end{macrocode}
 %    \begin{macrocode}
-\ProvidesPackage{pdfcomment}[2026-06-07 3.0a PDF annotations and comments]
+\ProvidesExplPackage
+ {pdfcomment}
+ {2026-06-07}
+ {3.0a}
+ {PDF annotations and comments}
 \IfPDFManagementActiveF{\RequirePackageWithOptions{pdfcomment-2018-11-01}}
 \IfPDFManagementActiveF{\endinput}
 
@@ -50,7 +54,7 @@
 % Default values for global package options, the commands use \texttt{goptd}.
 %    \begin{macrocode}
 \gdef\pc@goptd@subject{}%
-\gdef\pc@goptd@color{0 0 1}%
+\gdef\pc@goptd@color{0~0~1}%
 \gdef\pc@goptd@author{}%
 \gdef\pc@goptd@deadline{}%
 \gdef\pc@goptd@icon{Comment}%
@@ -65,18 +69,18 @@
 \gdef\pc@goptd@markup{Highlight}%
 \gdef\pc@goptd@font{Helv}%
 \gdef\pc@goptd@fontsize{12bp}%
-\gdef\pc@goptd@fontcolor{0.0 0.0 0.0}%
+\gdef\pc@goptd@fontcolor{0.0~0.0~0.0}%
 \gdef\pc@goptd@justification{0}%
 \gdef\pc@goptd@borderstyle{S}%
 \gdef\pc@goptd@linewidth{1bp}%
-\gdef\pc@goptd@dashstyle{3 3}%
+\gdef\pc@goptd@dashstyle{3~3}%
 \gdef\pc@goptd@bse{S}%
 \gdef\pc@goptd@bsei{1}%
 \gdef\pc@goptd@type{freetext}%
 \gdef\pc@goptd@lineend{/OpenArrow}%
 \gdef\pc@goptd@linebegin{/None}%
-\gdef\pc@goptd@icolor{1 1 0}%
-\gdef\pc@goptd@line{50 50 300 600}%
+\gdef\pc@goptd@icolor{1~1~0}%
+\gdef\pc@goptd@line{50~50~300~600}%
 \gdef\pc@goptd@caption{inline}%
 \gdef\pc@goptd@captionhoffset{0pt}%
 \gdef\pc@goptd@captionvoffset{0pt}%
@@ -244,7 +248,7 @@
 % \subsection{List of pdfcomments}
 %    \begin{macrocode}
 \newcommand{\lpcname}{List of pdfcomments}%
-\gdef\pc@lpc@format{\pc@lopt@author\ - \pc@lopt@subject}%
+\gdef\pc@lpc@format{\pc@lopt@author\ -~ \pc@lopt@subject}%
 \gdef\pc@lopt@liststyle{AuthorSubject}%
 %
 %    \end{macrocode}
@@ -1391,7 +1395,6 @@
   \disable@keys{pdfcomment.sty}{dvipdfmx}%
   \disable@keys{pdfcomment.sty}{version}%
 }%
-\ExplSyntaxOn
 %    \end{macrocode}
 %
 % \subsection{Tagging Socket}
@@ -1589,14 +1592,20 @@
  }
 %    \end{macrocode}
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_store_objid:
+\cs_new_protected:Npn \@@_collect_objid:
  {
    \tl_if_empty:eF{\pc@lopt@id}
     {
       \tl_gput_right:Ne\pc@collect@PDFOBJID{,\pdfannot_ref_last:}
-      \pc@save@PDFOBJID{\pc@lopt@id}%  
     }   
  }
+\cs_new_protected:Npn \@@_save_objid:
+ {
+   \tl_if_empty:eF{\pc@lopt@id}
+    {
+      \pc@save@PDFOBJID{\pc@lopt@id}%  
+    }   
+ } 
 %    \end{macrocode}
 %
 % \subsection{The \cs{pdfcomment}}
@@ -1650,7 +1659,8 @@
 %    \end{macrocode}
 % TODO: check purpose
 %    \begin{macrocode}
-            \@@_store_objid:
+            \@@_collect_objid:
+            \@@_save_objid:
             \hss%
           }%
         }%
@@ -1700,7 +1710,8 @@
                 \UseTaggingSocket{pdfcomment/annot}
                 {}
                 {\pdfannot_widget_box:nnn{\normalbaselineskip}{\normalbaselineskip}{0pt}}
-                \@@_store_objid:
+                \@@_collect_objid:
+                \@@_save_objid:
                 \hss%
               }%
             }%
@@ -1753,7 +1764,8 @@
                {\dim_eval:n{\pc@lopt@height+0pt}}
                {\dim_eval:n{\pc@lopt@depth+0pt}}
               }            
-             \@@_store_objid:
+             \@@_collect_objid:
+             \@@_save_objid:
           \hss%
           }%
         \vss%
@@ -1802,7 +1814,8 @@
                {\dim_eval:n{\pc@lopt@height+0pt}}
                {\dim_eval:n{\pc@lopt@depth+0pt}}
               }                        
-            \@@_store_objid:
+            \@@_collect_objid:
+            \@@_save_objid:
             \hss%
           }%
           \vss%
@@ -1850,7 +1863,8 @@
                {\dim_eval:n{\pc@lopt@height+0pt}}
                {\dim_eval:n{\pc@lopt@depth+0pt}}
              }                      
-            \@@_store_objid:
+            \@@_collect_objid:
+            \@@_save_objid:
             \hss%
           }%
           \vss%
@@ -1896,7 +1910,8 @@
                {\dim_eval:n{\pc@lopt@height+0pt}}
                {\dim_eval:n{\pc@lopt@depth+0pt}}
              }  
-            \@@_store_objid:
+            \@@_collect_objid:
+            \@@_save_objid:
             \hss%
           }%
           \vss%
@@ -2052,7 +2067,7 @@
   %only local!
   \gdef\pc@lopt@mathstyle{}%
   %
-  \@@_store_objid:
+  \@@_save_objid:
   \ifpc@ignorespaces%
     \ignorespaces%
   \fi%
@@ -2267,9 +2282,7 @@
       \fi%
     \fi%
   \fi%
-  \ifthenelse{\equal{\pc@lopt@id}{}}%
-  {}%
-  {\pc@save@PDFOBJID{\pc@lopt@id}}%
+  \@@_save_objid:
 }%
 %
 \newcommand{\pdfreply}[2][]%
@@ -2345,9 +2358,7 @@
             }%
           }%
         }%
-        \ifthenelse{\equal{\pc@lopt@id}{}}%
-        {}%
-        {\pc@save@PDFOBJID{\pc@lopt@id}}%
+        \@@_save_objid:
       \else%
         \ifpc@gopt@dvipdfmx%
           \PackageError{pdfcomment}{%
@@ -2368,7 +2379,6 @@
 %    \end{macrocode}
 % \subsection{\cs{pdftooltip}}
 %    \begin{macrocode}
-\ExplSyntaxOn
 \newcommand{\pdftooltip}[3][]%
 {%
   \leavevmode%
@@ -2402,7 +2412,7 @@
   %only local!
   \gdef\pc@lopt@mathstyle{}%
 }%
-\ExplSyntaxOff
+
 % reset global options
 \newcommand{\pdfcommentsetup}[2][]%
 {%
@@ -2615,7 +2625,7 @@
   >>\space%
 }%
 %
-\ExplSyntaxOn
+
 %    \end{macrocode}
 % This should use dictionaries so that we can add the StructParent.
 %    \begin{macrocode}
@@ -2739,7 +2749,6 @@
     \pc@annot@markup%
     \@@_store_objid:
 }%
-\ExplSyntaxOff
 %
 \newcommand*{\pc@soul@markup}%
 {%
