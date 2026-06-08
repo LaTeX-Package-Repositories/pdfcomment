@@ -1,0 +1,266 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+Package hyperref Info: bookmark level for unknown lpcsec defaults to 0 on input line ....
+Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Part'.
+(tagpdf)                Relation is not allowed! on line ...
+(tagpdf)                struct 7, text --> struct 8, text-unit
+Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
+(tagpdf)                Relation is not allowed! on line ...
+(tagpdf)                struct 8, text-unit --> struct 9, text
+Package marginnote Info: Margin note 1.1 is on absolute page 1 on input line ....
+Package marginnote Info: right page because not two side mode on input line ....
+Package marginnote Info: xpos seems to be 149.26999pt on input line ....
+Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Part'.
+(tagpdf)                Relation is not allowed! on line ...
+(tagpdf)                struct 9, text --> struct 10, text-unit
+Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
+(tagpdf)                Relation is not allowed! on line ...
+(tagpdf)                struct 10, text-unit --> struct 11, text
+============================================================
+TEST 1: Show PDF Tags
+============================================================
+-------- pdfmargincomment-tagged.xml (start) ---------
+<PDF>
+ <StructTreeRoot>
+  <Document xmlns="http://iso.org/pdf2/ssn"
+     id="ID.002"
+    >
+   <text-unit xmlns="https://www.latex-project.org/ns/dflt"
+      id="ID.006"
+      rolemaps-to="Part"
+     >
+    <text xmlns="https://www.latex-project.org/ns/dflt"
+       id="ID.007"
+       xmlns:Layout="http://iso.org/pdf/ssn/Layout"
+       Layout:TextAlign="Justify"
+       rolemaps-to="P"
+      >
+     <?MarkedContent page="1" ?>
+     <text-unit xmlns="https://www.latex-project.org/ns/dflt"
+        id="ID.008"
+        rolemaps-to="Part"
+       >
+      <text xmlns="https://www.latex-project.org/ns/dflt"
+         id="ID.009"
+         xmlns:Layout="http://iso.org/pdf/ssn/Layout"
+         Layout:TextAlign="Justify"
+         rolemaps-to="P"
+        >
+       <?MarkedContent page="1" ?>
+       <text-unit xmlns="https://www.latex-project.org/ns/dflt"
+          id="ID.010"
+          rolemaps-to="Part"
+         >
+        <text xmlns="https://www.latex-project.org/ns/dflt"
+           id="ID.011"
+           xmlns:Layout="http://iso.org/pdf/ssn/Layout"
+           Layout:TextAlign="Center"
+           rolemaps-to="P"
+          >
+         <Annot xmlns="http://iso.org/pdf2/ssn"
+            id="ID.012"
+           >
+          <?ReferencedObject type="Annot" page="1" ?>
+         </Annot>
+        </text>
+       </text-unit>
+      </text>
+     </text-unit>
+    </text>
+   </text-unit>
+  </Document>
+ </StructTreeRoot>
+</PDF>
+-------- pdfmargincomment-tagged.xml (end) -----------
+============================================================
+Completed box being shipped out [1]
+\vbox(633.0+0.0)x407.0, direction TLT
+.\hbox(0.0+0.0)x0.0, direction TLT
+.\hbox(0.0+0.0)x0.0, direction TLT
+..\kern-72.26999
+..\vbox(0.0+0.0)x0.0, glue set 72.26999fil, direction TLT
+...\kern-72.26999
+...\hbox(0.0+0.0)x0.0, direction TLT
+....\pdfliteral page <lua data reference ...>
+....\latelua0{ltx.__pdf.backend_ThisPage_gpush(tex.count["g_shipout_readonly_int"])}
+....\glue 0.0 plus 1.0fil minus 1.0fil
+...\glue 0.0 plus 1.0fil minus 1.0fil
+.\vbox(0.0+0.0)x0.0, glue set - 14.99626fil, direction TLT
+..\kern0.0
+..\kern16.0
+..\kern-1.00374
+..\hbox(0.0+0.0)x0.0, glue set - 60.99626fil, direction TLT
+...\kern0.0
+...\kern62.0
+...\kern-1.00374
+...\pdfdest name{page.1} xyz
+...\pdfdest name{page.1} xyz
+...\penalty 10000
+...\glue 0.0 plus 1.0fil minus 1.0fil
+..\glue 0.0 plus 1.0fil minus 1.0fil
+.\glue(\lineskip) 0.0
+.\vbox(633.0+0.0)x407.0, direction TLT
+..\glue 16.0
+..\vbox(617.0+0.0)x345.0, shifted 62.0, direction TLT
+...\vbox(12.0+0.0)x345.0, glue set 12.0fil, direction TLT
+....\glue 0.0 plus 1.0fil
+....\pdflinkstate 1
+....\hbox(0.0+0.0)x345.0, direction TLT
+.....\hbox(0.0+0.0)x345.0, direction TLT
+....\pdflinkstate 0
+...\glue 25.0
+...\glue(\lineskip) 0.0
+...\vbox(550.0+0.0)x345.0, glue set 539.94232fil, direction TLT
+....\write-{}
+....\openout3=pdfmargincomment-tagged.upa
+....\pdfdest name{Doc-Start} xyz
+....\pdfdest name{Doc-Start} xyz
+....\glue(\topskip) 1.60004
+....\hbox(8.39996+3.60004)x345.0, glue set 287.45999fil, direction TLT
+.....\localpar
+......\localinterlinepenalty=0
+......\localbrokenpenalty=0
+......\localleftbox=null
+......\localrightbox=null
+.....\hbox(0.0+0.0)x15.0, direction TLT
+.....\pdfliteral page <lua data reference ...>
+.....\pdfliteral page <lua data reference ...>
+.....\rule(*+*)x0.0
+.....\penalty 10000
+.....\glue 0.0
+.....\glue 0.0
+.....\penalty 10000
+.....\hbox(0.0+0.0)x0.0, direction TLT
+......\hbox(0.0+0.0)x0.0, shifted -12.0, direction TLT
+.......\pdfdest name{section*.1} xyz
+.......\pdfdest name{section*.1} xyz
+.......\penalty 10000
+.....\kern0.0
+.....\write1{\@writefile{lpc}{\protect \contentsline {lpcsec}{\protect \numberline {}\ - }{\thepage }{section*.1}\protected@file@percent }}
+.....\pdfliteral page <lua data reference ...>
+.....\pdfliteral page <lua data reference ...>
+.....\rule(8.39996+3.60004)x0.0
+.....\vbox(8.39996+3.60004)x0.0, direction TLT
+......\kern0.0
+......\glue(\parskip) 0.0 plus 1.0
+......\glue(\parskip) 0.0
+......\hbox(0.0+0.0)x345.0, glue set 330.0fil, direction TLT
+.......\localpar
+........\localinterlinepenalty=0
+........\localbrokenpenalty=0
+........\localleftbox=null
+........\localrightbox=null
+.......\hbox(0.0+0.0)x15.0, direction TLT
+.......\kern0.0
+.......\penalty 10000
+.......\glue(\parfillskip) 0.0 plus 1.0fil
+.......\glue(\rightskip) 0.0
+......\vbox(0.0+0.0)x0.0, direction TLT
+.......\glue 0.0 plus 1.0fil minus 1.0fil
+.......\pdfliteral page <lua data reference ...>
+.......\pdfliteral page <lua data reference ...>
+.......\savepos
+.......\write1{\newmarginnote{note.1.1}{{\themn@abspage }{\number \mn@lastxpos sp}}}
+.......\hbox(0.0+0.0)x0.0, glue set - 406.0fil, direction TLT
+........\kern-149.26999
+........\kern62.0
+........\kern72.26999
+........\kern345.0
+........\kern11.0
+........\vbox(0.0+0.0)x65.0, direction TLT
+.........\kern0.0
+.........\kern0.0
+.........\vbox(0.0+0.0)x65.0, glue set - 12.0fil, direction TLT
+..........\kern0.0
+..........\glue(\parskip) 0.0 plus 1.0
+..........\glue(\parskip) 0.0
+..........\hbox(8.39996+3.60004)x65.0, glue set 32.5fil, direction TLT
+...........\glue(\leftskip) 0.0 plus 1.0fil
+...........\localpar
+............\localinterlinepenalty=0
+............\localbrokenpenalty=0
+............\localleftbox=null
+............\localrightbox=null
+...........\hbox(0.0+0.0)x0.0, direction TLT
+...........\pdfliteral page <lua data reference ...>
+...........\pdfliteral page <lua data reference ...>
+...........\rule(8.39996+3.60004)x0.0
+...........\glue 0.0
+...........\vbox(0.0+0.0)x0.0, direction TLT
+............\hbox(0.0+0.0)x0.0, direction TLT
+.............\glue(\leftskip) 0.0 plus 1.0fil
+.............\localpar
+..............\localinterlinepenalty=0
+..............\localbrokenpenalty=0
+..............\localleftbox=null
+..............\localrightbox=null
+.............\hbox(0.0+0.0)x0.0, direction TLT
+..............\glue 0.0
+..............\pdfannot(12.0+0.0)x12.0{/Subtype /Text /C [0 0 1] /CreationDate (D:20160520090000Z) /M (D:20160520090000Z) /CA 1.0 /T () /Subj () /Name (Comment) /Contents (\376\377\000W\000o\000w\000,\000\040\000t\000h\000a\000t\000'\000s\000\040\000n\000i\000c\000e\000!) /Open false /F 4 /StructParent 1 }
+..............\write1{\new@label@record{@tag@objr@page@1}{{tagabspage}{\__property_code_tagabspage: }}}
+..............\glue 0.0 plus 1.0fil minus 1.0fil
+.............\penalty 10000
+.............\glue(\parfillskip) 0.0
+.............\glue(\rightskip) 0.0 plus 1.0fil
+............\glue 0.0
+............\glue 0.0
+...........\penalty 10000
+...........\glue(\parfillskip) 0.0
+...........\glue(\rightskip) 0.0 plus 1.0fil
+..........\glue 0.0 plus 1.0fil minus 1.0fil
+.........\glue 0.0 plus 1.0fil minus 1.0fil
+........\glue 0.0 plus 1.0fil minus 1.0fil
+.....\TU/lmr/m/n/10 s
+.....\TU/lmr/m/n/10 o
+.....\TU/lmr/m/n/10 m
+.....\TU/lmr/m/n/10 e
+.....\TU/lmr/m/n/10  
+.....\glue(\spaceskip) 0.0 plus 1.665 minus 1.11
+.....\TU/lmr/m/n/10 t
+.....\TU/lmr/m/n/10 e
+.....\TU/lmr/m/n/10 x
+.....\TU/lmr/m/n/10 t
+.....\penalty 10000
+.....\glue(\parfillskip) 0.0 plus 1.0fil
+.....\glue(\rightskip) 0.0
+....\closeout3
+....\write1{\string \ulp@afterend }
+....\glue -3.60004
+....\glue 0.0 plus 1.0fil
+....\glue 0.0
+....\glue 0.0 plus 0.0001fil
+...\pdflinkstate 1
+...\glue(\baselineskip) 23.34
+...\hbox(6.66+0.0)x345.0, direction TLT
+....\hbox(6.66+0.0)x345.0, glue set 170.0fil, direction TLT
+.....\glue 0.0 plus 1.0fil
+.....\pdfliteral page <lua data reference ...>
+.....\pdfliteral page <lua data reference ...>
+.....\TU/lmr/m/n/10 1
+.....\glue 0.0 plus 1.0fil
+...\pdfliteral page <lua data reference ...>
+...\pdfliteral page <lua data reference ...>
+...\pdflinkstate 0
+.\kern0.0
+.\kern0.0
+.\kern-633.0
+.\hbox(0.0+0.0)x0.0, direction TLT
+.\kern633.0
+.\pdfliteral page <lua data reference ...>
+<<latex-list-css.html>><<latex-align-css.html>> (pdfmargincomment-tagged.aux * soulpos - computing points - it may take a few seconds *
+(pdfmargincomment-tagged.upa))
+Package tagpdf Info: Finalizing the tagging structure:
+(tagpdf)             Writing out ~12 structure objects
+(tagpdf)             with ~6 'MC' leaf nodes.
+(tagpdf)             Be patient if there are lots of objects!
+Package tagpdf Info: writing ParentTree
+Package tagpdf Info: writing IDTree
+Package tagpdf Info: writing RoleMap
+Package tagpdf Info: writing ClassMap
+Package tagpdf Info: writing NameSpaces
+Package tagpdf Info: writing StructElems
+Package tagpdf Info: writing Root
+***************
+Compilation 1 of test file completed with exit status 0
+Compilation 2 of test file completed with exit status 0
+Compilation 3 of test file completed with exit status 0

@@ -910,9 +910,9 @@
   \ifcase\nr\relax%
     \gdef\pc@gopt@type{}%
   \or%
-    \gdef\pc@gopt@type{/IT /FreeTextCallout}%
+    \gdef\pc@gopt@type{FreeTextCallout}%
   \or%
-    \gdef\pc@gopt@type{/IT /FreeTextTypewriter}%
+    \gdef\pc@gopt@type{FreeTextTypewriter}%
   \or%
     \gdef\pc@lopt@type{Line}%
   \or%
@@ -929,9 +929,9 @@
     \ifcase\nr\relax%
       \gdef\pc@lopt@type{}%
     \or%
-      \gdef\pc@lopt@type{/IT /FreeTextCallout}%
+      \gdef\pc@lopt@type{FreeTextCallout}%
     \or%
-      \gdef\pc@lopt@type{/IT /FreeTextTypewriter}%
+      \gdef\pc@lopt@type{FreeTextTypewriter}%
     \or%
       \gdef\pc@lopt@type{Line}%
     \or%
@@ -1392,13 +1392,88 @@
  }
 \AssignTaggingSocketPlug{pdfcomment/annot}{default} 
 %    \end{macrocode}
+%
+% \subsection{Standard building blocks}
+% 
+%    \begin{macrocode}
+%<@@=pc>
+\cs_new_protected:Npn \@@_dict_store_dates:
+ {
+  \tl_if_empty:eTF {\pc@lopt@date}
+   {
+     \pdfannot_dict_put:nne{widget}{CreationDate}{(\c_sys_timestamp_str)}
+     \pdfannot_dict_put:nne{widget}{M}{(\c_sys_timestamp_str)}
+   }
+   {
+     \pdfannot_dict_put:nne{widget}{CreationDate}{(\pc@lopt@date)}
+     \pdfannot_dict_put:nne{widget}{M}{(\pc@lopt@date)}
+   }
+ }
+%    \end{macrocode}
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_dict_store_color:
+  {
+   \tl_if_empty:eF {\pc@lopt@color}
+    {
+      \pdfannot_dict_put:nne{widget}{C}{[\pc@hyenc@color]}
+    }
+  }    
+%    \end{macrocode}
+% from \cs{pc@annot@text}:
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_dict_store_text:
+ {
+   \pdfannot_dict_put:nne{widget}{Subtype}{/Text}
+   \pdfannot_dict_put:nne{widget}{CA}{\pc@lopt@opacity}
+   \pdfannot_dict_put:nne{widget}{T}{(\pc@pdfenc@author)}
+   \pdfannot_dict_put:nne{widget}{Subj}{(\pc@pdfenc@subject)}
+   \pdfannot_dict_put:nne{widget}{Name}{(\pc@lopt@icon)}
+   \pdfannot_dict_put:nne{widget}{Contents}{(\pc@pdfenc@contents)}
+   \pdfannot_dict_put:nne{widget}{Open}{\pc@lopt@open}
+   \pdfannot_dict_put:nne{widget}{F}{4}  
+ }
+%    \end{macrocode}
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_dict_store_freetext:
+ {
+   \pdfannot_dict_put:nne{widget}{Subtype}{/FreeText}
+   \pdfannot_dict_put:nne{widget}{CA}{\pc@lopt@opacity}
+%    \end{macrocode}
+% TODO: Check DA entry
+%    \begin{macrocode}
+   \pdfannot_dict_put:nne{widget}{DA}{(/\pc@lopt@font\space \pc@lopt@fontsize\space Tf\space \pc@hyenc@fontcolor\space rg)}
+   \pdfannot_dict_put:nne{widget}{T}{(\pc@pdfenc@author)}
+   \pdfannot_dict_put:nne{widget}{Subj}{(\pc@pdfenc@subject)}
+   \pdfannot_dict_put:nne{widget}{Contents}{(\pc@pdfenc@contents)}
+   \pdfannot_dict_put:nne{widget}{F}{4}  
+   \pdfannot_dict_put:nne{widget}{Q}{\pc@lopt@justification}  
+   \pdfannot_dict_put:nne{widget}{CL}{[\pc@lopt@line]}
+   \pdfannot_dict_put:nne{widget}{LE}{\pc@lopt@lineend}
+   \pdfannot_dict_put:nne{widget}{BE}{<</S /\pc@lopt@bse/I~\pc@lopt@bsei>>}
+   \str_if_eq:eeTF {\pc@lopt@type}{FreeTextTypewriter}
+    {%
+      \pdfannot_dict_put:nne{widget/BS}{W}{0}     
+    }%
+    {
+     \pdfannot_dict_put:nne{widget/BS}{W}{\pc@lopt@linewidth}
+     \tl_if_empty:eF {\pc@lopt@color}
+      {
+        \pdfannot_dict_put:nne{widget}{C}{[\pc@hyenc@color]}
+      }
+    }
+   \pdfannot_dict_put:nne{widget/BS}{S}{/\pc@lopt@borderstyle}
+   \pdfannot_dict_put:nne{widget/BS}{D}{[\pc@lopt@dashstyle]}
+   \tl_if_empty:eF\pc@lopt@type
+    {\pdfannot_dict_put:nne{widget}{IT}{/\pc@lopt@type}}
+ }
+%    \end{macrocode}
+ 
 % \subsection{The \cs{pdfcomment}}
 %    \begin{macrocode}
 \newcommand{\pdfcomment}[2][]%
 {%
   \ifhmode\ifpc@opt@unskip\unskip\fi\fi%
   \ifvmode\leavevmode\fi%
-  \group_begin:
 %    \end{macrocode}
 % TODO review option handling ....
 %    \begin{macrocode}
@@ -1412,42 +1487,19 @@
 %  
 %    \begin{macrocode}
   \pc@encode@PDF{#2}%
-  \tl_if_empty:eF {\pc@lopt@color}
-   {
-     \pdfannot_dict_put:nne{widget}{C}{[\pc@hyenc@color]}
-   }  
-  \tl_if_empty:eTF {\pc@lopt@date}
-   {
-     \pdfannot_dict_put:nne{widget}{CreationDate}{(\c_sys_timestamp_str)}
-     \pdfannot_dict_put:nne{widget}{M}{(\c_sys_timestamp_str)}
-   }
-   {
-     \pdfannot_dict_put:nne{widget}{CreationDate}{(\pc@lopt@date)}
-     \pdfannot_dict_put:nne{widget}{M}{(\pc@lopt@date)}
-   }
 %    \end{macrocode}
-% from \cs{pc@annot@text}:
-%    \begin{macrocode}
-     \pdfannot_dict_put:nne{widget}{Subtype}{/Text}
-     \pdfannot_dict_put:nne{widget}{CA}{\pc@lopt@opacity}
-     \pdfannot_dict_put:nne{widget}{T}{(\pc@pdfenc@author)}
-     \pdfannot_dict_put:nne{widget}{Subj}{(\pc@pdfenc@subject)}
-     \pdfannot_dict_put:nne{widget}{Name}{(\pc@lopt@icon)}
-     \pdfannot_dict_put:nne{widget}{Contents}{(\pc@pdfenc@contents)}
-     \pdfannot_dict_put:nne{widget}{Open}{\pc@lopt@open}
-     \pdfannot_dict_put:nne{widget}{F}{4} 
-  %\ifthenelse{\equal{\pc@lopt@date}{}}%
-%  {%
-%    \gdef\pc@lopt@cdate{/CreationDate (\pc@pdfdate@auto)\space/M (\pc@pdfdate@auto)}%
-%  }%
-%  {%
-%    \gdef\pc@lopt@cdate{/CreationDate (\pc@lopt@date)\space/M (\pc@lopt@date)}%
-%  }%
+%
+%    \begin{macrocode}  
   \ifpc@gopt@final\else%
     \ifpc@lopt@disable\else%
       \hspace*{0pt}%
-      \pc@create@lpc%
-      % typeset text annotation (see: PDF Reference)
+%    \end{macrocode}
+% This creates the list entry
+%    \begin{macrocode}
+      \pc@create@lpc% 
+%    \end{macrocode}
+% Typeset the text annotation in a box of size zero.
+%    \begin{macrocode}
         \vbox%
         {\tagpdfparaOff%
           \hsize=0pt%
@@ -1457,9 +1509,15 @@
           {%
             \vsize=0pt%
             \hskip\pc@lopt@hoffset%
+            \@@_dict_store_color:
+            \@@_dict_store_dates:
+            \@@_dict_store_text:                    
             \UseTaggingSocket{pdfcomment/annot}
              {}
              {\pdfannot_widget_box:nnn{\normalbaselineskip}{\normalbaselineskip}{0pt}}
+%    \end{macrocode}
+% TODO: check purpose
+%    \begin{macrocode}
             \ifthenelse{\equal{\pc@lopt@id}{}}%
             {}%
             {%
@@ -1471,11 +1529,12 @@
         }%
       \hspace{\pc@lopt@hspace}%
     \fi%
-  \fi%
-  \group_end:
+  \fi%  
 }%
-%
-\ExplSyntaxOff
+%    \end{macrocode}
+% \subsection{\cs{pdfmargincomment}}
+% TODO (marginnote will need extra handling for tagging)
+%    \begin{macrocode}
 \newcommand{\pdfmargincomment}[2][]%
 {%
   \ifhmode\ifpc@opt@unskip\unskip\fi\fi%
@@ -1486,35 +1545,23 @@
   \setkeys{pdfmargincomment}{#1}%
   % Encode Contents, Author and Subject to pdf encodings (PD or PU) with hyperref's \pdfstringdef
   % and transform color input to pdf color
-  \pc@encode@PDF{#2}%
-  \ifthenelse{\equal{\pc@lopt@color}{}}%
-  {%
-    \gdef\pc@lopt@c{}%
-  }%
-  {%
-    \gdef\pc@lopt@c{/C [\pc@hyenc@color]}%
-  }%
-  \ifthenelse{\equal{\pc@lopt@date}{}}%
-  {%
-    \gdef\pc@lopt@cdate{/CreationDate (\pc@pdfdate@auto)\space/M (\pc@pdfdate@auto)}%
-  }%
-  {%
-    \gdef\pc@lopt@cdate{/CreationDate (\pc@lopt@date)\space/M (\pc@lopt@date)}%
-  }%
+  \pc@encode@PDF{#2}%  
   \ifpc@gopt@final\else%
     \ifpc@lopt@disable\else%
       \hspace*{0pt}%
       \pc@create@lpc%
       \begingroup%
+      \@@_dict_store_color:
+      \@@_dict_store_dates:
+      \@@_dict_store_text:      
       % center marginnotes!
         \renewcommand{\raggedleftmarginnote}{\pc@raggedleftmarginnote}%
         \renewcommand{\raggedrightmarginnote}{\pc@raggedrightmarginnote}%
         % typeset text annotation (see: PDF Reference)
         \marginnote%
         {%
-          \ifpdf%
             \vbox%
-            {%
+            {\tagpdfparaOff%
               \hsize=0pt%
               \noindent%
               \vspace{\pc@lopt@voffset}%
@@ -1522,68 +1569,28 @@
               {%
                 \vsize=0pt%
                 \hskip\pc@lopt@hoffset%
-                \pdfannot width \normalbaselineskip height \normalbaselineskip depth 0pt%
-                {%
-                  /Subtype /Text%
-                  \pc@annot@text%
-                }%
+                \UseTaggingSocket{pdfcomment/annot}
+                {}
+                {\pdfannot_widget_box:nnn{\normalbaselineskip}{\normalbaselineskip}{0pt}}
                 \ifthenelse{\equal{\pc@lopt@id}{}}%
-                {}%
-                {%
+                 {}%
+                 {%
                   \xdef\pc@collect@PDFOBJID{\pc@collect@PDFOBJID,\the\pdflastannot}%
                   \pc@save@PDFOBJID{\pc@lopt@id}%
-                }%
+                 }%
                 \hss%
               }%
             }%
-          \else%
-            \ifpc@gopt@dvipdfmx%
-              \vbox%
-              {%
-                \hsize=0pt%
-                \noindent%
-                \vspace{\pc@lopt@voffset}%
-                \hbox to 0pt%
-                {%
-                  \vsize=0pt%
-                  \hskip\pc@lopt@hoffset%
-                  \special{pdf: ann width \the\normalbaselineskip\space height \the\normalbaselineskip\space depth 0pt%
-                    <<%
-                      /Subtype /Text%
-                      \pc@annot@text%
-                    >>%
-                  }%
-                  \hss%
-                }%
-              }%
-            \else%
-              \vbox%
-              {%
-                \hsize=0pt%
-                \noindent%
-                \vspace{\pc@lopt@voffset}%
-                \hbox to 0pt%
-                {%
-                  \vsize=0pt%
-                  \hskip\pc@lopt@hoffset%
-                  \pdfmark[\rule{\normalbaselineskip}{0pt}\rule{0pt}{\normalbaselineskip}]%
-                  {%
-                    pdfmark=/ANN,%
-                    Subtype=/Text,%
-                    Raw={\pc@annot@text}%
-                  }%
-                  \hss%
-                }%
-              }%
-            \fi%
-          \fi%
           \hspace{\pc@lopt@hspace}%
         }%
       \endgroup%
     \fi%
-  \fi%
+  \fi%  
 }%
-%
+
+%    \end{macrocode}
+% 
+%    \begin{macrocode}
 \newcommand{\pdffreetextcomment}[2][]%
 {%
   \ifhmode\ifpc@opt@unskip\unskip\fi\fi%
@@ -1594,36 +1601,15 @@
   \setkeys{pdffreetextcomment}{#1}%
   % Encode Contents, Author and Subject to pdf encodings (PD or PU) with hyperref's \pdfstringdef
   % and transform color input to pdf color
-  \pc@encode@PDF{#2}%
-  \ifthenelse{\equal{\pc@lopt@type}{/IT /FreeTextTypewriter}}%
-  {%
-    \gdef\pc@lopt@c{}%
-    \gdef\pc@lopt@linewidth{0}%
-  }%
-  {%
-    \gdef\pc@lopt@c{/C [\pc@hyenc@color]}%
-  }%
-  \ifthenelse{\equal{\pc@lopt@color}{}}%
-  {%
-    \gdef\pc@lopt@c{}%
-  }%
-  {}%
-  \ifthenelse{\equal{\pc@lopt@date}{}}%
-  {%
-    \gdef\pc@lopt@cdate{/CreationDate (\pc@pdfdate@auto)\space/M (\pc@pdfdate@auto)}%
-  }%
-  {%
-    \gdef\pc@lopt@cdate{/CreationDate (\pc@lopt@date)\space/M (\pc@lopt@date)}%
-  }%
+  \pc@encode@PDF{#2}% 
   %create options for \pdfannot
   \pc@create@pdfannotopt%
   \ifpc@gopt@final\else%
     \ifpc@lopt@disable\else%
       \hspace*{0pt}%
-      % typeset freetext annotation (see: PDF Reference)
-      \ifpdf%
+      % typeset freetext annotation (see: PDF Reference)      
         \vbox to 0pt%
-        {%
+        {\tagpdfparaOff%
           \hsize=0pt%
           \noindent%
           \vskip-\pc@lopt@voffset%
@@ -1632,11 +1618,22 @@
             \vsize=0pt%
             \hskip\pc@lopt@hoffset%
             \pc@create@lpc%
-            \expandafter\pdfannot \pc@pdfannotopt%
-            {%
-            /Subtype /FreeText%
-            \pc@annot@freetext%
-            }%
+%    \end{macrocode}
+% color is inside the freetext command
+%    \begin{macrocode}
+            \@@_dict_store_dates:
+            \@@_dict_store_freetext:
+            \UseTaggingSocket{pdfcomment/annot}
+             {}
+%    \end{macrocode}
+% get size!!!
+%    \begin{macrocode}
+             {
+              \pdfannot_widget_box:nnn
+               {\dim_eval:n{\pc@lopt@width+0pt}}
+               {\dim_eval:n{\pc@lopt@height+0pt}}
+               {\dim_eval:n{\pc@lopt@depth+0pt}}
+              }            
             \ifthenelse{\equal{\pc@lopt@id}{}}%
             {}%
             {%
@@ -1647,58 +1644,13 @@
           }%
         \vss%
         }%
-      \else%
-        \ifpc@gopt@dvipdfmx%
-          \vbox to 0pt%
-          {%
-            \hsize=0pt%
-            \noindent%
-            \vskip-\pc@lopt@voffset%
-            \hbox to 0pt%
-            {%
-              \vsize=0pt%
-              \hskip\pc@lopt@hoffset%
-              \pc@create@lpc%
-              \special{pdf: ann \pc@pdfannotopt%
-                <<%
-                  /Subtype /FreeText%
-                  \pc@annot@freetext%
-                >>%
-              }%
-              \hss%
-            }%
-            \vss%
-          }%
-        \else%
-          \vbox to 0pt%
-          {%
-            \hsize=0pt%
-            \noindent%
-            \vskip-\pc@lopt@voffset%
-            % add extra \vskip box height because of different reference point
-            \vskip-\pc@lopt@height%
-            \hbox to 0pt%
-            {%
-              \vsize=0pt%
-              \hskip\pc@lopt@hoffset%
-              \pc@create@lpc%
-              %create dimensions of annotation
-              \pdfmark[\rule{0pt}{\pc@lopt@height}\rule{\pc@lopt@width}{0pt}]%
-              {%
-                pdfmark=/ANN,%
-                Subtype=/FreeText,%
-                Raw={\pc@annot@freetext}%
-              }%
-              \hss%
-            }%
-            \vss%
-          }%
-        \fi%
-      \fi%
     \fi%
   \fi%
 }%
+%    \end{macrocode}
 %
+%    \begin{macrocode}
+\ExplSyntaxOff
 \newcommand{\pdfsquarecomment}[2][]%
 {%
   \ifhmode\ifpc@opt@unskip\unskip\fi\fi%
