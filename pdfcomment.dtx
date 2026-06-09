@@ -89,7 +89,6 @@
 \gdef\pc@goptd@id{}%
 \gdef\pc@goptd@date{}%
 \gdef\pc@goptd@timezone{+00'00'}%
-\gdef\pc@goptd@dvipdfmx{true}%
 \gdef\pc@goptd@printSOfinal{true}%
 %
 %    \end{macrocode}
@@ -190,8 +189,6 @@
 %    \end{macrocode}
 % Booleans
 %    \begin{macrocode}
-\newif\ifpc@gopt@dvipdfmx\pc@gopt@dvipdfmxfalse%
-\newif\ifpc@gopt@xelatex\pc@gopt@xelatexfalse%
 \newif\ifpc@gopt@final\pc@gopt@finalfalse%
 \newif\ifpc@lopt@disable\pc@lopt@disablefalse%
 \newif\ifpc@gopt@disable\pc@gopt@disablefalse%
@@ -1309,9 +1306,9 @@
 \pc@define@key@printSOfinal{pdfreply}%
 \pc@define@key@printSOfinal{pdftooltip}%
 %
-\define@key{pdfcomment.sty}{dvipdfmx}[\pc@goptd@dvipdfmx]%
+\define@key{pdfcomment.sty}{dvipdfmx}[]%
 {%
-  \expandafter\global\csname pc@gopt@dvipdfmx#1\endcsname%
+  \PackageWarning{pdfcomment}{The~option~dvipdfmx~is~ignored}
 }%
 %
 \define@key{pdfcomment.sty}{final}[]%
@@ -1385,14 +1382,13 @@
 %
 \RequirePackage{hyperref}
 %
-% Using the options draft, final and dvipdfmx in \pdfcommentsetup makes absolutely no sense!
+% Using the options draft, final in \pdfcommentsetup makes absolutely no sense!
 % Therefore, they are switched off at "\AtBeginDocument"
 % and a warning is issued by xkeyval.sty, if used.
 \AtBeginDocument%
 {%
   \disable@keys{pdfcomment.sty}{draft}%
-  \disable@keys{pdfcomment.sty}{final}%
-  \disable@keys{pdfcomment.sty}{dvipdfmx}%
+  \disable@keys{pdfcomment.sty}{final}%  
   \disable@keys{pdfcomment.sty}{version}%
 }%
 %    \end{macrocode}
@@ -1961,7 +1957,7 @@
           \xdef\pc@annot@quadpoints{\pc@x@one\space\pc@y@one\space\pc@x@two\space\pc@y@two\space\pc@x@three\space\pc@y@three\space\pc@x@four\space\pc@y@four}%
           \UseTaggingSocket{pdfcomment/annot}{}{\pc@annot@markup}          
         }%
-        \@@_store_objid:
+        \@@_collect_objid:
         \wd\pc@mathannot@box\z@%
         \ht\pc@mathannot@box\z@%
         \dp\pc@mathannot@box\z@%
@@ -2317,8 +2313,7 @@
       %\pc@create@lpc%
       % typeset text annotation (see: PDF Reference)
       \xdef\pc@zref@PDFOBJID{\pc@get@PDFOBJID{\pc@lopt@replyto}}%
-      \global\pc@afterpagefalse%
-      \ifpdf%
+      \global\pc@afterpagefalse% 
         \@for\pc@for@PDFOBJID:={\pc@zref@PDFOBJID}\do%
         {%
           \ifthenelse{\equal{\pc@for@PDFOBJID}{A}}%
@@ -2343,7 +2338,7 @@
                   \pdfannot width 0pt height \normalbaselineskip depth 0pt%
                   {%
                     /Subtype /Text%
-                      \pc@lopt@c\space%
+                    \pc@lopt@c\space%
                     \pc@lopt@cdate\space%
                     /T (\pc@pdfenc@author)\space%
                     /Subj (\pc@pdfenc@subject)\space%
@@ -2351,7 +2346,7 @@
                     \pc@irt%%
                     /F 4\space%
                   }%
-                  \@@_store_objid:
+                  \@@_collect_objid:
                   \hss%
                 }%
               }%
@@ -2359,17 +2354,6 @@
           }%
         }%
         \@@_save_objid:
-      \else%
-        \ifpc@gopt@dvipdfmx%
-          \PackageError{pdfcomment}{%
-            \string\pdfreply\space is only supported by pdfTeX!\MessageBreak%
-            Please use pdf(la)tex instead}%
-        \else%
-          \PackageError{pdfcomment}{%
-            \string\pdfreply\space is only supported by pdfTeX!\MessageBreak%
-            Please use pdf(la)tex instead}%
-        \fi%
-      \fi%
     \fi%
   \fi%
 }%
@@ -2724,10 +2708,10 @@
         \vss%
       }%
       \ifpc@annot@samepage%
-        \@@_store_objid:
+        \@@_collect_objid:
       \else%
         \ifpc@annot@secondpage%
-          \@@_store_objid:
+          \@@_collect_objid:
         \else%
         \fi%
       \fi%
@@ -2747,7 +2731,7 @@
   \renewcommand{\pc@y@four}{\pc@pttobp{\dimexpr \pc@Eposy - \pc@box@depth - 1pt\relax}}%
   \xdef\pc@annot@quadpoints{\pc@x@one\space\pc@y@one\space\pc@x@two\space\pc@y@two\space\pc@x@three\space\pc@y@three\space\pc@x@four\space\pc@y@four}%
     \pc@annot@markup%
-    \@@_store_objid:
+    \@@_collect_objid:
 }%
 %
 \newcommand*{\pc@soul@markup}%
