@@ -87,7 +87,7 @@
 \gdef\pc@goptd@linesep{0.5cm}%
 \gdef\pc@goptd@disable{false}%
 \gdef\pc@goptd@id{}%
-\gdef\pc@goptd@date{}%
+\gdef\pc@goptd@date{\c_sys_timestamp_str}%
 \gdef\pc@goptd@timezone{+00'00'}%
 \gdef\pc@goptd@printSOfinal{true}%
 %
@@ -192,7 +192,6 @@
 \newif\ifpc@gopt@final\pc@gopt@finalfalse%
 \newif\ifpc@lopt@disable\pc@lopt@disablefalse%
 \newif\ifpc@gopt@disable\pc@gopt@disablefalse%
-\newif\ifpc@opt@unskip\pc@opt@unskiptrue%
 \newif\ifpc@annot@samepage\pc@annot@samepagetrue%
 \newif\ifpc@annot@secondpage\pc@annot@secondpagefalse%
 \newif\ifpc@afterpage\pc@afterpagefalse%
@@ -242,6 +241,7 @@
 \newcommand{\pc@raggedleftmarginnote}{\centering}%
 \newcommand{\pc@raggedrightmarginnote}{\centering}%
 %    \end{macrocode}
+%
 % \subsection{List of pdfcomments}
 %    \begin{macrocode}
 \newcommand{\lpcname}{List of pdfcomments}%
@@ -1321,13 +1321,9 @@
   \global\pc@gopt@finalfalse%
 }%
 %
-\define@choicekey{pdfcomment.sty}{version}[\pc@version\nr]{1,2}[2]%
-{%
-  \ifcase\nr\relax%
-    \global\pc@opt@unskipfalse%
-  \or%
-    \global\pc@opt@unskiptrue%
-  \fi%
+\define@key{pdfcomment.sty}{version}[]%
+{
+  \PackageWarning{pdfcomment}{The~option~version~is~ignored}
 }%
 %
 \define@key{pdfmarkupcomment}{mathstyle}%
@@ -1369,7 +1365,6 @@
 \ProcessOptionsX\relax%
 %
 \RequirePackage{etoolbox}%
-\RequirePackage{datetime2}%
 \RequirePackage{zref-savepos}[2007/04/22]%
 \zref@require@unique%
 \RequirePackage{refcount}%
@@ -1393,7 +1388,7 @@
 }%
 %    \end{macrocode}
 %
-% \subsection{Tagging Socket}
+% \subsection{Tagging Socket(s)}
 %    \begin{macrocode}
 \NewTaggingSocket{pdfcomment/annot}{2}
 \NewTaggingSocketPlug{pdfcomment/annot}{default}
@@ -1411,6 +1406,7 @@
 %    \end{macrocode}
 %
 %  \subsection{Tagging support for marginnote}
+%  
 %  From https://github.com/latex3/tagging-project/issues/165
 %    \begin{macrocode}
 \long\def\@mn@@marginnote[#1]#2[#3]{%
@@ -1447,21 +1443,15 @@
   }%
 }
 %    \end{macrocode}
+%
 % \subsection{Standard building blocks}
 % 
 %    \begin{macrocode}
 %<@@=pc>
 \cs_new_protected:Npn \@@_dict_store_dates:
  {
-  \tl_if_empty:eTF {\pc@lopt@date}
-   {
-     \pdfannot_dict_put:nne{widget}{CreationDate}{(\c_sys_timestamp_str)}
-     \pdfannot_dict_put:nne{widget}{M}{(\c_sys_timestamp_str)}
-   }
-   {
-     \pdfannot_dict_put:nne{widget}{CreationDate}{(\pc@lopt@date)}
-     \pdfannot_dict_put:nne{widget}{M}{(\pc@lopt@date)}
-   }
+   \pdfannot_dict_put:nne{widget}{CreationDate}{(\pc@lopt@date)}
+   \pdfannot_dict_put:nne{widget}{M}{(\pc@lopt@date)}   
  }
 %    \end{macrocode}
 %    \begin{macrocode}
@@ -1608,7 +1598,7 @@
 %    \begin{macrocode}
 \newcommand{\pdfcomment}[2][]%
 {%
-  \ifhmode\ifpc@opt@unskip\unskip\fi\fi%
+  \ifhmode\unskip\fi%
   \ifvmode\leavevmode\fi%
 %    \end{macrocode}
 % TODO review option handling ....
@@ -1670,7 +1660,7 @@
 %    \begin{macrocode}
 \newcommand{\pdfmargincomment}[2][]%
 {%
-  \ifhmode\ifpc@opt@unskip\unskip\fi\fi%
+  \ifhmode\unskip\fi%
   \ifvmode\leavevmode\fi%
   % Copy all global options to local options
   \pc@copy@gopt@lopt%
@@ -1724,7 +1714,7 @@
 %    \begin{macrocode}
 \newcommand{\pdffreetextcomment}[2][]%
 {%
-  \ifhmode\ifpc@opt@unskip\unskip\fi\fi%
+  \ifhmode\unskip\fi%
   \ifvmode\leavevmode\fi%
   % Copy all global options to local options
   \pc@copy@gopt@lopt%
@@ -1775,7 +1765,7 @@
 %    \begin{macrocode}
 \newcommand{\pdfsquarecomment}[2][]%
 {%
-  \ifhmode\ifpc@opt@unskip\unskip\fi\fi%
+  \ifhmode\unskip\fi%
   \ifvmode\leavevmode\fi%
   % Copy all global options to local options
   \pc@copy@gopt@lopt%
@@ -1824,7 +1814,7 @@
 %    \begin{macrocode}
 \newcommand{\pdfcirclecomment}[2][]%
 {%
-  \ifhmode\ifpc@opt@unskip\unskip\fi\fi%
+  \ifhmode\unskip\fi%
   \ifvmode\leavevmode\fi%
   % Copy all global options to local options
   \pc@copy@gopt@lopt%
@@ -1873,7 +1863,7 @@
 %    \begin{macrocode}
 \newcommand{\pdflinecomment}[2][]%
 {%
-  \ifhmode\ifpc@opt@unskip\unskip\fi\fi%
+  \ifhmode\unskip\fi%
   \ifvmode\leavevmode\fi%
   % Copy all global options to local options
   \pc@copy@gopt@lopt%
@@ -2073,7 +2063,7 @@
 %    \begin{macrocode}
 \newenvironment{pdfsidelinecomment}[2][]%
 {%
-  \ifhmode\ifpc@opt@unskip\unskip\fi\fi%
+  \ifhmode\unskip\fi%
   \ifvmode\leavevmode\fi%
   % Copy all global options to local options
   \pc@copy@gopt@lopt%
@@ -2283,7 +2273,7 @@
 %
 \newcommand{\pdfreply}[2][]%
 {%
-  \ifhmode\ifpc@opt@unskip\unskip\fi\fi%
+  \ifhmode\unskip\fi%
   \ifvmode\leavevmode\fi%
   % Copy all global options to local options
   \pc@copy@gopt@lopt%
