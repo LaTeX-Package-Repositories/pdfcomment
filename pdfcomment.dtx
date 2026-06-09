@@ -1477,6 +1477,7 @@
    \pdfannot_dict_put:nne{widget}{F}{4}  
  }
 %    \end{macrocode}
+% for free text annotations
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_dict_store_freetext:
  {
@@ -1511,6 +1512,8 @@
     {\pdfannot_dict_put:nne{widget}{IT}{/\pc@lopt@type}}
  }
 %    \end{macrocode}
+%
+% for square and circle annotations:
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_dict_store_geometric:n #1
  {
@@ -1530,6 +1533,7 @@
     }
  }
 %    \end{macrocode}
+% for line annotations
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_dict_store_line:
  {
@@ -1565,6 +1569,8 @@
     }
  }
 %    \end{macrocode}
+% 
+% For tool tips. Note: tooltips are form fields!
 %    \begin{macrocode}
 \cs_new_protected:Npn\@@_dict_store_tooltip:
  {
@@ -1577,6 +1583,7 @@
    \pdfannot_dict_put:nne{widget/BS}{W}{0}
  }
 %    \end{macrocode}
+% This is used for the \cs{pdfreply}. TODO: check code
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_collect_objid:
  {
@@ -1594,12 +1601,12 @@
  } 
 %    \end{macrocode}
 %
-% \subsection{The \cs{pdfcomment}}
+% \subsection{\cs{pdfcomment}}
 %    \begin{macrocode}
-\newcommand{\pdfcomment}[2][]%
-{%
-  \ifhmode\unskip\fi%
-  \ifvmode\leavevmode\fi%
+\newcommand{\pdfcomment}[2][]
+ {
+   \ifhmode\unskip\fi
+   \ifvmode\leavevmode\fi
 %    \end{macrocode}
 % TODO review option handling ....
 %    \begin{macrocode}
