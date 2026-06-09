@@ -141,7 +141,7 @@
 \maketitle
 
 \section*{Introduction to Version 3.0}
-The original author of the package died some time ago and with version 3.0 the package has a new maintainer: Ulrike Fischer. 
+The original author of the package, Josef Kleber, died some time ago and with version 3.0 the package has a new maintainer: Ulrike Fischer. 
 
 In this version the code has been splitted: 
 \begin{itemize}
@@ -149,9 +149,8 @@ In this version the code has been splitted:
 
 \item If the PDF management is loaded, either with \verb+\RequirePackage{pdfmanagement}+ or with \cs{DocumentMetadata}, then the annotations are created with the code from the PDF management and (basic) tagging support has added. 
 
-    This is big change and quite probably not everything will work from the start. 
-    
-        
+    This is big change, it involved lots of clean up and code changes and quite probably not everything will work from the start. 
+            
     Please report bugs and issues at XXXXXXX
 \end{itemize}
 
@@ -217,10 +216,14 @@ The option \styleoption{draft} (default) will set the package to draft mode. The
 \subsubsection[\texttt{dvipdfmx}]{\styleoption{dvipdfmx}}\label{sec:dvipdfmx}
 If you want to use the driver \texttt{dvipdfmx} for creating your documents, you have to use the option \styleoption{dvipdfmx}. The other drivers are recognized automatically.
 
-The option is ignored if the PDF management is used. The backend has to be declared with verb+backend=dvipdfmx+ when loading the PDF management.
+\textbf{New in version 3.0:} If the PDF management is loaded the option is ignored.
+The backend has to be declared with \verb+backend=dvipdfmx+ when loading the PDF management.
 
 \subsubsection[\texttt{version}]{\styleoption{version}}\label{sec:version}
 Version v2.0 of \texttt{pdfcomment.sty} introduced a bugfix that removes unwanted whitespace before the comment commands. This may also change the reference point for options like \styleoption{hoffset}. If you want to preserve the old behavior for older documents simply use \texttt{version=1}. Otherwise \texttt{version=2} is used by default! 
+
+\textbf{New in version 3.0:} If the PDF management is loaded and the new code is used this key is ignored. The code from version 2.0 is always used. 
+
 \subsection{Local options}
 The following options are useable as options for the commands presented in sections \ref{sec:umgebungen} and \ref{sec:befehle}, as well as style options. As style options they have global effect, whereas they have only local effect when used in commands.
 
