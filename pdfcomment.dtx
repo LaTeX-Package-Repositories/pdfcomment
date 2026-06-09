@@ -2299,18 +2299,18 @@
       % typeset text annotation (see: PDF Reference)
       \xdef\pc@zref@PDFOBJID{\pc@get@PDFOBJID{\pc@lopt@replyto}}%
       \global\pc@afterpagefalse% 
-        \@for\pc@for@PDFOBJID:={\pc@zref@PDFOBJID}\do%
+      \clist_map_inline:Nn \pc@zref@PDFOBJID
         {%
-          \ifthenelse{\equal{\pc@for@PDFOBJID}{A}}%
+          \ifthenelse{\equal{##1}{A}}%
           {%
             \global\pc@afterpagetrue%
             \xdef\pc@collect@PDFOBJID{\pc@collect@PDFOBJID,A}%
           }%
           {%
-            \ifthenelse{\equal{\pc@for@PDFOBJID}{S}}%
+            \ifthenelse{\equal{##1}{S}}%
             {}%
             {%
-              \edef\pc@irt{/IRT \pc@for@PDFOBJID\space 0 R\space}%
+              \edef\pc@irt{/IRT\space ##1\space 0\space R\space}%
               \vbox%
               {%
                 \hsize=0pt%
@@ -2329,7 +2329,7 @@
                     /Subj (\pc@pdfenc@subject)\space%
                     /Contents (\pc@pdfenc@contents)\space%
                     \pc@irt%%
-                    /F 4\space%
+                    /F~4\space%
                   }%
                   \@@_collect_objid:
                   \hss%
