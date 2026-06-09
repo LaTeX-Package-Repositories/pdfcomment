@@ -2286,24 +2286,12 @@
   \pc@copy@gopt@lopt%
   % Change local options if specified
   \setkeys{pdfreply}{#1}%
-  % Encode Contents, Author and Subject to pdf encodings (PD or PU) with hyperref's \pdfstringdef
+  % Encode Contents, Author and Subject 
   % and transform color input to pdf color
   \pc@encode@PDF{#2}%
   \pc@encode@colors
-  \ifthenelse{\equal{\pc@lopt@color}{}}%
-  {%
-    \gdef\pc@lopt@c{}%
-  }%
-  {%
-    \gdef\pc@lopt@c{/C [\pc@hyenc@color]}%
-  }%
-  \ifthenelse{\equal{\pc@lopt@date}{}}%
-  {%
-    \gdef\pc@lopt@cdate{/CreationDate (\c_sys_timestamp_str)\space/M (\c_sys_timestamp_str)}%
-  }%
-  {%
-    \gdef\pc@lopt@cdate{/CreationDate (\pc@lopt@date)\space/M (\pc@lopt@date)}%
-  }%
+  \@@_dict_store_color:
+  \@@_dict_store_dates:
   \ifpc@gopt@final\else%
     \ifpc@lopt@disable\else%
       \hspace*{0pt}%
@@ -2490,7 +2478,7 @@
 }%
 %
 \zref@newlist{pdfcomment}%
-\zref@newprop{PCPDFOBJID}{\pc@collect@PDFOBJID}%
+\zref@newprop{PCPDFOBJID}[]{\pc@collect@PDFOBJID}%
 \zref@addprop{pdfcomment}{PCPDFOBJID}%
 %
 \newcommand*{\pc@save@PDFOBJID}[1]%
