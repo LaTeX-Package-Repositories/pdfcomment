@@ -2310,9 +2310,9 @@
             \ifthenelse{\equal{##1}{S}}%
             {}%
             {%
-              \edef\pc@irt{/IRT\space ##1\space 0\space R\space}%
+              \edef\pc@irt{/IRT\space ##1}%
               \vbox%
-              {%
+              {\tagpdfparaOff%
                 \hsize=0pt%
                 \noindent%
                 \vspace{\pc@lopt@voffset}%
@@ -2320,17 +2320,21 @@
                 {%
                   \vsize=0pt%
                   \hskip\pc@lopt@hoffset%
-                  \pdfannot width 0pt height \normalbaselineskip depth 0pt%
-                  {%
-                    /Subtype /Text%
-                    \pc@lopt@c\space%
-                    \pc@lopt@cdate\space%
-                    /T (\pc@pdfenc@author)\space%
-                    /Subj (\pc@pdfenc@subject)\space%
-                    /Contents (\pc@pdfenc@contents)\space%
-                    \pc@irt%%
-                    /F~4\space%
-                  }%
+                  \UseTaggingSocket{pdfcomment/annot}
+                  {}
+                  {
+                    \pdfannot_box:nnne {0pt}{\normalbaselineskip}{0pt}%
+                    {%
+                      /Subtype /Text%
+                      \pc@lopt@c\space%
+                      \pc@lopt@cdate\space%
+                      /T (\pc@pdfenc@author)\space%
+                      /Subj (\pc@pdfenc@subject)\space%
+                      /Contents (\pc@pdfenc@contents)\space%
+                      \pc@irt%%
+                      /F~4\space%
+                    }%
+                  }
                   \@@_collect_objid:
                   \hss%
                 }%

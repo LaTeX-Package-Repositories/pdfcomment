@@ -227,6 +227,12 @@ Version v2.0 of \texttt{pdfcomment.sty} introduced a bugfix that removes unwante
 \subsection{Local options}
 The following options are useable as options for the commands presented in sections \ref{sec:umgebungen} and \ref{sec:befehle}, as well as style options. As style options they have global effect, whereas they have only local effect when used in commands.
 
+\subsubsection[\texttt{id}]{\styleoption{id}}\label{sec:id}
+You can use the option \styleoption{id} to give a comment an unique identifier that can then be used by the option \styleoption{replyto} of the \cs{pdfreply} command to reference the comment.
+
+\subsubsection[\texttt{replyto}]{\styleoption{replyto}}\label{sec:replyto}
+You can use the option \styleoption{replyto} in the \cs{pdfreply} command. The value is a id that has been set on another comment with the  \styleoption{id} option.
+
 \subsubsection[\texttt{subject}]{\styleoption{subject}}\label{sec:subject}
 You can use the option \styleoption{subject} for defining the subject of the PDF popup annotations.
 
@@ -303,7 +309,7 @@ You can use the option \styleoption{open} for defining the opening status of the
 If you want to print the PDF popup annotations (with transparency) you will have to use the option \styleoption{open}\texttt{=true}.
 
 \subsubsection[\texttt{hspace}]{\styleoption{hspace}  (\underline{\texttt{0pt}})}\label{sec:hspace}
-You can use the option \styleoption{hspace} for defining the horizontal space after the PDF text annotations, otherwise the PDF text annoations will overlay the text.
+You can use the option \styleoption{hspace} for defining the horizontal space after the PDF text annotations, otherwise the PDF text annotations will overlay the text.
 
 \subsubsection[\texttt{type}]{\styleoption{type}}\label{sec:type}
 You can use the option \styleoption{type} for defining the type of PDF annotation, if a comment command supports more than one PDF annotations:
@@ -455,7 +461,7 @@ You can use the following commands for commenting your documents.
 
 \subsubsection{\texorpdfstring{\cs{pdfcomment}}{\textbackslash pdfcomment}}
 \label{sec:pdfcomment}
-Possible \margcs{\cmd\pdfcomment\\\oarg{options}\marg{comment}}options: \styleoption{avatar}, \styleoption{style}, \styleoption{subject}, \styleoption{author}, \styleoption{icon}, \styleoption{color}, \styleoption{opacity}, \styleoption{open}, \styleoption{hspace}, \styleoption{voffset}, \styleoption{hoffset}, \styleoption{disable}, \styleoption{date}, \styleoption{timezone}
+Possible \margcs{\cmd\pdfcomment\\\oarg{options}\marg{comment}}options: \styleoption{avatar}, \styleoption{style}, \styleoption{subject}, \styleoption{author}, \styleoption{icon}, \styleoption{color}, \styleoption{opacity}, \styleoption{open}, \styleoption{hspace}, \styleoption{voffset}, \styleoption{hoffset}, \styleoption{disable}, \styleoption{date}, \styleoption{timezone}, \styleoption{id}
 
 \bigskip
 \cmd\pdfcomment{} will typeset an annotation into the text at the current \pdfcommentsetup{subject={\textbackslash pdfcomment test},hspace=18pt}\pdfcomment[icon=Star,color=YellowGreen]{This is a comment in the text} position.
@@ -474,14 +480,14 @@ Internally, the argument \marg{comment} needs to be converted to PDFDocEncoding/
 
 \subsubsection{\texorpdfstring{\cs{pdfmargincomment}}{\textbackslash pdfmargincomment}}
 \label{sec:pdfmargincomment}
-Possible \margcs{\cmd\pdfmargincomment\\\oarg{options}\marg{comment}}options: \styleoption{avatar}, \styleoption{style}, \styleoption{subject}, \styleoption{author}, \styleoption{icon}, \styleoption{color}, \styleoption{opacity}, \styleoption{open}, \styleoption{hspace}, \styleoption{voffset}, \styleoption{hoffset}, \styleoption{disable}, \styleoption{date}, \styleoption{timezone}
+Possible \margcs{\cmd\pdfmargincomment\\\oarg{options}\marg{comment}}options: \styleoption{avatar}, \styleoption{style}, \styleoption{subject}, \styleoption{author}, \styleoption{icon}, \styleoption{color}, \styleoption{opacity}, \styleoption{open}, \styleoption{hspace}, \styleoption{voffset}, \styleoption{hoffset}, \styleoption{disable}, \styleoption{date}, \styleoption{timezone}, \styleoption{id}
 
 \bigskip
 \cmd\pdfmargincomment{} will typeset an annotation into the margin. Please note the positioning of the annotation in this example. This documentation was written with the \LaTeX{} class \texttt{ltxdoc}\pdfcommentsetup{subject={\textbackslash pdfmargincomment test}}\pdfmargincomment[icon=Help,color=DeepPink,hspace=-30pt]{This is a comment in the margin}. Therefore the annotation is typeset into the left margin.
 
 \subsubsection{\texorpdfstring{\cs{pdfmarkupcomment}}{\textbackslash pdfmarkupcomment}}
 \label{sec:pdfmarkupcomment}
-Possible \margcs{\cmd\pdfmarkupcomment\oarg{options}\\\marg{markup text}\marg{comment}}options: \styleoption{avatar}, \styleoption{style}, \styleoption{subject}, \styleoption{author}, \styleoption{color}, \styleoption{opacity}, \styleoption{markup}, \styleoption{mathstyle}, \styleoption{disable}, \styleoption{date}, \styleoption{timezone}
+Possible \margcs{\cmd\pdfmarkupcomment\oarg{options}\\\marg{markup text}\marg{comment}}options: \styleoption{avatar}, \styleoption{style}, \styleoption{subject}, \styleoption{author}, \styleoption{color}, \styleoption{opacity}, \styleoption{markup}, \styleoption{mathstyle}, \styleoption{disable}, \styleoption{date}, \styleoption{timezone}, \styleoption{id}
 
 \bigskip
 \cmd\pdfmarkupcomment{} will typeset so called PDF text markup annotations over the text specified in the argument \marg{markup text}. Possible types for the option \styleoption{markup} are: \pdfcommentsetup{subject={\textbackslash pdfmarkupcomment test}}\pdfmarkupcomment[color=yellow,markup=Highlight]{Highlight}{This is a Highlight markup annotation!}, \pdfmarkupcomment[color=red,markup=Underline]{Underline}{This is a Underline markup annotation!}, \pdfmarkupcomment[color=Teal,markup=Squiggly]{Squiggly}{This is a Squiggly markup annotation!} and \pdfmarkupcomment[color=red,markup=StrikeOut]{StrikeOut}{This is a StrikeOut markup annotation!}
@@ -521,14 +527,14 @@ Also see \LinkExMath{} for a more detailed explanation of the possibilities!
  
 \subsubsection{\texorpdfstring{\cs{pdffreetextcomment}}{\textbackslash pdffreetextcomment}}
 \label{sec:pdffreetextcomment}
-Possible \margcs{\cmd\pdffreetextcomment\\\oarg{options}\marg{comment}} options: \styleoption{avatar}, \styleoption{style}, \styleoption{subject}, \styleoption{author}, \styleoption{color}, \styleoption{font}, \styleoption{fontsize}, \styleoption{fontcolor}, \styleoption{opacity}, \styleoption{line}, \styleoption{linewidth}, \styleoption{lineend}, \styleoption{borderstyle}, \styleoption{dashstyle}, \styleoption{bse}, \styleoption{bsei},  \styleoption{type}, \styleoption{height}, \styleoption{width}, \styleoption{voffset}, \styleoption{hoffset}, \styleoption{disable}, \styleoption{date}, \styleoption{timezone}
+Possible \margcs{\cmd\pdffreetextcomment\\\oarg{options}\marg{comment}} options: \styleoption{avatar}, \styleoption{style}, \styleoption{subject}, \styleoption{author}, \styleoption{color}, \styleoption{font}, \styleoption{fontsize}, \styleoption{fontcolor}, \styleoption{opacity}, \styleoption{line}, \styleoption{linewidth}, \styleoption{lineend}, \styleoption{borderstyle}, \styleoption{dashstyle}, \styleoption{bse}, \styleoption{bsei},  \styleoption{type}, \styleoption{height}, \styleoption{width}, \styleoption{voffset}, \styleoption{hoffset}, \styleoption{disable}, \styleoption{date}, \styleoption{timezone}, \styleoption{id}
 
 \bigskip
 \cmd\pdffreetextcomment{} (\texttt{type=freetext}) will typeset a comment in form of a freely positioned box on the wished spot of the page.\pdffreetextcomment[subject={\textbackslash pdffreetextcomment Test},height=1.2cm,width=4cm,voffset=-3.7cm,hoffset=-2.2cm,opacity=0.5,color=yellow]{This is a FreeText annotation} By using the option \styleoption{type}\texttt{=callout} the box will have an additional so called callout line, to bind the box to a certain element of the page. With the option \styleoption{type}\texttt{=typewriter} you can write a comment everywhere on the page with a virtual 'typewriter'. These PDF freetext annotation don't have a frame but a transparent background for 'overwriting' arbitrary parts of the page. Please note the example file \LinkEx!
 
 \subsubsection{\texorpdfstring{\cs{pdfsquarecomment}}{\textbackslash pdfsquarecomment}}
 \label{sec:pdfsquarecomment}
-Possible \margcs{\cmd\pdfsquarecomment\\\oarg{options}\marg{comment}} options: \styleoption{avatar}, \styleoption{style}, \styleoption{subject}, \styleoption{author}, \styleoption{color}, \styleoption{icolor}, \styleoption{opacity}, \styleoption{linewidth}, \styleoption{borderstyle}, \styleoption{dashstyle}, \styleoption{bse}, \styleoption{bsei},  \styleoption{height}, \styleoption{width}, \styleoption{voffset}, \styleoption{hoffset}, \styleoption{disable}, \styleoption{date}, \styleoption{timezone}
+Possible \margcs{\cmd\pdfsquarecomment\\\oarg{options}\marg{comment}} options: \styleoption{avatar}, \styleoption{style}, \styleoption{subject}, \styleoption{author}, \styleoption{color}, \styleoption{icolor}, \styleoption{opacity}, \styleoption{linewidth}, \styleoption{borderstyle}, \styleoption{dashstyle}, \styleoption{bse}, \styleoption{bsei},  \styleoption{height}, \styleoption{width}, \styleoption{voffset}, \styleoption{hoffset}, \styleoption{disable}, \styleoption{date}, \styleoption{timezone}, \styleoption{id}
 
 \bigskip
 \cmd\pdfsquarecomment{} will typeset a rectangular box at the wished spot of a page (see: \LinkEx).
@@ -536,19 +542,35 @@ Possible \margcs{\cmd\pdfsquarecomment\\\oarg{options}\marg{comment}} options: \
 
 \subsubsection{\texorpdfstring{\cs{pdfcirclecomment}}{\textbackslash pdfcirclecomment}}
 \label{sec:pdfcirclecomment}
-Possible \margcs{\cmd\pdfcirclecomment\\\oarg{options}\marg{comment}} options: \styleoption{avatar}, \styleoption{style}, \styleoption{subject}, \styleoption{author}, \styleoption{color}, \styleoption{icolor}, \styleoption{opacity}, \styleoption{linewidth}, \styleoption{borderstyle}, \styleoption{dashstyle}, \styleoption{bse}, \styleoption{bsei},  \styleoption{height}, \styleoption{width}, \styleoption{voffset}, \styleoption{hoffset}, \styleoption{disable}, \styleoption{date}, \styleoption{timezone}
+Possible \margcs{\cmd\pdfcirclecomment\\\oarg{options}\marg{comment}} options: \styleoption{avatar}, \styleoption{style}, \styleoption{subject}, \styleoption{author}, \styleoption{color}, \styleoption{icolor}, \styleoption{opacity}, \styleoption{linewidth}, \styleoption{borderstyle}, \styleoption{dashstyle}, \styleoption{bse}, \styleoption{bsei},  \styleoption{height}, \styleoption{width}, \styleoption{voffset}, \styleoption{hoffset}, \styleoption{disable}, \styleoption{date}, \styleoption{timezone}, \styleoption{id}
 
 \bigskip
 \cmd\pdfsquarecomment{} will typeset a comment in form of a circle or ellipse at the wished spot of the page (see: \LinkEx).
 
 \subsubsection{\texorpdfstring{\cs{pdflinecomment}}{\textbackslash pdflinecomment}}
 \label{sec:pdflinecomment}
-Possible \margcs{\cmd\pdfsidelinecomment\\\oarg{options}\marg{comment}}options: \styleoption{avatar}, \styleoption{style}, \styleoption{subject}, \styleoption{author}, \styleoption{type}, \styleoption{color}, \styleoption{icolor}, \styleoption{opacity}, \styleoption{caption}, \styleoption{captionhoffset}, \styleoption{captionvoffset},  \styleoption{linewidth}, \styleoption{linebegin}, \styleoption{lineend}, \styleoption{line}, \styleoption{borderstyle}, \styleoption{dashstyle}, \styleoption{disable}, \styleoption{date}, \styleoption{timezone}
+Possible \margcs{\cmd\pdflinecomment\\\oarg{options}\marg{comment}}options: \styleoption{avatar}, \styleoption{style}, \styleoption{subject}, \styleoption{author}, \styleoption{type}, \styleoption{color}, \styleoption{icolor}, \styleoption{opacity}, \styleoption{caption}, \styleoption{captionhoffset}, \styleoption{captionvoffset},  \styleoption{linewidth}, \styleoption{linebegin}, \styleoption{lineend}, \styleoption{line}, \styleoption{borderstyle}, \styleoption{dashstyle}, \styleoption{disable}, \styleoption{date}, \styleoption{timezone}, \styleoption{id}
 
 \bigskip
 \cmd\pdflinecomment{} will typeset a comment in form of a line, polyline or polygon at the wished spot of the page (see: \LinkEx).
 
-\clearpage
+
+
+\subsubsection{\texorpdfstring{\cs{pdfreply}}{\textbackslash pdfreply}}
+\label{sec:pdfreply}
+Possible \margcs{\cmd\pdfreply\\\oarg{options}\marg{comment}}options: \styleoption{replyto}, \styleoption{avatar}, \styleoption{style}, \styleoption{subject}, \styleoption{author}, \styleoption{type}, \styleoption{color}, \styleoption{icolor}, \styleoption{opacity}, \styleoption{caption}, \styleoption{captionhoffset}, \styleoption{captionvoffset},  \styleoption{linewidth}, \styleoption{linebegin}, \styleoption{lineend}, \styleoption{line}, \styleoption{borderstyle}, \styleoption{dashstyle}, \styleoption{disable}, \styleoption{date}, \styleoption{timezone}, \styleoption{id}
+
+\bigskip
+\cmd\pdfreply{} will add a comment as a reply to an existing comment. 
+It should use the option \styleoption{replyto} to identify the target. As an example
+\begin{verbatim}
+\pdfcomment[id=A]{Wow, that's nice!}
+\pdfreply[replyto=A]{Yes true}
+\end{verbatim}
+
+\textbf{Note:} The command already existed in version 2.4a but was undocumented (and broken). With version 2.4a the command works only with pdflatex and lualatex, with version 3.0 the other backends are supported too.
+
+
 \subsection{Tooltips}
 
 \subsubsection{\texorpdfstring{\cs{pdftooltip}}{\textbackslash pdftooltip}}
