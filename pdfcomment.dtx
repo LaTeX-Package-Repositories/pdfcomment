@@ -196,7 +196,6 @@
 \newif\ifpc@annot@secondpage\pc@annot@secondpagefalse%
 \newif\ifpc@afterpage\pc@afterpagefalse%
 \newif\ifpc@ignorespaces\pc@ignorespacesfalse%
-\newif\ifpc@local\pc@localfalse%
 \newif\ifpc@firstcolumn\pc@firstcolumntrue%
 \newif\ifpc@Sfirstcolumn\pc@Sfirstcolumntrue%
 \newif\ifpc@Efirstcolumn\pc@Efirstcolumntrue%
@@ -251,13 +250,24 @@
 %    \end{macrocode}
 % \subsection{Avatar code}
 %    \begin{macrocode}
+\keys_define:nn{pdfcomment}
+ {
+   avatar.code:n = 
+    {
+      \cs_if_exist_use:cF { pc@avatar@#1 }
+        {
+          \PackageWarning{pdfcomment}{Unknown~avatar~ #1\MessageBreak%
+             skip~assignment}%
+        }        
+    }
+ }
 \define@key{pdfcomment.sty}{avatar}[]%
 {% thanks to Ulrike Fischer Msg-Id: <rba0oaiflbjf.dlg@nililand.de>
   \edef\pc@edef@avatar{pc@avatar@#1}%
   \@ifundefined{\pc@edef@avatar}%
   {%
-    \PackageWarning{pdfcomment}{Unknown avatar #1\MessageBreak%
-                                skip assignment}%
+    \PackageWarning{pdfcomment}{Unknown~avatar~#1\MessageBreak%
+                                skip~assignment}%
   }%
   {%
     \edef\pc@gopt@loadavatar{\noexpand\setkeys{pdfcomment.sty}{\csname pc@avatar@#1\endcsname}}%
@@ -293,6 +303,17 @@
 \pc@define@key@avatar{pdfreply}%
 \pc@define@key@avatar{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   style.code:n = 
+    {
+      \cs_if_exist_use:cF { pc@style@#1 }
+        {
+          \PackageWarning{pdfcomment}{Unknown~style~ #1\MessageBreak%
+             skip~assignment}%
+        }      
+    }
+ }  
 \define@key{pdfcomment.sty}{style}[]%
 {%
   \edef\pc@edef@style{pc@style@#1}%
@@ -335,6 +356,11 @@
 \pc@define@key@style{pdfreply}%
 \pc@define@key@style{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   subject.tl_set:N = \pc@lopt@subject,
+   subject.initial:n = \pc@goptd@subject
+ }
 \define@key{pdfcomment.sty}{subject}[\pc@goptd@subject]%
 {%
   \gdef\pc@gopt@subject{#1}%
@@ -359,6 +385,11 @@
 \pc@define@key@subject{pdfreply}%
 \pc@define@key@subject{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   color.tl_set:N = \pc@lopt@color, 
+   color.initial:n = \pc@goptd@color 
+ }
 \define@key{pdfcomment.sty}{color}[\pc@goptd@color]%
 {%
   \gdef\pc@gopt@color{#1}%
@@ -383,6 +414,11 @@
 \pc@define@key@color{pdfreply}%
 \pc@define@key@color{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   author.tl_set:N = \pc@lopt@author,
+   author.initial:n = \pc@goptd@author
+ }
 \define@key{pdfcomment.sty}{author}[\pc@goptd@author]%
 {%
   \gdef\pc@gopt@author{#1}%
@@ -407,6 +443,11 @@
 \pc@define@key@author{pdfreply}%
 \pc@define@key@author{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   deadline.tl_set:N = \pc@lopt@deadline,
+   deadline.initial:n = \pc@goptd@deadline
+ }
 \define@key{pdfcomment.sty}{deadline}[\pc@goptd@deadline]%
 {%
   \gdef\pc@gopt@deadline{#1}%
@@ -431,6 +472,11 @@
 \pc@define@key@deadline{pdfreply}%
 \pc@define@key@deadline{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   icon.tl_set:N = \pc@lopt@icon,
+   icon.initial:n = \pc@goptd@icon
+ }
 \define@key{pdfcomment.sty}{icon}[\pc@goptd@icon]%
 {%
   \gdef\pc@gopt@icon{#1}%
@@ -455,6 +501,14 @@
 \pc@define@key@icon{pdfreply}%
 \pc@define@key@icon{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   open.choice:,
+   open/true.code:n =  \tl_set:Nn \pc@lopt@open{true},
+   open/false.code:n =  \tl_set:Nn \pc@lopt@open{false},
+   open.default:n = true,
+   open.initial:e = \pc@goptd@open
+ }
 \define@choicekey*{pdfcomment.sty}{open}[\pc@gopt@open\nr]{true,false}[false]%
 {%
   \ifcase\nr\relax%
@@ -487,6 +541,12 @@
 \pc@define@key@open{pdfreply}%
 \pc@define@key@open{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   hspace.tl_set:N = \pc@lopt@hspace,
+   hspace.value_required:n=true,
+   hspace.initial:n=\pc@goptd@hspace
+ }
 \define@key{pdfcomment.sty}{hspace}[\pc@goptd@hspace]%
 {%
   \gdef\pc@gopt@hspace{#1}%
@@ -511,6 +571,12 @@
 \pc@define@key@hspace{pdfreply}%
 \pc@define@key@hspace{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   voffset.tl_set:N = \pc@lopt@voffset,
+   voffset.value_required:n=true,
+   voffset.initial:n=\pc@goptd@voffset
+ }
 \define@key{pdfcomment.sty}{voffset}[\pc@goptd@voffset]%
 {%
   \gdef\pc@gopt@voffset{#1}%
@@ -535,6 +601,13 @@
 \pc@define@key@voffset{pdfreply}%
 \pc@define@key@voffset{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   hoffset.tl_set:N = \pc@lopt@hoffset,
+   hoffset.value_required:n=true,
+   hoffset.initial:n=\pc@goptd@hoffset
+ }
+
 \define@key{pdfcomment.sty}{hoffset}[\pc@goptd@hoffset]%
 {%
   \gdef\pc@gopt@hoffset{#1}%
@@ -559,6 +632,13 @@
 \pc@define@key@hoffset{pdfreply}%
 \pc@define@key@hoffset{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   width.tl_set:N = \pc@lopt@width,
+   width.value_required:n=true,
+   width.initial:n=\pc@goptd@width
+ }
+
 \define@key{pdfcomment.sty}{width}[\pc@goptd@width]%
 {%
   \gdef\pc@gopt@width{#1}%
@@ -583,6 +663,12 @@
 \pc@define@key@width{pdfreply}%
 \pc@define@key@width{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   height.tl_set:N = \pc@lopt@height,
+   height.value_required:n=true,
+   height.initial:n=\pc@goptd@height
+ }
 \define@key{pdfcomment.sty}{height}[\pc@goptd@height]%
 {%
   \gdef\pc@gopt@height{#1}%
@@ -607,6 +693,12 @@
 \pc@define@key@height{pdfreply}%
 \pc@define@key@height{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   depth.tl_set:N = \pc@lopt@depth,
+   depth.value_required:n=true,
+   depth.initial:n=\pc@goptd@depth
+ }
 \define@key{pdfcomment.sty}{depth}[\pc@goptd@depth]%
 {%
   \gdef\pc@gopt@depth{#1}%
@@ -631,6 +723,12 @@
 \pc@define@key@depth{pdfreply}%
 \pc@define@key@depth{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   opacity.tl_set:N = \pc@lopt@opacity,
+   opacity.value_required:n=true,
+   opacity.initial:n=\pc@goptd@opacity
+ }
 \define@key{pdfcomment.sty}{opacity}[\pc@goptd@opacity]%
 {%
   \gdef\pc@gopt@opacity{#1}%
@@ -655,6 +753,12 @@
 \pc@define@key@opacity{pdfreply}%
 \pc@define@key@opacity{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   markup.tl_set:N = \pc@lopt@markup,
+   markup.value_required:n=true,
+   markup.initial:n=\pc@goptd@markup
+ }
 \define@key{pdfcomment.sty}{markup}[\pc@goptd@markup]%
 {%
   \gdef\pc@gopt@markup{#1}%
@@ -679,6 +783,12 @@
 \pc@define@key@markup{pdfreply}%
 \pc@define@key@markup{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   font.tl_set:N = \pc@lopt@font,
+   font.value_required:n=true,
+   font.initial:n=\pc@goptd@font
+ }
 \define@key{pdfcomment.sty}{font}[\pc@goptd@font]%
 {%
   \gdef\pc@gopt@font{#1}%
@@ -703,6 +813,12 @@
 \pc@define@key@font{pdfreply}%
 \pc@define@key@font{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   fontsize.tl_set:N = \pc@lopt@fontsize,
+   fontsize.value_required:n=true,
+   fontsize.initial:n=\pc@goptd@fontsize
+ }
 \define@key{pdfcomment.sty}{fontsize}[\pc@goptd@fontsize]%
 {%
   \gdef\pc@gopt@fontsize{\pc@pttobp{#1}}%
@@ -727,6 +843,12 @@
 \pc@define@key@fontsize{pdfreply}%
 \pc@define@key@fontsize{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   fontcolor.tl_set:N = \pc@lopt@fontcolor,
+   fontcolor.value_required:n=true,
+   fontcolor.initial:n = \pc@goptd@fontcolor
+ }
 \define@key{pdfcomment.sty}{fontcolor}[\pc@goptd@fontcolor]%
 {%
   \gdef\pc@gopt@fontcolor{#1}%
@@ -751,6 +873,14 @@
 \pc@define@key@fontcolor{pdfreply}%
 \pc@define@key@fontcolor{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   justification.choices:nn = 
+    {left,center,right}
+    {\tl_set:Ne\pc@lopt@justification{\int_eval:n{\l_keys_choice_int-1}}},
+   justification.value_required:n=true,
+   justification.initial:n=left %default command can not used
+ }
 \define@choicekey*{pdfcomment.sty}{justification}[\pc@gopt@justification\nr]{left,center,right}[left]%
 {%
   \ifcase\nr\relax%
@@ -787,6 +917,13 @@
 \pc@define@key@justification{pdfreply}%
 \pc@define@key@justification{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   borderstyle.choice:,
+   borderstyle/solid.code:n  = \tl_set:N\pc@lopt@borderstyle{S},
+   borderstyle/dashed.code:n = \tl_set:N\pc@lopt@borderstyle{D},   
+   borderstyle.initial:n=solid %default command can not used
+ }
 \define@choicekey*{pdfcomment.sty}{borderstyle}[\pc@gopt@borderstyle\nr]{solid,dashed}[solid]%
 {%
   \ifcase\nr\relax%
@@ -819,6 +956,12 @@
 \pc@define@key@borderstyle{pdfreply}%
 \pc@define@key@borderstyle{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   dashstyle.tl_set:N = \pc@lopt@dashstyle,
+   dashstyle.value_required:n=true,
+   dashstyle.initial:n=\pc@goptd@dashstyle
+ }
 \define@key{pdfcomment.sty}{dashstyle}[\pc@goptd@dashstyle]%
 {%
   \gdef\pc@gopt@dashstyle{#1}%
@@ -843,6 +986,12 @@
 \pc@define@key@dashstyle{pdfreply}%
 \pc@define@key@dashstyle{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   linewidth.tl_set:N = \pc@lopt@linewidth,
+   linewidth.value_required:n=true,
+   linewidth.initial:n=\pc@goptd@linewidth
+ }
 \define@key{pdfcomment.sty}{linewidth}[\pc@goptd@linewidth]%
 {%
   \gdef\pc@gopt@linewidth{\pc@pttobp{#1}}%
@@ -867,6 +1016,13 @@
 \pc@define@key@linewidth{pdfreply}%
 \pc@define@key@linewidth{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   bse.choice: ,
+   bse/none.code:n = {\tl_set:Nn\pc@lopt@bse{S}},
+   bse/cloudy.code:n = {\tl_set:Nn\pc@lopt@bse{C}},
+   bse.initial:n=none
+ }
 \define@choicekey*{pdfcomment.sty}{bse}[\pc@gopt@bse\nr]{none,cloudy}[none]%
 {%
   \ifcase\nr\relax%
@@ -899,6 +1055,12 @@
 \pc@define@key@bse{pdfreply}%
 \pc@define@key@bse{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   bsei.tl_set:N = \pc@lopt@bsei,
+   bsei.value_required:n=true,
+   bsei.initial:n=\pc@goptd@bsei
+ }
 \define@key{pdfcomment.sty}{bsei}[\pc@goptd@bsei]%
 {%
   \gdef\pc@gopt@bsei{#1}%
@@ -923,6 +1085,18 @@
 \pc@define@key@bsei{pdfreply}%
 \pc@define@key@bsei{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   type.choice: , 
+   type/freetext .code:n = \tl_set:Nn\pc@lopt@type{},
+   type/callout.code:n = \tl_set:Nn\pc@lopt@type{FreeTextCallout},
+   type/typewriter .code:n = \tl_set:Nn\pc@lopt@type{FreeTextTypewriter},
+   type/line .code:n = \tl_set:Nn\pc@lopt@type{Line},
+   type/polyline .code:n = \tl_set:Nn\pc@lopt@type{PolyLine},
+   type/polygon .code:n = \tl_set:Nn\pc@lopt@type{Polygon},
+   type.initial:n=freetext
+ }
+ 
 \define@choicekey*{pdfcomment.sty}{type}[\pc@gopt@type\nr]{freetext,callout,typewriter,line,polyline,polygon}[freetext]%
 {%
   \ifcase\nr\relax%
@@ -971,6 +1145,12 @@
 \pc@define@key@type{pdfreply}%
 \pc@define@key@type{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   lineend.tl_set:N = \pc@lopt@lineend,
+   lineend.value_required:n=true,
+   lineend.initial:n=\pc@goptd@lineend
+ }
 \define@key{pdfcomment.sty}{lineend}[\pc@goptd@lineend]%
 {%
   \gdef\pc@gopt@lineend{#1}%
@@ -995,6 +1175,12 @@
 \pc@define@key@lineend{pdfreply}%
 \pc@define@key@lineend{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   linebegin.tl_set:N = \pc@lopt@linebegin,
+   linebegin.value_required:n=true,
+   linebegin.initial:n=\pc@goptd@linebegin
+ }
 \define@key{pdfcomment.sty}{linebegin}[\pc@goptd@linebegin]%
 {%
   \gdef\pc@gopt@linebegin{#1}%
@@ -1019,6 +1205,12 @@
 \pc@define@key@linebegin{pdfreply}%
 \pc@define@key@linebegin{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   icolor.tl_set:N = \pc@lopt@icolor,
+   icolor.value_required:n=true,
+   icolor.initial:n=\pc@goptd@icolor
+ }
 \define@key{pdfcomment.sty}{icolor}[\pc@goptd@icolor]%
 {%
   \gdef\pc@gopt@icolor{#1}%
@@ -1042,6 +1234,15 @@
 \pc@define@key@icolor{pdfsidelinecomment}%
 \pc@define@key@icolor{pdfreply}%
 \pc@define@key@icolor{pdftooltip}%
+%
+\keys_define:nn{pdfcomment}
+ {
+   caption.choice:,
+   caption/none.code:n = \tl_set:Nn \pc@lopt@caption{none},
+   caption/inline.code:n = \tl_set:Nn \pc@lopt@caption{Inline},
+   caption/top.code:n = \tl_set:Nn \pc@lopt@caption{Top},
+   caption.initial:n=inline
+ }
 %
 \define@choicekey*{pdfcomment.sty}{caption}[\pc@gopt@caption\nr]{none,inline,top}[inline]%
 {%
@@ -1079,6 +1280,12 @@
 \pc@define@key@caption{pdfreply}%
 \pc@define@key@caption{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   line.tl_set:N = \pc@lopt@line,
+   line.value_required:n=true,
+   line.initial:n=\pc@goptd@line
+ }
 \define@key{pdfcomment.sty}{line}[\pc@goptd@line]%
 {%
   \gdef\pc@gopt@line{#1}%
@@ -1103,6 +1310,13 @@
 \pc@define@key@line{pdfreply}%
 \pc@define@key@line{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   captionhoffset.code:n = \tl_set:Nn\pc@lopt@captionhoffset{\pc@pttobp{#1}},
+   captionhoffset.value_required:n=true,
+   captionhoffset.initial:n=\pc@goptd@captionhoffset
+ }
+
 \define@key{pdfcomment.sty}{captionhoffset}[\pc@goptd@captionhoffset]%
 {%
   \gdef\pc@gopt@captionhoffset{\pc@pttobp{#1}}%
@@ -1127,6 +1341,12 @@
 \pc@define@key@captionhoffset{pdfreply}%
 \pc@define@key@captionhoffset{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   captionvoffset.code:n = \tl_set:Nn\pc@lopt@captionvoffset{\pc@pttobp{#1}},
+   captionvoffset.value_required:n=true,
+   captionvoffset.initial:n=\pc@goptd@captionvoffset
+ }
 \define@key{pdfcomment.sty}{captionvoffset}[\pc@goptd@captionvoffset]%
 {%
   \gdef\pc@gopt@captionvoffset{\pc@pttobp{#1}}%
@@ -1151,6 +1371,12 @@
 \pc@define@key@captionvoffset{pdfreply}%
 \pc@define@key@captionvoffset{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   linesep.code:n = \tl_set:Nn\pc@lopt@linesep{\pc@pttobp{#1}},
+   linesep.value_required:n=true,
+   linesep.initial:n=\pc@goptd@linesep
+ }
 \define@key{pdfcomment.sty}{linesep}[\pc@goptd@linesep]%
 {%
   \gdef\pc@gopt@linesep{\pc@pttobp{#1}}%
@@ -1175,6 +1401,11 @@
 \pc@define@key@linesep{pdfreply}%
 \pc@define@key@linesep{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   disable .legacy_if_set:n={pc@lopt@disable}
+ }
+ 
 \define@choicekey*{pdfcomment.sty}{disable}[\pc@gopt@disable\nr]{true,false}[true]%
 {%
   \ifcase\nr\relax%
@@ -1207,6 +1438,12 @@
 \pc@define@key@disable{pdfreply}%
 \pc@define@key@disable{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   id.tl_set:n = \pc@lopt@id,
+   id.value_required:n=true,
+   id.initial:n=\pc@goptd@id
+ }
 \newcommand\pc@define@key@id[1]%
 {%
   \define@key{#1}{id}[]%
@@ -1226,6 +1463,13 @@
 \pc@define@key@id{pdfreply}%
 \pc@define@key@id{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   date.tl_set:n = \pc@lopt@date,
+   date.value_required:n=true,
+   date.initial:n=\pc@goptd@date
+ }
+ 
 \define@key{pdfcomment.sty}{date}[\pc@goptd@date]%
 {%
   \gdef\pc@gopt@date{#1}%
@@ -1250,6 +1494,12 @@
 \pc@define@key@date{pdfreply}%
 \pc@define@key@date{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   timezone.tl_set:n = \pc@lopt@timezone,
+   timezone.value_required:n=true,
+   timezone.initial:n=\pc@goptd@timezone
+ }
 \define@key{pdfcomment.sty}{timezone}[\pc@goptd@timezone]%
 {%
   \gdef\pc@gopt@timezone{#1}%
@@ -1274,6 +1524,15 @@
 \pc@define@key@timezone{pdfreply}%
 \pc@define@key@timezone{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   printSOfinal.choice:,
+   printSOfinal/true.code:n =  \tl_set:Nn \pc@lopt@printSOfinal{true},
+   printSOfinal/false.code:n =  \tl_set:Nn \pc@lopt@printSOfinal{false},
+   printSOfinal.default:n = true
+   printSOfinal.initial:e = \pc@goptd@printSOfinal
+ }
+
 \define@choicekey*{pdfcomment.sty}{printSOfinal}[\pc@gpSOf\nr]{true,false}[true]%
 {%
   \ifcase\nr\relax%
@@ -1306,11 +1565,22 @@
 \pc@define@key@printSOfinal{pdfreply}%
 \pc@define@key@printSOfinal{pdftooltip}%
 %
+\keys_define:nn{pdfcomment}
+ {
+   dvipdfmx.code:n = {\PackageWarning{pdfcomment}{The~option~dvipdfmx~is~ignored}},  
+   version.code:n  = {\PackageWarning{pdfcomment}{The~option~version~is~ignored}},   
+ }
+
 \define@key{pdfcomment.sty}{dvipdfmx}[]%
 {%
   \PackageWarning{pdfcomment}{The~option~dvipdfmx~is~ignored}
 }%
-%
+
+\keys_define:nn{pdfcomment}
+ {
+   final.legacy_if_gset:n        = pc@gopt@final,   
+   draft.legacy_if_gset_inverse:n = pc@gopt@final,    
+ }
 \define@key{pdfcomment.sty}{final}[]%
 {%
   \global\pc@gopt@finaltrue%
@@ -1326,6 +1596,12 @@
   \PackageWarning{pdfcomment}{The~option~version~is~ignored}
 }%
 %
+\keys_define:nn{pdfcomment}
+ {
+   mathstyle.tl_set:n = \pc@lopt@mathstyle,  
+   mathstyle.initial:n=\pc@goptd@mathstyle,
+   mathstyle.groups:n = {pdfmarkupcomment,pdftooltip}
+ }
 \define@key{pdfmarkupcomment}{mathstyle}%
 {%
   \gdef\pc@lopt@mathstyle{#1}%
@@ -1335,26 +1611,40 @@
 {%
   \gdef\pc@lopt@mathstyle{#1}%
 }%
-%
+\keys_define:nn{pdfcomment}
+ {
+   replyto.tl_set:n = \pc@lopt@replyto,  
+   replyto.initial:n=\pc@goptd@replyto,
+   replyto.groups:n = {pdfreply}
+ }
 \define@key{pdfreply}{replyto}%
 {%
   \gdef\pc@lopt@replyto{#1}%
 }%
 %
-\define@choicekey*{pdfcommentsetup}{local}[\pc@local\nr]{true,false}[true]%
+\keys_define:nn{pdfcomment}
+ {
+   local.code:n = {\PackageWarning{pdfcomment}{The~option~local~is~ignored}},  
+ }
+\define@key{pdfcommentsetup}{local}
 {%
-  \ifcase\nr\relax%
-    \global\pc@localtrue%
-  \or%
-    \global\pc@localfalse%
-  \fi%
+  \PackageWarning{pdfcomment}{The~option~local~is~ignored}
 }%
-%
+
+\keys_define:nn{pdfcomment}
+ {
+   liststyle.tl_set:n = \pc@lopt@liststyle,  
+   liststyle.groups:n = {listofpdfcomment}
+ }
 \define@key{listofpdfcomments}{liststyle}[AuthorSubject]%
 {%
   \gdef\pc@lopt@liststyle{#1}%
 }%
-%
+\keys_define:nn{pdfcomment}
+ {
+   heading.tl_set:n = \pc@lopt@liststyle,  
+   heading.groups:n = {listofpdfcomment}
+ }
 \define@key{listofpdfcomments}{heading}[\lpcname]%
 {%
   \renewcommand{\lpcname}{#1}%
@@ -1616,6 +1906,7 @@
 %    \end{macrocode}
 % TODO review option handling ....
 %    \begin{macrocode}
+   \group_begin:
   % Copy all global options to local options
   \pc@copy@gopt@lopt%
   % Change local options if specified
@@ -1656,7 +1947,7 @@
              {}
              {\pdfannot_widget_box:nnn{\normalbaselineskip}{\normalbaselineskip}{0pt}}
 %    \end{macrocode}
-% TODO: check purpose
+% TODO: check
 %    \begin{macrocode}
             \@@_collect_objid:
             \@@_save_objid:
@@ -1665,7 +1956,8 @@
         }%
       \hspace{\pc@lopt@hspace}%
     \fi%
-  \fi%  
+  \fi%
+  \group_end:  
 }%
 %    \end{macrocode}
 % \subsection{\cs{pdfmargincomment}}
@@ -1676,6 +1968,7 @@
   \ifhmode\unskip\fi%
   \ifvmode\leavevmode\fi%
   % Copy all global options to local options
+  \group_begin:
   \pc@copy@gopt@lopt%
   % Change local options if specified
   \setkeys{pdfmargincomment}{#1}%  
@@ -1687,7 +1980,6 @@
     \ifpc@lopt@disable\else%
       \hspace*{0pt}%
       \pc@create@lpc%
-      \begingroup%
       \@@_dict_store_color:
       \@@_dict_store_dates:
       \@@_dict_store_text:      
@@ -1715,10 +2007,10 @@
               }%
             }%
           \hspace{\pc@lopt@hspace}%
-        }%
-      \endgroup%
+        }%     
     \fi%
   \fi%  
+  \group_end:
 }%
 
 %    \end{macrocode}
@@ -1730,6 +2022,7 @@
   \ifhmode\unskip\fi%
   \ifvmode\leavevmode\fi%
   % Copy all global options to local options
+  \group_begin:
   \pc@copy@gopt@lopt%
   % Change local options if specified
   \setkeys{pdffreetextcomment}{#1}%
@@ -1771,6 +2064,7 @@
         }%
     \fi%
   \fi%
+  \group_end:
 }%
 %    \end{macrocode}
 %
@@ -1781,6 +2075,7 @@
   \ifhmode\unskip\fi%
   \ifvmode\leavevmode\fi%
   % Copy all global options to local options
+  \group_begin:
   \pc@copy@gopt@lopt%
   % Change local options if specified
   \setkeys{pdfsquarecomment}{#1}%
@@ -1821,6 +2116,7 @@
         }%
     \fi%
   \fi%
+  \group_end:
 }%
 %    \end{macrocode}
 %
@@ -1829,6 +2125,7 @@
 {%
   \ifhmode\unskip\fi%
   \ifvmode\leavevmode\fi%
+  \group_begin:
   % Copy all global options to local options
   \pc@copy@gopt@lopt%
   % Change local options if specified
@@ -1870,6 +2167,7 @@
         }%
     \fi%
   \fi%
+  \group_end:
 }%
 %    \end{macrocode}
 % \subsection{\cs{pdflinecomment}}
@@ -1878,6 +2176,7 @@
 {%
   \ifhmode\unskip\fi%
   \ifvmode\leavevmode\fi%
+  \group_begin:
   % Copy all global options to local options
   \pc@copy@gopt@lopt%
   % Change local options if specified
@@ -1917,6 +2216,7 @@
         }%
     \fi%
   \fi%
+  \group_end:
 }%
 %    \end{macrocode}
 % \subsection{\cs{pdfmarkupcomment}}
@@ -1926,6 +2226,7 @@
 {%
   \leavevmode%
   % Copy all global options to local options
+  \group_begin:
   \pc@copy@gopt@lopt%
   % Change local options if specified
   \setkeys{pdfmarkupcomment}{#1}%
@@ -2061,13 +2362,11 @@
       \pc@create@lpc%
     \fi%
   \fi%
-  %only local!
-  \gdef\pc@lopt@mathstyle{}%
-  %
   \@@_save_objid:
   \ifpc@ignorespaces%
     \ignorespaces%
   \fi%
+  \group_end:
 }%
 %    \end{macrocode}
 % \subsection{pdfsidelinecomment}
@@ -2283,9 +2582,10 @@
 }%
 %
 \newcommand{\pdfreply}[2][]%
-{%
-  \ifhmode\unskip\fi%
-  \ifvmode\leavevmode\fi%
+{
+  \ifhmode\unskip\fi
+  \ifvmode\leavevmode\fi
+  \group_begin:
   % Copy all global options to local options
   \pc@copy@gopt@lopt%
   % Change local options if specified
@@ -2347,8 +2647,9 @@
           }%
         }%
         \@@_save_objid:
-    \fi%
-  \fi%
+    \fi
+  \fi
+  \group_end:
 }%
 %
 %
@@ -2393,18 +2694,9 @@
 
 % reset global options
 \newcommand{\pdfcommentsetup}[2][]%
-{%
-  \setkeys{pdfcommentsetup}{#1}%
-  \ifpc@local%
-    \edef\pc@local@gd{\the\globaldefs}%
-    \globaldefs=-1%
-  \fi%
-  % Change global options if specified
-  \setkeys{pdfcomment.sty}{#2}%
-  \ifpc@local%
-    \globaldefs=\pc@local@gd%
-  \fi%
-  \global\pc@localfalse%
+{
+  \setkeys{pdfcommentsetup}{#1}    
+  \setkeys{pdfcomment.sty}{#2}
 }%
 %
 % define predefined set of options (Avatar)

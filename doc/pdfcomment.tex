@@ -651,6 +651,8 @@ If you want to annotate parts of a graphic with tooltips, special methods are ne
 \label{sec:commentsetup}
 With the command \cmd\pdfcommentsetup \margcs{\cmd\pdfcommentsetup\\\oarg{options}\marg{options}} you can reset the global options at any time. By using the optional option \styleoption{local} you can keep the reset local within a \LaTeX\ group.
 
+\textbf{Note:} With the new code used if PDF management is loaded, options are always set locally and the option \styleoption{local} is ignored.
+
 \subsubsection{\texorpdfstring{\cs{listofpdfcomments}}{\textbackslash listofpdfcomments}}
 \label{sec:listofpdfcomments}
 The command \cmd\listofpdfcomments\margcs{\cmd\listofpdfcomments\oarg{options}} creates a list of the PDF comments to ease finding them. The command offers the following options:
