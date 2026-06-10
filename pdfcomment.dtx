@@ -815,7 +815,7 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   ,fontsize .tl_set:N  = \pc@lopt@fontsize
+   ,fontsize .code:n = \tl_set:Nn \pc@lopt@fontsize {\pc@pttobp{#1}}
    ,fontsize .value_required:n = true
    ,fontsize .initial:n = \pc@goptd@fontsize
  }
@@ -988,7 +988,7 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   ,linewidth .tl_set:N  = \pc@lopt@linewidth
+   ,linewidth .code:n = {\tl_set:Nn\pc@lopt@linewidth {\pc@pttobp{#1}}}
    ,linewidth .value_required:n = true
    ,linewidth .initial:n = \pc@goptd@linewidth
  }
@@ -1654,12 +1654,12 @@
   \renewcommand{\lpcname}{#1}%
 }%
 %
-\ExecuteOptionsX{subject,color,author,deadline,icon,open,hspace,voffset,hoffset,width,
-     height,depth,opacity,markup,font,fontsize,fontcolor,justification,borderstyle,linewidth,
-     dashstyle,bse,bsei,type,lineend,linebegin,icolor,line,caption,captionhoffset,
-     captionvoffset,linesep,version,date,timezone,printSOfinal}%
+%\ExecuteOptionsX{subject,color,author,deadline,icon,open,hspace,voffset,hoffset,width,
+%     height,depth,opacity,markup,font,fontsize,fontcolor,justification,borderstyle,linewidth,
+%     dashstyle,bse,bsei,type,lineend,linebegin,icolor,line,caption,captionhoffset,
+%     captionvoffset,linesep,version,date,timezone,printSOfinal}%
 %
-\ProcessOptionsX\relax%
+\ProcessKeyOptions[pdfcomment]\relax%
 %
 \RequirePackage{etoolbox}%
 \RequirePackage{zref-savepos}[2007/04/22]%
@@ -1892,7 +1892,7 @@
  {
    \tl_if_empty:eF{\pc@lopt@id}
     {
-      \tl_gput_right:Ne\pc@collect@PDFOBJID{,\pdfannot_ref_last:}
+      \tl_put_right:Ne\pc@collect@PDFOBJID{,\pdfannot_ref_last:}
     }   
  }
 \cs_new_protected:Npn \@@_save_objid:
@@ -1915,9 +1915,11 @@
 %    \begin{macrocode}
    \group_begin:
   % Copy all global options to local options
-  \pc@copy@gopt@lopt%
+  %\pc@copy@gopt@lopt%
+  \gdef\pc@collect@PDFOBJID{S}
   % Change local options if specified
-  \setkeys{pdfcomment}{#1}%
+  \keys_set:nn{pdfcomment}{#1}
+  %\setkeys{pdfcomment}{#1}%
 %    \end{macrocode}
 %  Encode Contents, Author and Subject to pdf encodings  
 %  and transform color input to pdf color
@@ -1976,9 +1978,11 @@
   \ifvmode\leavevmode\fi%
   % Copy all global options to local options
   \group_begin:
-  \pc@copy@gopt@lopt%
+  %\pc@copy@gopt@lopt%
+  \gdef\pc@collect@PDFOBJID{S}
   % Change local options if specified
-  \setkeys{pdfmargincomment}{#1}%  
+  \keys_set:nn{pdfcomment}{#1}
+  %\setkeys{pdfmargincomment}{#1}%  
   % Encode Contents, Author and Subject 
   % and transform color input to pdf color
   \pc@encode@PDF{#2}%  
@@ -2030,9 +2034,11 @@
   \ifvmode\leavevmode\fi%
   % Copy all global options to local options
   \group_begin:
-  \pc@copy@gopt@lopt%
+  %\pc@copy@gopt@lopt%
+  \gdef\pc@collect@PDFOBJID{S}
   % Change local options if specified
-  \setkeys{pdffreetextcomment}{#1}%
+  \keys_set:nn{pdfcomment}{#1}
+  %\setkeys{pdffreetextcomment}{#1}%
   % Encode Contents, Author and Subject 
   \pc@encode@PDF{#2}%  
   \pc@encode@colors
@@ -2083,9 +2089,11 @@
   \ifvmode\leavevmode\fi%
   % Copy all global options to local options
   \group_begin:
-  \pc@copy@gopt@lopt%
+  %\pc@copy@gopt@lopt%
+  \gdef\pc@collect@PDFOBJID{S}
   % Change local options if specified
-  \setkeys{pdfsquarecomment}{#1}%
+  \keys_set:nn{pdfcomment}{#1}
+  %\setkeys{pdfsquarecomment}{#1}%
   % Encode Contents, Author and Subject to pdf encodings (PD or PU) with hyperref's \pdfstringdef
   % and transform color input to pdf color
   \pc@encode@PDF{#2}%
@@ -2134,9 +2142,11 @@
   \ifvmode\leavevmode\fi%
   \group_begin:
   % Copy all global options to local options
-  \pc@copy@gopt@lopt%
+  %\pc@copy@gopt@lopt%
+  \gdef\pc@collect@PDFOBJID{S}
   % Change local options if specified
-  \setkeys{pdfcirclecomment}{#1}%
+  %\setkeys{pdfcirclecomment}{#1}%
+  \keys_set:nn{pdfcomment}{#1}
   % Encode Contents, Author and Subject to pdf encodings (PD or PU) with hyperref's \pdfstringdef
   % and transform color input to pdf color
   \pc@encode@PDF{#2}%
@@ -2185,9 +2195,11 @@
   \ifvmode\leavevmode\fi%
   \group_begin:
   % Copy all global options to local options
-  \pc@copy@gopt@lopt%
+  %\pc@copy@gopt@lopt%
+  \gdef\pc@collect@PDFOBJID{S}
   % Change local options if specified
-  \setkeys{pdflinecomment}{#1}%
+  \keys_set:nn{pdfcomment}{#1}
+  %\setkeys{pdflinecomment}{#1}%
   % Encode Contents, Author and Subject 
   % and transform color input to pdf color
   \pc@encode@PDF{#2}%
@@ -2234,9 +2246,11 @@
   \leavevmode%
   % Copy all global options to local options
   \group_begin:
-  \pc@copy@gopt@lopt%
+  %\pc@copy@gopt@lopt%
+  \gdef\pc@collect@PDFOBJID{S}
   % Change local options if specified
-  \setkeys{pdfmarkupcomment}{#1}%
+  \keys_set:nn{pdfcomment}{#1}
+  %\setkeys{pdfmarkupcomment}{#1}%
   \tl_if_empty:eTF{\pc@lopt@date}
    {
     \tl_set:Ne \pc@lopt@cdate 
@@ -2383,9 +2397,11 @@
   \ifhmode\unskip\fi%
   \ifvmode\leavevmode\fi%
   % Copy all global options to local options
-  \pc@copy@gopt@lopt%
+  %\pc@copy@gopt@lopt%
+  \gdef\pc@collect@PDFOBJID{S}
   % Change local options if specified
-  \setkeys{pdfsidelinecomment}{#1}%
+  \keys_set:nn{pdfcomment}{#1}
+  %\setkeys{pdfsidelinecomment}{#1}%
   % Encode Contents, Author and Subject 
   % and transform color input to pdf color
   \pc@encode@PDF{#2}%
@@ -2594,9 +2610,11 @@
   \ifvmode\leavevmode\fi
   \group_begin:
   % Copy all global options to local options
-  \pc@copy@gopt@lopt%
+  %\pc@copy@gopt@lopt%
+  \gdef\pc@collect@PDFOBJID{S}
   % Change local options if specified
-  \setkeys{pdfreply}{#1}%
+  \keys_set:nn{pdfcomment}{#1}
+  %\setkeys{pdfreply}{#1}%
   % Encode Contents, Author and Subject 
   % and transform color input to pdf color
   \pc@encode@PDF{#2}%
@@ -2669,9 +2687,11 @@
   \leavevmode
   \group_begin:%
   % Copy all global options to local options
-  \pc@copy@gopt@lopt%
+  %\pc@copy@gopt@lopt%
+  \gdef\pc@collect@PDFOBJID{S}
   % Change local options if specified
-  \setkeys{pdftooltip}{#1}%
+  \keys_set:nn{pdfcomment}{#1}
+  %\setkeys{pdftooltip}{#1}%
   \ifmmode%
     \setbox\pc@nullbox=\hbox{\SuspendTagging{}\pc@encode@PDF{#3}}%
     \setbox\pc@nullbox=\hbox{\SuspendTagging{}$\pc@lopt@mathstyle#2$}
@@ -2702,8 +2722,9 @@
 % reset global options
 \newcommand{\pdfcommentsetup}[2][]%
 {
-  \setkeys{pdfcommentsetup}{#1}    
-  \setkeys{pdfcomment.sty}{#2}
+  \keys_set:nn{pdfcomment}{#1,#2}
+  %\setkeys{pdfcommentsetup}{#1}    
+  %\setkeys{pdfcomment.sty}{#2}
 }%
 %
 % define predefined set of options (Avatar)
@@ -2755,7 +2776,8 @@
 %
 \newcommand{\listofpdfcomments}[1][]%
 {%
-  \setkeys{listofpdfcomments}{#1}%
+  \keys_set_groups:nnn {pdfcomment}{listofpdfcomments}{#1}
+  %\setkeys{listofpdfcomments}{#1}%
   \edef\pc@edef@liststyle{pc@liststyle@\pc@lopt@liststyle}%
   \@ifundefined{\pc@edef@liststyle}%
   {%

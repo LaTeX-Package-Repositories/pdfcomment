@@ -7,7 +7,7 @@
 \begin{document}
 \START\showoutput
 \pdfsquarecomment[subject={square},height=2.5cm,width=5.8cm,voffset=-2.8cm,hoffset=1cm,opacity=1.0,
-justification=right,icolor=CornflowerBlue,bse=cloudy,bsei=2.5,linewidth=8pt]
+justification=right,icolor=blue,bse=cloudy,bsei=2.5,linewidth=8pt]
 {This is a Square annotation!}
 
 
