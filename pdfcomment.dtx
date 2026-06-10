@@ -1393,6 +1393,8 @@
 %
 % \subsection{Tagging Socket(s)}
 %    \begin{macrocode}
+\NewStructureName{pdfcomment/annot}
+\AssignStructureRole{pdfcomment/annot}{Annot}
 \NewTaggingSocket{pdfcomment/annot}{2}
 \NewTaggingSocketPlug{pdfcomment/annot}{default}
  {   
@@ -1570,6 +1572,7 @@
     {
      \pdfannot_dict_put:nne{widget}{Vertices}{[\pc@lopt@line]}     
     }
+    \pdfannot_dict_put:nne{widget}{CO}{[\pc@lopt@captionhoffset\space \pc@lopt@captionvoffset]}%    
  }
 %    \end{macrocode}
 % 
@@ -1945,10 +1948,8 @@
     \setlength{\pc@Eposy}{\zposy{pdfcomment:\thezref@unique}sp}%
     \ifpc@gopt@final\else%
       \ifpc@lopt@disable\else%
-        %uses \marginnote because \pdfstringdef does not work in math mode? really TODO check ???
-        \marginnote{\pc@encode@PDF{#3}}%
         \pc@encode@colors
-        \setbox\pc@nullbox=\hbox{\SuspendTagging{}$\pc@lopt@mathstyle#2$}        
+        \setbox\pc@nullbox=\hbox{\SuspendTagging{}\pc@encode@PDF{#3}$\pc@lopt@mathstyle#2$}        
         \setbox\pc@mathannot@box=\hbox to\wd\pc@nullbox%
         {%
           \vrule height\ht\pc@nullbox~depth\dp\pc@nullbox~width\z@%
@@ -2357,7 +2358,8 @@
 %    \begin{macrocode}
 \newcommand{\pdftooltip}[3][]%
 {%
-  \leavevmode%
+  \leavevmode
+  \group_begin:%
   % Copy all global options to local options
   \pc@copy@gopt@lopt%
   % Change local options if specified
@@ -2374,6 +2376,7 @@
      #2%
   \else%
   \@@_dict_store_tooltip:
+  \AssignStructureRole{pdfcomment/annot}{Form}
   \UseTaggingSocket{pdfcomment/annot}
     {}
     {
@@ -2385,8 +2388,7 @@
     #2%
    \fi%
   \stepcounter{zref@unique}%
-  %only local!
-  \gdef\pc@lopt@mathstyle{}%
+  \group_end:
 }%
 
 % reset global options
@@ -2646,34 +2648,19 @@
   \strip@pt\dimexpr .996264\dimexpr #1\relax\relax%
 }%
 %
-
-%
-\newcommand{\pc@annot@calc@pos}%
-{%
-  \renewcommand{\pc@x@one}{\pc@pttobp{\pc@Sposx}}%
-  \renewcommand{\pc@x@two}{\pc@pttobp{\pc@Eposx}}%
-  \renewcommand{\pc@x@three}{\pc@pttobp{\pc@Sposx}}%
-  \renewcommand{\pc@x@four}{\pc@pttobp{\pc@Eposx}}%
-  \renewcommand{\pc@y@one}{\pc@pttobp{\dimexpr \pc@Sposy + \pc@box@height + 1pt\relax}}%
-  \renewcommand{\pc@y@two}{\pc@pttobp{\dimexpr \pc@Eposy + \pc@box@height + 1pt\relax}}%
-  \renewcommand{\pc@y@three}{\pc@pttobp{\dimexpr \pc@Sposy - \pc@box@depth - 1pt\relax}}%
-  \renewcommand{\pc@y@four}{\pc@pttobp{\dimexpr \pc@Eposy - \pc@box@depth - 1pt\relax}}%
-  \setlength{\pc@dima}{\dimexpr \pc@Sposy - \pc@box@depth - 1pt\relax}%
-  \setlength{\pc@dimb}{\dimexpr \pc@Eposy - \pc@box@depth - 1pt\relax}%
-}%
 %
 \newcommand{\pc@annot@calc@pos@math}%
 {%
   \renewcommand{\pc@x@one}{\pc@pttobp{\pc@Sposx}}%
-  \renewcommand{\pc@x@two}{\pc@pttobp{\dimexpr \pc@Sposx + \pc@box@width\relax}}%
+  \renewcommand{\pc@x@two}{\pc@pttobp{\dimexpr \pc@Sposx + \wd\pc@nullbox\relax}}%
   \renewcommand{\pc@x@three}{\pc@pttobp{\pc@Sposx}}%
-  \renewcommand{\pc@x@four}{\pc@pttobp{\dimexpr \pc@Sposx + \pc@box@width\relax}}%
-  \renewcommand{\pc@y@one}{\pc@pttobp{\dimexpr \pc@Sposy + \pc@box@height + 1pt\relax}}%
-  \renewcommand{\pc@y@two}{\pc@pttobp{\dimexpr \pc@Sposy + \pc@box@height + 1pt\relax}}%
-  \renewcommand{\pc@y@three}{\pc@pttobp{\dimexpr \pc@Sposy - \pc@box@depth - 1pt\relax}}%
-  \renewcommand{\pc@y@four}{\pc@pttobp{\dimexpr \pc@Sposy - \pc@box@depth - 1pt\relax}}%
-  \setlength{\pc@dima}{\dimexpr \pc@Sposy - \pc@box@depth - 1pt\relax}%
-  \setlength{\pc@dimb}{\dimexpr \pc@Eposy - \pc@box@depth - 1pt\relax}%
+  \renewcommand{\pc@x@four}{\pc@pttobp{\dimexpr \pc@Sposx + \wd\pc@nullbox\relax}}%
+  \renewcommand{\pc@y@one}{\pc@pttobp{\dimexpr \pc@Sposy + \ht\pc@nullbox + 1pt\relax}}%
+  \renewcommand{\pc@y@two}{\pc@pttobp{\dimexpr \pc@Sposy + \ht\pc@nullbox + 1pt\relax}}%
+  \renewcommand{\pc@y@three}{\pc@pttobp{\dimexpr \pc@Sposy - \dp\pc@nullbox - 1pt\relax}}%
+  \renewcommand{\pc@y@four}{\pc@pttobp{\dimexpr \pc@Sposy - \dp\pc@nullbox - 1pt\relax}}%
+  \setlength{\pc@dima}{\dimexpr \pc@Sposy - \dp\pc@nullbox - 1pt\relax}%
+  \setlength{\pc@dimb}{\dimexpr \pc@Eposy - \dp\pc@nullbox - 1pt\relax}%
 }%
 %
 \newcommand{\pc@create@annot@sideline}%

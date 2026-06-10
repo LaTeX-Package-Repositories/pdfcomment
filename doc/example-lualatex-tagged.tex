@@ -1,4 +1,4 @@
-\DocumentMetadata{tagging=on}
+\DocumentMetadata{tagging=on,pdfstandard=ua-2,uncompress}
 \documentclass{article}
 \usepackage[no-math]{fontspec}
 \usepackage{lipsum}
@@ -9,6 +9,7 @@
 \usepackage{amsmath,array,bm}
 \usepackage[absolute]{textpos}
 \usepackage[subject={Top1},author={Ånsgar Lund},version=1]{pdfcomment}
+\title{A pdfcomment test}
 \begin{document}
 \defineavatar{Joe}{author=Joe,color=yellow}
 \defineavatar{Bob}{author=Bob,color=green}
@@ -23,13 +24,14 @@ A\pdfcomment[subject={Top2},author={Daisy Duck},color={0.234 0.867 0.211},voffse
 \pdflinecomment[avatar=CaptainJack,subject={Top2},type=line,opacity=1,line={100 680 250 680},color=green,icolor=blue,caption=top,linebegin={/ROpenArrow},lineend={/OpenArrow},linewidth=2bp,captionhoffset=-5pt,captionvoffset=15pt]{This is a Line comment!}
 \pdffreetextcomment[avatar=CaptainJack,subject={typewriter},height=1.8cm,width=6.8cm,voffset=-7.2cm,hoffset=-1.2cm,opacity=1.0,justification=right,type=typewriter,font=LucidaConsole,fontsize=14pt,fontcolor=CornflowerBlue]{This is a typewriter FreeText annotation!}
 
-\marginnote{\begin{textblock*}{1cm}(7cm,14.5cm)
+\marginnote{\par% tagging doesn't like textblock directly inside marginnote ...
+ \begin{textblock*}{1cm}(7cm,14.5cm)
 \pdffreetextcomment[avatar=CaptainJack,height=1.9cm,width=9cm,opacity=0.5,voffset=0pt,hoffset=0pt,opacity=1.0,font=Georgia,fontsize=9pt,fontcolor=red,justification=left,linewidth=2bp,bse=cloudy,bsei=1.3,type=callout,line={170 515 120 460 200 460},lineend=/ClosedArrow]{This one was placed with absolute coordinates (textpos.sty) (font=Georgia, fontsize=9pt, fontcolor=red, linewidth=2bp, bse=cloudy, bsei=1.3, type=callout, line=\{170 515 120 460 200 460\}, lineend=/ClosedArrow)}
 \end{textblock*}}
 {\small
-\marginnote{\begin{textblock*}{2cm}(6cm,11.9cm){($x_1, y_1$)}\end{textblock*}}
-\marginnote{\begin{textblock*}{2cm}(3cm,13.3cm){($x_2, y_2$)}\end{textblock*}}
-\marginnote{\begin{textblock*}{2cm}(5.6cm,13.6cm){($x_3, y_3$)}\end{textblock*}}
+\marginnote{\par\begin{textblock*}{2cm}(6cm,11.9cm){($x_1, y_1$)}\end{textblock*}}
+\marginnote{\par\begin{textblock*}{2cm}(3cm,13.3cm){($x_2, y_2$)}\end{textblock*}}
+\marginnote{\par\begin{textblock*}{2cm}(5.6cm,13.6cm){($x_3, y_3$)}\end{textblock*}}
 }
 \pdfmarkupcomment[author={Donald Duck},color=red,markup=StrikeOut]{A little Test!}{Why is this repeated? This is a StrikeOut markup annotation} 
 
@@ -41,6 +43,7 @@ A\pdfcomment[subject={Top2},author={Daisy Duck},color={0.234 0.867 0.211},voffse
         Kern/.style = {ball color=KernFarbe!25},
         Proton/.style = {ball color=HuelleFarbe!80},
         Elektron/.style = {ball color=KernFarbe!80},
+        alt=Atomhülle
     ]
 
     \shade[Huelle] (8,0) circle (2cm);
@@ -118,7 +121,7 @@ eleifend, sagittis quis, diam. Duis eget orci sit amet orci dignissim rutrum.}{T
 \end{array}
 \]
 
-\begin{tikzpicture}
+\begin{tikzpicture}[alt=a diagram]
     \draw [<->,thick] (0,2) node (yaxis) [above] {$y$}
         |- (3,0) node (xaxis) [right] {$x$};
     \draw (0,0) coordinate (a_1) -- (2,1.8) coordinate (a_2);
@@ -142,7 +145,7 @@ eleifend, sagittis quis, diam. Duis eget orci sit amet orci dignissim rutrum.}{T
     {This is the intersection point\textCR of the two lines!}};   
 \end{tikzpicture}
 \hspace{1cm}
-\begin{tikzpicture}
+\begin{tikzpicture}[alt=statistik sausages]
     \draw (1.5,0) node[below] {countries};
     \draw (0,1) node[left] {\pdftooltip{SCI}{Sausage Consumption Index}};
     \fill[blue] (0.5,0) rectangle (1,1.2)

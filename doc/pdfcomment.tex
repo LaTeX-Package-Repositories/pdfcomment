@@ -499,8 +499,7 @@ Limitations:
 \item As the name PDF text markup annotation might lead to suggest, this form of comment is suitable for text only.
 \item The specified text with the argument \marg{markup text} must not be longer than one paragraph.
 \item The PDF text markup annotation must not be longer than one page, otherwise the recognition of the page break will fail.
-\item While using dvi files in the meantime you have to use a \LaTeX{} distribution, which is using \texttt{pdf(e)latex} as engine in a version $\geq$ v1.40.0\footnote{older versions are not capable of providing x/y coordinates of the current position in dvi mode.}!
-\item While using \XeLaTeX{} you have to make sure that page dimensions are written to the xdvi file, e.\,g. with the option \styleoption{pagesize} of the KoMa-Script classes, or as option of the package \package{typearea.sty} respectively.
+\item In text mode the command uses the package \package{soul}, this means that not every command works in the argument.     
 \end{itemize}
 
 Since version v1.6, \texttt{\string\pdfmarkupcomment} is also supported in math mode. So you can also comment formula like:
@@ -705,14 +704,13 @@ Please note that only opened popups will be printed!
 \section{Tagging support}
 
 Tagging is enabled with \verb+\DocumentMetadata{tagging=on}+. 
-Not all commands work already properly in a such a tagged PDF. 
+It is not clear yet, which is the best tagging and what it actually does for the reading.
+Please report problems! Improvements need tests and feedbacks from user!
 
 Known restrictions are:
 \begin{itemize}
-\item \cs{pdfmarkupcomment} uses currently the soul package to get the dimension of the annotation. The soul package is not compatible with the tagging, and so tagging is suspended in the argument of the command.
-\item \cs{pdfmarkupcomment} is currently not tagged.
-    
-    
+\item \cs{pdfmarkupcomment} uses the soul package to get the dimension of the annotation. The soul package is not compatible with the tagging, and so tagging is suspended in the argument of the command.
+\item Inside a tikz-picture tagging is normally suspended (if you use the \texttt{alt} or \texttt{actualtext} key), and so also annotations are not tagged too. This is allowed by the standard (untagged annotations are artifacts) but some validator complain nevertheless.   
 \end{itemize}    
 
 \end{document}

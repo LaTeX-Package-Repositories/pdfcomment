@@ -1,7 +1,7 @@
 \DocumentMetadata{tagging=on,tagging-setup={math/setup=mathml-SE}}
 \documentclass{article}
 \usepackage[english]{babel}
-\usepackage{unicode-math}
+\usepackage{lua-unicode-math}
 \usepackage[svgnames,rgb]{xcolor}
 \usepackage{listings}
 \usepackage[author={Ulrike Fischer},subject={Math test},color=Khaki]{pdfcomment}
@@ -16,6 +16,7 @@
 \defineavatar{Joe}{author=Joe,color=yellow}
 \defineavatar{Bob}{author=Bob,color=green}
 
+% listings doesn't work in tabular, use verbatim for now
 \begin{document}
 
 \lstset{language=[LaTeX]TeX,numbers=left,numberstyle=\tiny,basicstyle=\ttfamily\small,frame=single,backgroundcolor=\color{LightGoldenrodYellow},keywordstyle=\color{Blue},emph={mathstyle,style}, emphstyle=\color{Tomato},emph={[2]mathpopup},emphstyle={[2]\color{SeaGreen}},morekeywords={pdfmarkupcomment,[,]}}
@@ -35,23 +36,23 @@ Of course, you can only comment parts of a formula:
 \begin{tabular}{p{0.26\linewidth}p{0.68\linewidth}}
 \[(a+b=c)^{\pdfmarkupcomment[style=mathpopup]{d+e}{comment}}\]
 &
-\begin{lstlisting}
+\begin{verbatim}
 \[(a+b=c)^{\pdfmarkupcomment[style=mathpopup]
 {d+e}{comment}}\]
-\end{lstlisting}
+\end{verbatim}
 \end{tabular}
 
 \bigskip
-As you can see the size of the PDF annoation is too big! The math content is set into a box to measure the size. Unfortunately, the math context gets lost, which results in a wrong size, as the math snippets are set as inline formula into the box by default. You can correct this with the option \texttt{mathstyle} (\texttt{\string\textstyle, \string\displaystyle, \string\scriptstyle, \string\scriptscriptstyle}) 
+As you can see the size of the PDF annotation is too big! The math content is set into a box to measure the size. Unfortunately, the math context gets lost, which results in a wrong size, as the math snippets are set as inline formula into the box by default. You can correct this with the option \texttt{mathstyle} (\texttt{\string\textstyle, \string\displaystyle, \string\scriptstyle, \string\scriptscriptstyle}) 
 
 \bigskip
 \begin{tabular}{p{0.26\linewidth}p{0.68\linewidth}}
 \[(a+b=c)^{\pdfmarkupcomment[style=mathpopup,mathstyle=\scriptstyle]{d+e}{comment}}\]
 &
-\begin{lstlisting}
+\begin{verbatim}
 \[(a+b=c)^{\pdfmarkupcomment[style=mathpopup,
 mathstyle=\scriptstyle]{d+e}{comment}}\]
-\end{lstlisting}
+\end{verbatim}
 \end{tabular}
 
 \bigskip
@@ -63,14 +64,14 @@ Of course, it also works with equations:
 \pdfmarkupcomment[style=mathpopup,mathstyle=\displaystyle]{\sum_{i=1}^{n}i=\frac{1}{2}n\cdot(n+1)}{comment}
 \end{equation}\label{eq:display}
 &
-\begin{lstlisting}
+\begin{verbatim}
 \begin{equation}
 \pdfmarkupcomment[style=mathpopup,
 mathstyle=\displaystyle]
 {\sum_{i=1}^{n}i=\frac{1}{2}n
 \cdot(n+1)}{comment}
 \end{equation}\label{eq:display}
-\end{lstlisting}
+\end{verbatim}
 \end{tabular}
 
 \bigskip
@@ -87,7 +88,7 @@ If you use more complex environments like \texttt{eqnarry*}, you can no longer c
 \pdfmarkupcomment[style=mathpopup,mathstyle=\displaystyle]{\frac{1}{\sqrt{n}}}{comment} = & \pdfmarkupcomment[style=mathpopup,mathstyle=\displaystyle]{\frac{\sqrt{n}}{n}}{comment} = & \pdfmarkupcomment[style=mathpopup,mathstyle=\displaystyle]{\frac{n}{n\sqrt{n}}}{comment}
 \end{eqnarray*}
 &
-\begin{lstlisting}
+\begin{verbatim}
 \begin{eqnarray*}
 \pdfmarkupcomment[style=mathpopup]
 {\mathrm{left}}{comment} & 
@@ -105,6 +106,6 @@ mathstyle=\displaystyle]
 mathstyle=\displaystyle]
 {\frac{n}{n\sqrt{n}}}{comment}
 \end{eqnarray*}
-\end{lstlisting}
+\end{verbatim}
 \end{tabular}
 \end{document} 

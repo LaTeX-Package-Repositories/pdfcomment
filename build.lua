@@ -23,8 +23,8 @@ typesetfiles     =
    "example_math_markup.tex",
    "example.tex",
    "example-lualatex.tex"
-  -- ,"example-lualatex-tagged.tex"
-  -- ,"example_math_markup-tagged.tex"
+   ,"example-lualatex-tagged.tex"
+   ,"example_math_markup-tagged.tex"
    }
 typesetexe       = "lualatex"
 
