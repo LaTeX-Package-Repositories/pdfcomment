@@ -1,0 +1,14 @@
+
+\DocumentMetadata{tagging=on}
+\input{regression-test}
+\documentclass{article}
+\usepackage{xcolor}
+\usepackage{pdfcomment}
+\begin{document}
+\START\showoutput
+\begin{pdfsidelinecomment}[subject={sideline},opacity=1,color=red,icolor=yellow,
+caption=inline,linebegin={/Butt},lineend={/Square},linewidth=3bp,linesep=1cm]{ ! Delete !}
+\lipsum[2-6]
+\end{pdfsidelinecomment}
+\SHOWPDFTAGS
+\end{document} 

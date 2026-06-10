@@ -1360,7 +1360,10 @@
   \renewcommand{\lpcname}{#1}%
 }%
 %
-\ExecuteOptionsX{subject,color,author,deadline,icon,open,hspace,voffset,hoffset,width,height,depth,opacity,markup,font,fontsize,fontcolor,justification,borderstyle,linewidth,dashstyle,bse,bsei,type,lineend,linebegin,icolor,line,caption,captionhoffset,captionvoffset,linesep,version,date,timezone,printSOfinal}%
+\ExecuteOptionsX{subject,color,author,deadline,icon,open,hspace,voffset,hoffset,width,
+     height,depth,opacity,markup,font,fontsize,fontcolor,justification,borderstyle,linewidth,
+     dashstyle,bse,bsei,type,lineend,linebegin,icolor,line,caption,captionhoffset,
+     captionvoffset,linesep,version,date,timezone,printSOfinal}%
 %
 \ProcessOptionsX\relax%
 %
@@ -2575,7 +2578,7 @@
   \pc@lopt@c\space%
   \pc@lopt@ic\space%
   \pc@lopt@cdate\space%
-  /CA \pc@lopt@opacity\space%
+  /CA~\pc@lopt@opacity\space%
   /T (\pc@pdfenc@author)\space%
   /Subj (\pc@pdfenc@subject)\space%
   /Contents (\pc@pdfenc@contents)\space%
@@ -2584,17 +2587,17 @@
   \pc@lopt@cap\space%
   \pc@lopt@cp\space%
   \pc@lopt@co\space%
-  /F 4\space%
+  /F~4\space%
   /BS\space%
   <<\space%
-    /W \pc@lopt@linewidth\space%
+    /W~\pc@lopt@linewidth\space%
     /S /\pc@lopt@borderstyle\space%
     /D [\pc@lopt@dashstyle]\space%
   >>\space%
   /BE\space%
   <<\space%
     /S /\pc@lopt@bse\space%
-    /I \pc@lopt@bsei\space%
+    /I~\pc@lopt@bsei\space%
   >>\space%
 }%
 %
@@ -2684,14 +2687,18 @@
         \hbox to 0pt%
         {%
           \vsize=0pt%
-          \pdfannot_box:nnne
-           {\dim_eval:n{\pc@lopt@width+0pt}}            
-           {\dim_eval:n{\pc@lopt@height+0pt}} 
-           {\dim_eval:n{\pc@lopt@depth+0pt}}
-           {          
-             /Subtype /Line\space%
-             \pc@annot@line%
-           }
+          \UseTaggingSocket{pdfcomment/annot}
+           {}
+           {
+             \pdfannot_box:nnne
+              {\dim_eval:n{\pc@lopt@width+0pt}}            
+              {\dim_eval:n{\pc@lopt@height+0pt}} 
+              {\dim_eval:n{\pc@lopt@depth+0pt}}
+              {          
+                /Subtype /Line\space%
+                \pc@annot@line%
+              }
+           }   
           \hss%
         }%
         \vss%
