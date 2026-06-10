@@ -358,8 +358,8 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   subject.tl_set:N = \pc@lopt@subject,
-   subject.initial:n = \pc@goptd@subject
+   ,subject .tl_set:N  = \pc@lopt@subject
+   ,subject .initial:n = \pc@goptd@subject
  }
 \define@key{pdfcomment.sty}{subject}[\pc@goptd@subject]%
 {%
@@ -387,8 +387,8 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   color.tl_set:N = \pc@lopt@color, 
-   color.initial:n = \pc@goptd@color 
+   ,color .tl_set:N  = \pc@lopt@color 
+   ,color .initial:n = \pc@goptd@color 
  }
 \define@key{pdfcomment.sty}{color}[\pc@goptd@color]%
 {%
@@ -416,8 +416,8 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   author.tl_set:N = \pc@lopt@author,
-   author.initial:n = \pc@goptd@author
+   ,author .tl_set:N  = \pc@lopt@author
+   ,author .initial:n = \pc@goptd@author
  }
 \define@key{pdfcomment.sty}{author}[\pc@goptd@author]%
 {%
@@ -445,8 +445,8 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   deadline.tl_set:N = \pc@lopt@deadline,
-   deadline.initial:n = \pc@goptd@deadline
+   ,deadline .tl_set:N  = \pc@lopt@deadline
+   ,deadline .initial:n = \pc@goptd@deadline
  }
 \define@key{pdfcomment.sty}{deadline}[\pc@goptd@deadline]%
 {%
@@ -474,8 +474,8 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   icon.tl_set:N = \pc@lopt@icon,
-   icon.initial:n = \pc@goptd@icon
+   ,icon.tl_set:N  = \pc@lopt@icon
+   ,icon.initial:n = \pc@goptd@icon
  }
 \define@key{pdfcomment.sty}{icon}[\pc@goptd@icon]%
 {%
@@ -503,11 +503,11 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   open.choice:,
-   open/true.code:n =  \tl_set:Nn \pc@lopt@open{true},
-   open/false.code:n =  \tl_set:Nn \pc@lopt@open{false},
-   open.default:n = true,
-   open.initial:e = \pc@goptd@open
+   ,open .choice:
+   ,open/true .code:n =  \tl_set:Nn \pc@lopt@open{true}
+   ,open/false.code:n =  \tl_set:Nn \pc@lopt@open{false}
+   ,open.default:n = true
+   ,open.initial:e = \pc@goptd@open
  }
 \define@choicekey*{pdfcomment.sty}{open}[\pc@gopt@open\nr]{true,false}[false]%
 {%
@@ -543,9 +543,9 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   hspace.tl_set:N = \pc@lopt@hspace,
-   hspace.value_required:n=true,
-   hspace.initial:n=\pc@goptd@hspace
+   ,hspace .tl_set:N  = \pc@lopt@hspace
+   ,hspace .value_required:n = true
+   ,hspace .initial:n =\pc@goptd@hspace
  }
 \define@key{pdfcomment.sty}{hspace}[\pc@goptd@hspace]%
 {%
@@ -573,9 +573,9 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   voffset.tl_set:N = \pc@lopt@voffset,
-   voffset.value_required:n=true,
-   voffset.initial:n=\pc@goptd@voffset
+   ,voffset .tl_set:N  = \pc@lopt@voffset
+   ,voffset .value_required:n = true
+   ,voffset .initial:n = \pc@goptd@voffset
  }
 \define@key{pdfcomment.sty}{voffset}[\pc@goptd@voffset]%
 {%
@@ -603,9 +603,9 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   hoffset.tl_set:N = \pc@lopt@hoffset,
-   hoffset.value_required:n=true,
-   hoffset.initial:n=\pc@goptd@hoffset
+   ,hoffset .tl_set:N  = \pc@lopt@hoffset
+   ,hoffset .value_required:n = true
+   ,hoffset .initial:n =\pc@goptd@hoffset
  }
 
 \define@key{pdfcomment.sty}{hoffset}[\pc@goptd@hoffset]%
@@ -634,9 +634,9 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   width.tl_set:N = \pc@lopt@width,
-   width.value_required:n=true,
-   width.initial:n=\pc@goptd@width
+   ,width .tl_set:N  = \pc@lopt@width
+   ,width .value_required:n = true
+   ,width .initial:n =\pc@goptd@width
  }
 
 \define@key{pdfcomment.sty}{width}[\pc@goptd@width]%
@@ -665,9 +665,9 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   height.tl_set:N = \pc@lopt@height,
-   height.value_required:n=true,
-   height.initial:n=\pc@goptd@height
+   ,height .tl_set:N  = \pc@lopt@height
+   ,height .value_required:n = true
+   ,height .initial:n =\pc@goptd@height
  }
 \define@key{pdfcomment.sty}{height}[\pc@goptd@height]%
 {%
@@ -695,9 +695,9 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   depth.tl_set:N = \pc@lopt@depth,
-   depth.value_required:n=true,
-   depth.initial:n=\pc@goptd@depth
+   ,depth .tl_set:N  = \pc@lopt@depth
+   ,depth .value_required:n = true
+   ,depth .initial:n = \pc@goptd@depth
  }
 \define@key{pdfcomment.sty}{depth}[\pc@goptd@depth]%
 {%
@@ -725,9 +725,9 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   opacity.tl_set:N = \pc@lopt@opacity,
-   opacity.value_required:n=true,
-   opacity.initial:n=\pc@goptd@opacity
+   ,opacity .tl_set:N  = \pc@lopt@opacity
+   ,opacity .value_required:n = true,
+   ,opacity .initial:n = \pc@goptd@opacity
  }
 \define@key{pdfcomment.sty}{opacity}[\pc@goptd@opacity]%
 {%
@@ -755,9 +755,9 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   markup.tl_set:N = \pc@lopt@markup,
-   markup.value_required:n=true,
-   markup.initial:n=\pc@goptd@markup
+   ,markup .tl_set:N  = \pc@lopt@markup
+   ,markup .value_required:n = true
+   ,markup .initial:n = \pc@goptd@markup
  }
 \define@key{pdfcomment.sty}{markup}[\pc@goptd@markup]%
 {%
@@ -785,9 +785,9 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   font.tl_set:N = \pc@lopt@font,
-   font.value_required:n=true,
-   font.initial:n=\pc@goptd@font
+   ,font .tl_set:N  = \pc@lopt@font
+   ,font .value_required:n = true
+   ,font .initial:n = \pc@goptd@font
  }
 \define@key{pdfcomment.sty}{font}[\pc@goptd@font]%
 {%
@@ -815,9 +815,9 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   fontsize.tl_set:N = \pc@lopt@fontsize,
-   fontsize.value_required:n=true,
-   fontsize.initial:n=\pc@goptd@fontsize
+   ,fontsize .tl_set:N  = \pc@lopt@fontsize
+   ,fontsize .value_required:n = true
+   ,fontsize .initial:n = \pc@goptd@fontsize
  }
 \define@key{pdfcomment.sty}{fontsize}[\pc@goptd@fontsize]%
 {%
@@ -845,9 +845,9 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   fontcolor.tl_set:N = \pc@lopt@fontcolor,
-   fontcolor.value_required:n=true,
-   fontcolor.initial:n = \pc@goptd@fontcolor
+   ,fontcolor .tl_set:N = \pc@lopt@fontcolor
+   ,fontcolor .value_required:n = true
+   ,fontcolor .initial:n = \pc@goptd@fontcolor
  }
 \define@key{pdfcomment.sty}{fontcolor}[\pc@goptd@fontcolor]%
 {%
@@ -875,11 +875,11 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   justification.choices:nn = 
-    {left,center,right}
-    {\tl_set:Ne\pc@lopt@justification{\int_eval:n{\l_keys_choice_int-1}}},
-   justification.value_required:n=true,
-   justification.initial:n=left %default command can not used
+   ,justification .choices:nn = 
+     {left,center,right}
+     {\tl_set:Ne\pc@lopt@justification{\int_eval:n{\l_keys_choice_int-1}}},
+   ,justification .value_required:n = true,
+   ,justification .initial:n = left %!!!default command can not used
  }
 \define@choicekey*{pdfcomment.sty}{justification}[\pc@gopt@justification\nr]{left,center,right}[left]%
 {%
@@ -919,10 +919,10 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   borderstyle.choice:,
-   borderstyle/solid.code:n  = \tl_set:N\pc@lopt@borderstyle{S},
-   borderstyle/dashed.code:n = \tl_set:N\pc@lopt@borderstyle{D},   
-   borderstyle.initial:n=solid %default command can not used
+   ,borderstyle .choice:
+   ,borderstyle/solid .code:n = \tl_set:Nn \pc@lopt@borderstyle {S}
+   ,borderstyle/dashed.code:n = \tl_set:Nn \pc@lopt@borderstyle {D}    
+   ,borderstyle .initial:n = solid %default command can not used
  }
 \define@choicekey*{pdfcomment.sty}{borderstyle}[\pc@gopt@borderstyle\nr]{solid,dashed}[solid]%
 {%
@@ -958,9 +958,9 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   dashstyle.tl_set:N = \pc@lopt@dashstyle,
-   dashstyle.value_required:n=true,
-   dashstyle.initial:n=\pc@goptd@dashstyle
+   ,dashstyle .tl_set:N  = \pc@lopt@dashstyle
+   ,dashstyle .value_required:n = true
+   ,dashstyle .initial:n = \pc@goptd@dashstyle
  }
 \define@key{pdfcomment.sty}{dashstyle}[\pc@goptd@dashstyle]%
 {%
@@ -988,9 +988,9 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   linewidth.tl_set:N = \pc@lopt@linewidth,
-   linewidth.value_required:n=true,
-   linewidth.initial:n=\pc@goptd@linewidth
+   ,linewidth .tl_set:N  = \pc@lopt@linewidth
+   ,linewidth .value_required:n = true
+   ,linewidth .initial:n = \pc@goptd@linewidth
  }
 \define@key{pdfcomment.sty}{linewidth}[\pc@goptd@linewidth]%
 {%
@@ -1018,10 +1018,10 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   bse.choice: ,
-   bse/none.code:n = {\tl_set:Nn\pc@lopt@bse{S}},
-   bse/cloudy.code:n = {\tl_set:Nn\pc@lopt@bse{C}},
-   bse.initial:n=none
+   ,bse .choice: 
+   ,bse/none  .code:n = {\tl_set:Nn\pc@lopt@bse{S}}
+   ,bse/cloudy.code:n = {\tl_set:Nn\pc@lopt@bse{C}}
+   ,bse .initial:n = none
  }
 \define@choicekey*{pdfcomment.sty}{bse}[\pc@gopt@bse\nr]{none,cloudy}[none]%
 {%
@@ -1057,9 +1057,9 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   bsei.tl_set:N = \pc@lopt@bsei,
-   bsei.value_required:n=true,
-   bsei.initial:n=\pc@goptd@bsei
+   ,bsei .tl_set:N  = \pc@lopt@bsei
+   ,bsei .value_required:n = true
+   ,bsei .initial:n = \pc@goptd@bsei
  }
 \define@key{pdfcomment.sty}{bsei}[\pc@goptd@bsei]%
 {%
@@ -1087,14 +1087,14 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   type.choice: , 
-   type/freetext .code:n = \tl_set:Nn\pc@lopt@type{},
-   type/callout.code:n = \tl_set:Nn\pc@lopt@type{FreeTextCallout},
-   type/typewriter .code:n = \tl_set:Nn\pc@lopt@type{FreeTextTypewriter},
-   type/line .code:n = \tl_set:Nn\pc@lopt@type{Line},
-   type/polyline .code:n = \tl_set:Nn\pc@lopt@type{PolyLine},
-   type/polygon .code:n = \tl_set:Nn\pc@lopt@type{Polygon},
-   type.initial:n=freetext
+   ,type.choice:  
+   ,type/freetext .code:n = \tl_set:Nn\pc@lopt@type{}
+   ,type/callout  .code:n = \tl_set:Nn\pc@lopt@type{FreeTextCallout}
+   ,type/typewriter .code:n = \tl_set:Nn\pc@lopt@type{FreeTextTypewriter}
+   ,type/line     .code:n = \tl_set:Nn\pc@lopt@type{Line}
+   ,type/polyline .code:n = \tl_set:Nn\pc@lopt@type{PolyLine}
+   ,type/polygon  .code:n = \tl_set:Nn\pc@lopt@type{Polygon}
+   ,type .initial:n = freetext
  }
  
 \define@choicekey*{pdfcomment.sty}{type}[\pc@gopt@type\nr]{freetext,callout,typewriter,line,polyline,polygon}[freetext]%
@@ -1147,9 +1147,9 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   lineend.tl_set:N = \pc@lopt@lineend,
-   lineend.value_required:n=true,
-   lineend.initial:n=\pc@goptd@lineend
+   ,lineend .tl_set:N  = \pc@lopt@lineend
+   ,lineend .value_required:n = true
+   ,lineend .initial:n = \pc@goptd@lineend
  }
 \define@key{pdfcomment.sty}{lineend}[\pc@goptd@lineend]%
 {%
@@ -1177,9 +1177,9 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   linebegin.tl_set:N = \pc@lopt@linebegin,
-   linebegin.value_required:n=true,
-   linebegin.initial:n=\pc@goptd@linebegin
+   ,linebegin .tl_set:N  = \pc@lopt@linebegin
+   ,linebegin .value_required:n = true
+   ,linebegin .initial:n = \pc@goptd@linebegin
  }
 \define@key{pdfcomment.sty}{linebegin}[\pc@goptd@linebegin]%
 {%
@@ -1207,9 +1207,9 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   icolor.tl_set:N = \pc@lopt@icolor,
-   icolor.value_required:n=true,
-   icolor.initial:n=\pc@goptd@icolor
+   ,icolor .tl_set:N = \pc@lopt@icolor
+   ,icolor .value_required:n = true
+   ,icolor .initial:n = \pc@goptd@icolor
  }
 \define@key{pdfcomment.sty}{icolor}[\pc@goptd@icolor]%
 {%
@@ -1237,11 +1237,11 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   caption.choice:,
-   caption/none.code:n = \tl_set:Nn \pc@lopt@caption{none},
-   caption/inline.code:n = \tl_set:Nn \pc@lopt@caption{Inline},
-   caption/top.code:n = \tl_set:Nn \pc@lopt@caption{Top},
-   caption.initial:n=inline
+   ,caption .choice:
+   ,caption/none  .code:n = \tl_set:Nn \pc@lopt@caption{none}
+   ,caption/inline.code:n = \tl_set:Nn \pc@lopt@caption{Inline}
+   ,caption/top   .code:n = \tl_set:Nn \pc@lopt@caption{Top}
+   ,caption .initial:n = inline
  }
 %
 \define@choicekey*{pdfcomment.sty}{caption}[\pc@gopt@caption\nr]{none,inline,top}[inline]%
@@ -1282,9 +1282,9 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   line.tl_set:N = \pc@lopt@line,
-   line.value_required:n=true,
-   line.initial:n=\pc@goptd@line
+   ,line .tl_set:N  = \pc@lopt@line
+   ,line .value_required:n = true
+   ,line .initial:n = \pc@goptd@line
  }
 \define@key{pdfcomment.sty}{line}[\pc@goptd@line]%
 {%
@@ -1312,9 +1312,9 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   captionhoffset.code:n = \tl_set:Nn\pc@lopt@captionhoffset{\pc@pttobp{#1}},
-   captionhoffset.value_required:n=true,
-   captionhoffset.initial:n=\pc@goptd@captionhoffset
+   ,captionhoffset .code:n    = \tl_set:Nn\pc@lopt@captionhoffset{\pc@pttobp{#1}}
+   ,captionhoffset .value_required:n=true
+   ,captionhoffset .initial:n =\pc@goptd@captionhoffset
  }
 
 \define@key{pdfcomment.sty}{captionhoffset}[\pc@goptd@captionhoffset]%
@@ -1343,9 +1343,9 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   captionvoffset.code:n = \tl_set:Nn\pc@lopt@captionvoffset{\pc@pttobp{#1}},
-   captionvoffset.value_required:n=true,
-   captionvoffset.initial:n=\pc@goptd@captionvoffset
+   ,captionvoffset .code:n = \tl_set:Nn\pc@lopt@captionvoffset{\pc@pttobp{#1}}
+   ,captionvoffset .value_required:n = true,
+   ,captionvoffset .initial:n = \pc@goptd@captionvoffset
  }
 \define@key{pdfcomment.sty}{captionvoffset}[\pc@goptd@captionvoffset]%
 {%
@@ -1373,9 +1373,9 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   linesep.code:n = \tl_set:Nn\pc@lopt@linesep{\pc@pttobp{#1}},
-   linesep.value_required:n=true,
-   linesep.initial:n=\pc@goptd@linesep
+   ,linesep .code:n = \tl_set:Nn\pc@lopt@linesep{\pc@pttobp{#1}}
+   ,linesep .value_required:n = true
+   ,linesep .initial:n = \pc@goptd@linesep
  }
 \define@key{pdfcomment.sty}{linesep}[\pc@goptd@linesep]%
 {%
@@ -1440,9 +1440,9 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   id.tl_set:n = \pc@lopt@id,
-   id.value_required:n=true,
-   id.initial:n=\pc@goptd@id
+   ,id .tl_set:N  = \pc@lopt@id
+   ,id .value_required:n = true
+   ,id .initial:n = \pc@goptd@id
  }
 \newcommand\pc@define@key@id[1]%
 {%
@@ -1465,9 +1465,9 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   date.tl_set:n = \pc@lopt@date,
-   date.value_required:n=true,
-   date.initial:n=\pc@goptd@date
+   ,date .tl_set:N  = \pc@lopt@date
+   ,date .value_required:n = true
+   ,date .initial:n = \pc@goptd@date
  }
  
 \define@key{pdfcomment.sty}{date}[\pc@goptd@date]%
@@ -1496,9 +1496,9 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   timezone.tl_set:n = \pc@lopt@timezone,
-   timezone.value_required:n=true,
-   timezone.initial:n=\pc@goptd@timezone
+   ,timezone .tl_set:N  = \pc@lopt@timezone
+   ,timezone .value_required:n = true
+   ,timezone .initial:n = \pc@goptd@timezone
  }
 \define@key{pdfcomment.sty}{timezone}[\pc@goptd@timezone]%
 {%
@@ -1526,11 +1526,11 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   printSOfinal.choice:,
-   printSOfinal/true.code:n =  \tl_set:Nn \pc@lopt@printSOfinal{true},
-   printSOfinal/false.code:n =  \tl_set:Nn \pc@lopt@printSOfinal{false},
-   printSOfinal.default:n = true
-   printSOfinal.initial:e = \pc@goptd@printSOfinal
+   ,printSOfinal.choice:
+   ,printSOfinal/true.code:n  =  \tl_set:Nn \pc@lopt@printSOfinal{true}
+   ,printSOfinal/false.code:n =  \tl_set:Nn \pc@lopt@printSOfinal{false}
+   ,printSOfinal.default:n    = true 
+   ,printSOfinal.initial:e    = \pc@goptd@printSOfinal
  }
 
 \define@choicekey*{pdfcomment.sty}{printSOfinal}[\pc@gpSOf\nr]{true,false}[true]%
@@ -1567,8 +1567,10 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   dvipdfmx.code:n = {\PackageWarning{pdfcomment}{The~option~dvipdfmx~is~ignored}},  
-   version.code:n  = {\PackageWarning{pdfcomment}{The~option~version~is~ignored}},   
+   ,dvipdfmx .code:n = 
+       {\PackageWarning{pdfcomment}{The~option~'dvipdfmx'~is~ignored}}  
+   ,version  .code:n = 
+       {\PackageWarning{pdfcomment}{The~option~'version'~is~ignored}}   
  }
 
 \define@key{pdfcomment.sty}{dvipdfmx}[]%
@@ -1578,8 +1580,10 @@
 
 \keys_define:nn{pdfcomment}
  {
-   final.legacy_if_gset:n        = pc@gopt@final,   
-   draft.legacy_if_gset_inverse:n = pc@gopt@final,    
+   ,final .legacy_if_gset:n         = pc@gopt@final
+   ,final .usage:n = preamble   
+   ,draft .legacy_if_gset_inverse:n = pc@gopt@final 
+   ,draft .usage:n = preamble  
  }
 \define@key{pdfcomment.sty}{final}[]%
 {%
@@ -1598,9 +1602,8 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   mathstyle.tl_set:n = \pc@lopt@mathstyle,  
-   mathstyle.initial:n=\pc@goptd@mathstyle,
-   mathstyle.groups:n = {pdfmarkupcomment,pdftooltip}
+   ,mathstyle .tl_set:N = \pc@lopt@mathstyle  
+   ,mathstyle .groups:n = {pdfmarkupcomment,pdftooltip}
  }
 \define@key{pdfmarkupcomment}{mathstyle}%
 {%
@@ -1613,9 +1616,9 @@
 }%
 \keys_define:nn{pdfcomment}
  {
-   replyto.tl_set:n = \pc@lopt@replyto,  
-   replyto.initial:n=\pc@goptd@replyto,
-   replyto.groups:n = {pdfreply}
+   ,replyto .tl_set:N = \pc@lopt@replyto  
+   ,replyto .initial:n=\pc@goptd@replyto
+   ,replyto .groups:n = {pdfreply}
  }
 \define@key{pdfreply}{replyto}%
 {%
@@ -1624,7 +1627,8 @@
 %
 \keys_define:nn{pdfcomment}
  {
-   local.code:n = {\PackageWarning{pdfcomment}{The~option~local~is~ignored}},  
+   local.code:n = 
+     {\PackageWarning{pdfcomment}{The~option~'local'~is~ignored}} 
  }
 \define@key{pdfcommentsetup}{local}
 {%
@@ -1633,8 +1637,8 @@
 
 \keys_define:nn{pdfcomment}
  {
-   liststyle.tl_set:n = \pc@lopt@liststyle,  
-   liststyle.groups:n = {listofpdfcomment}
+   ,liststyle .tl_set:N = \pc@lopt@liststyle  
+   ,liststyle .groups:n = {listofpdfcomment}
  }
 \define@key{listofpdfcomments}{liststyle}[AuthorSubject]%
 {%
@@ -1642,8 +1646,8 @@
 }%
 \keys_define:nn{pdfcomment}
  {
-   heading.tl_set:n = \pc@lopt@liststyle,  
-   heading.groups:n = {listofpdfcomment}
+   ,heading .tl_set:N = \pc@lopt@liststyle  
+   ,heading .groups:n = {listofpdfcomment}
  }
 \define@key{listofpdfcomments}{heading}[\lpcname]%
 {%
@@ -1858,11 +1862,14 @@
         \pdfannot_dict_put:nne{widget}{Cap}{true}       
         \pdfannot_dict_put:nne{widget}{CP}{/\pc@lopt@caption}
       }
+     \pdfannot_dict_put:nne{widget}
+       {CO}
+       {[\pc@lopt@captionhoffset\space \pc@lopt@captionvoffset]}% 
     }
     {
      \pdfannot_dict_put:nne{widget}{Vertices}{[\pc@lopt@line]}     
     }
-    \pdfannot_dict_put:nne{widget}{CO}{[\pc@lopt@captionhoffset\space \pc@lopt@captionvoffset]}%    
+        
  }
 %    \end{macrocode}
 % 
