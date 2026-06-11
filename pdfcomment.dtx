@@ -1910,12 +1910,7 @@
   \fi%
 }%
 %
-% thanks to Heiko Oberdiek Msg-Id: <go1hi9$g1s$1@news.belwue.de>
-\newcommand{\pc@pttobp}[1]%
-{%
-  \strip@pt\dimexpr .996264\dimexpr #1\relax\relax%
-}%
-%
+\cs_set_eq:NN\pc@pttobp\dim_to_decimal_in_bp:n
 %
 \newcommand{\pc@annot@calc@pos@math}%
 {%
