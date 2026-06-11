@@ -1,0 +1,27 @@
+
+\DocumentMetadata{tagging=on}
+\input{regression-test}
+\documentclass{article}
+\usepackage{xcolor}
+\usepackage{pdfcomment}
+\begin{document}
+\START\showoutput
+\defineavatar{UF}{color=orange,author={UF},voffset=20pt}
+
+\definestyle{MyStar}{icon=Star,opacity=0.7,voffset=12pt,color=blue}%
+
+aaa\pdfcomment[avatar=UF]{mycomment}
+
+\bigskip 
+
+bbb\pdfcomment[style=MyStar,date={}]{It's enough now!}
+
+\bigskip
+ccc\pdfcomment[avatar=UF,style=MyStar,date={}]{It's enough now!}
+
+
+\bigskip
+ccc\pdfcomment[style=MyStar,avatar=UF,date={}]{It's enough now!}
+
+\SHOWPDFTAGS
+\end{document} 
