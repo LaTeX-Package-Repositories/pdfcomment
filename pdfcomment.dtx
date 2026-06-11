@@ -46,7 +46,7 @@
  {PDF annotations and comments}
 \IfPDFManagementActiveF{\RequirePackageWithOptions{pdfcomment-2018-11-01}}
 \IfPDFManagementActiveF{\endinput}
-
+\RequirePackage{hyperref}
 %    \end{macrocode}
 %\subsection{Variables} 
 % Default values. The commands use \texttt{goptd}.
@@ -243,32 +243,40 @@
 \keys_define:nn{pdfcomment}
  {
    ,subject .tl_set:N  = \pc@lopt@subject
-   ,subject .initial:n = \pc@goptd@subject
+   ,subject .initial:o = \pc@goptd@subject
  }
 
 \keys_define:nn{pdfcomment}
  {
-   ,color .tl_set:N  = \pc@lopt@color 
-   ,color .initial:n = \pc@goptd@color 
+   ,color .code:n  = 
+     {
+      \tl_if_blank:eTF {#1}
+       {\tl_set:Nn\pc@lopt@color{}}
+       {
+         \HyColor@XZeroOneThreeFour{#1}{\pc@lopt@color}{pdfcomment}{color}
+         \tl_set:Ne \pc@lopt@color {[\pc@lopt@color]}
+       }  
+     }
+   ,color .initial:o = \pc@goptd@color 
  }
 
 \keys_define:nn{pdfcomment}
  {
    ,author .tl_set:N  = \pc@lopt@author
-   ,author .initial:n = \pc@goptd@author
+   ,author .initial:o = \pc@goptd@author
  }
  
 
 \keys_define:nn{pdfcomment}
  {
    ,deadline .tl_set:N  = \pc@lopt@deadline
-   ,deadline .initial:n = \pc@goptd@deadline
+   ,deadline .initial:o = \pc@goptd@deadline
  }
 
 \keys_define:nn{pdfcomment}
  {
-   ,icon.tl_set:N  = \pc@lopt@icon
-   ,icon.initial:n = \pc@goptd@icon
+   ,icon.code:n    = {\tl_set:Nn \pc@lopt@icon {/#1}}
+   ,icon.initial:o = \pc@goptd@icon
  }
 
 \keys_define:nn{pdfcomment}
@@ -277,28 +285,28 @@
    ,open/true .code:n =  \tl_set:Nn \pc@lopt@open{true}
    ,open/false.code:n =  \tl_set:Nn \pc@lopt@open{false}
    ,open.default:n = true
-   ,open.initial:e = \pc@goptd@open
+   ,open.initial:o = \pc@goptd@open
  }
 
 \keys_define:nn{pdfcomment}
  {
    ,hspace .tl_set:N  = \pc@lopt@hspace
    ,hspace .value_required:n = true
-   ,hspace .initial:n =\pc@goptd@hspace
+   ,hspace .initial:o =\pc@goptd@hspace
  }
 
 \keys_define:nn{pdfcomment}
  {
    ,voffset .tl_set:N  = \pc@lopt@voffset
    ,voffset .value_required:n = true
-   ,voffset .initial:n = \pc@goptd@voffset
+   ,voffset .initial:o = \pc@goptd@voffset
  }
 
 \keys_define:nn{pdfcomment}
  {
    ,hoffset .tl_set:N  = \pc@lopt@hoffset
    ,hoffset .value_required:n = true
-   ,hoffset .initial:n =\pc@goptd@hoffset
+   ,hoffset .initial:o =\pc@goptd@hoffset
  }
 
 
@@ -306,56 +314,64 @@
  {
    ,width .tl_set:N  = \pc@lopt@width
    ,width .value_required:n = true
-   ,width .initial:n =\pc@goptd@width
+   ,width .initial:o =\pc@goptd@width
  }
 
 \keys_define:nn{pdfcomment}
  {
    ,height .tl_set:N  = \pc@lopt@height
    ,height .value_required:n = true
-   ,height .initial:n =\pc@goptd@height
+   ,height .initial:o =\pc@goptd@height
  }
 
 \keys_define:nn{pdfcomment}
  {
    ,depth .tl_set:N  = \pc@lopt@depth
    ,depth .value_required:n = true
-   ,depth .initial:n = \pc@goptd@depth
+   ,depth .initial:o = \pc@goptd@depth
  }
 
 \keys_define:nn{pdfcomment}
  {
    ,opacity .tl_set:N  = \pc@lopt@opacity
    ,opacity .value_required:n = true,
-   ,opacity .initial:n = \pc@goptd@opacity
+   ,opacity .initial:o = \pc@goptd@opacity
  }
 
 \keys_define:nn{pdfcomment}
  {
    ,markup .tl_set:N  = \pc@lopt@markup
    ,markup .value_required:n = true
-   ,markup .initial:n = \pc@goptd@markup
+   ,markup .initial:o = \pc@goptd@markup
  }
 
 \keys_define:nn{pdfcomment}
  {
    ,font .tl_set:N  = \pc@lopt@font
    ,font .value_required:n = true
-   ,font .initial:n = \pc@goptd@font
+   ,font .initial:o = \pc@goptd@font
  }
 
 \keys_define:nn{pdfcomment}
  {
    ,fontsize .code:n = \tl_set:Nn \pc@lopt@fontsize {\pc@pttobp{#1}}
    ,fontsize .value_required:n = true
-   ,fontsize .initial:n = \pc@goptd@fontsize
+   ,fontsize .initial:o = \pc@goptd@fontsize
  }
 
 \keys_define:nn{pdfcomment}
  {
-   ,fontcolor .tl_set:N = \pc@lopt@fontcolor
+   ,fontcolor .code:n = 
+     {
+      \tl_if_blank:eTF {#1}
+       {\tl_set:Nn\pc@lopt@fontcolor{}}
+       {
+         \HyColor@XZeroOneThreeFour{#1}{\pc@lopt@fontcolor}{pdfcomment}{color}
+         \tl_set:Ne \pc@lopt@fontcolor {\pc@lopt@fontcolor}
+       }  
+     }
    ,fontcolor .value_required:n = true
-   ,fontcolor .initial:n = \pc@goptd@fontcolor
+   ,fontcolor .initial:o = \pc@goptd@fontcolor
  }
 
 \keys_define:nn{pdfcomment}
@@ -380,14 +396,14 @@
  {
    ,dashstyle .tl_set:N  = \pc@lopt@dashstyle
    ,dashstyle .value_required:n = true
-   ,dashstyle .initial:n = \pc@goptd@dashstyle
+   ,dashstyle .initial:o = \pc@goptd@dashstyle
  }
 
 \keys_define:nn{pdfcomment}
  {
    ,linewidth .code:n = {\tl_set:Nn\pc@lopt@linewidth {\pc@pttobp{#1}}}
    ,linewidth .value_required:n = true
-   ,linewidth .initial:n = \pc@goptd@linewidth
+   ,linewidth .initial:o = \pc@goptd@linewidth
  }
 
 \keys_define:nn{pdfcomment}
@@ -402,18 +418,18 @@
  {
    ,bsei .tl_set:N  = \pc@lopt@bsei
    ,bsei .value_required:n = true
-   ,bsei .initial:n = \pc@goptd@bsei
+   ,bsei .initial:o = \pc@goptd@bsei
  }
 
 \keys_define:nn{pdfcomment}
  {
    ,type.choice:  
    ,type/freetext .code:n = \tl_set:Nn\pc@lopt@type{}
-   ,type/callout  .code:n = \tl_set:Nn\pc@lopt@type{FreeTextCallout}
-   ,type/typewriter .code:n = \tl_set:Nn\pc@lopt@type{FreeTextTypewriter}
-   ,type/line     .code:n = \tl_set:Nn\pc@lopt@type{Line}
-   ,type/polyline .code:n = \tl_set:Nn\pc@lopt@type{PolyLine}
-   ,type/polygon  .code:n = \tl_set:Nn\pc@lopt@type{Polygon}
+   ,type/callout  .code:n = \tl_set:Nn\pc@lopt@type{/FreeTextCallout}
+   ,type/typewriter .code:n = \tl_set:Nn\pc@lopt@type{/FreeTextTypewriter}
+   ,type/line     .code:n = \tl_set:Nn\pc@lopt@type{/Line}
+   ,type/polyline .code:n = \tl_set:Nn\pc@lopt@type{/PolyLine}
+   ,type/polygon  .code:n = \tl_set:Nn\pc@lopt@type{/Polygon}
    ,type .initial:n = freetext
  }
  
@@ -422,21 +438,29 @@
  {
    ,lineend .tl_set:N  = \pc@lopt@lineend
    ,lineend .value_required:n = true
-   ,lineend .initial:n = \pc@goptd@lineend
+   ,lineend .initial:o = \pc@goptd@lineend
  }
 
 \keys_define:nn{pdfcomment}
  {
    ,linebegin .tl_set:N  = \pc@lopt@linebegin
    ,linebegin .value_required:n = true
-   ,linebegin .initial:n = \pc@goptd@linebegin
+   ,linebegin .initial:o = \pc@goptd@linebegin
  }
 
 \keys_define:nn{pdfcomment}
  {
-   ,icolor .tl_set:N = \pc@lopt@icolor
+   ,icolor .code:n = 
+     {
+       \tl_if_blank:eTF {#1}
+        {\tl_set:Nn\pc@lopt@icolor{}}
+        {
+         \HyColor@XZeroOneThreeFour{#1}{\pc@lopt@icolor}{pdfcomment}{color}
+         \tl_set:Ne \pc@lopt@icolor {[\pc@lopt@icolor]}
+        }  
+     }
    ,icolor .value_required:n = true
-   ,icolor .initial:n = \pc@goptd@icolor
+   ,icolor .initial:o = \pc@goptd@icolor
  }
 
 \keys_define:nn{pdfcomment}
@@ -452,14 +476,14 @@
  {
    ,line .tl_set:N  = \pc@lopt@line
    ,line .value_required:n = true
-   ,line .initial:n = \pc@goptd@line
+   ,line .initial:o = \pc@goptd@line
  }
 
 \keys_define:nn{pdfcomment}
  {
    ,captionhoffset .code:n    = \tl_set:Nn\pc@lopt@captionhoffset{\pc@pttobp{#1}}
    ,captionhoffset .value_required:n=true
-   ,captionhoffset .initial:n =\pc@goptd@captionhoffset
+   ,captionhoffset .initial:o =\pc@goptd@captionhoffset
  }
 
 
@@ -467,14 +491,14 @@
  {
    ,captionvoffset .code:n = \tl_set:Nn\pc@lopt@captionvoffset{\pc@pttobp{#1}}
    ,captionvoffset .value_required:n = true,
-   ,captionvoffset .initial:n = \pc@goptd@captionvoffset
+   ,captionvoffset .initial:o = \pc@goptd@captionvoffset
  }
 
 \keys_define:nn{pdfcomment}
  {
    ,linesep .code:n = \tl_set:Nn\pc@lopt@linesep{\pc@pttobp{#1}}
    ,linesep .value_required:n = true
-   ,linesep .initial:n = \pc@goptd@linesep
+   ,linesep .initial:o = \pc@goptd@linesep
  }
 
 \keys_define:nn{pdfcomment}
@@ -486,14 +510,19 @@
  {
    ,id .tl_set:N  = \pc@lopt@id
    ,id .value_required:n = true
-   ,id .initial:n = \pc@goptd@id
+   ,id .initial:o = \pc@goptd@id
  }
 
 \keys_define:nn{pdfcomment}
  {
-   ,date .tl_set:N  = \pc@lopt@date
+   ,date .code:n  = 
+     {
+       \tl_if_blank:nTF{#1}
+         {\tl_set:Nn\pc@lopt@date{}}
+         {\tl_set:Nn\pc@lopt@date{(#1)}}
+     }  
    ,date .value_required:n = true
-   ,date .initial:n = \pc@goptd@date
+   ,date .initial:o = \pc@goptd@date
  }
  
 
@@ -501,7 +530,7 @@
  {
    ,timezone .tl_set:N  = \pc@lopt@timezone
    ,timezone .value_required:n = true
-   ,timezone .initial:n = \pc@goptd@timezone
+   ,timezone .initial:o = \pc@goptd@timezone
  }
 
 \keys_define:nn{pdfcomment}
@@ -537,7 +566,6 @@
 \keys_define:nn{pdfcomment}
  {
    ,replyto .tl_set:N = \pc@lopt@replyto  
-   ,replyto .initial:n=\pc@goptd@replyto
    ,replyto .groups:n = {pdfreply}
  }
 
@@ -558,7 +586,6 @@
    ,heading .tl_set:N = \pc@lopt@liststyle  
    ,heading .groups:n = {listofpdfcomments}
  }
-
 \ProcessKeyOptions[pdfcomment]\relax%
 %
 \RequirePackage{etoolbox}%
@@ -568,7 +595,7 @@
 \RequirePackage{ifthen}%
 \RequirePackage{marginnote}%
 \RequirePackage{soulpos}%
-\RequirePackage{hyperref}
+%\RequirePackage{hyperref}
 %
 % Using the options draft, final in \pdfcommentsetup makes absolutely no sense!
 % Therefore, they are switched off at "\AtBeginDocument"
@@ -579,19 +606,19 @@
 %    \begin{macrocode}
 \NewStructureName{pdfcomment/annot}
 \AssignStructureRole{pdfcomment/annot}{Annot}
-\NewTaggingSocket{pdfcomment/annot}{2}
-\NewTaggingSocketPlug{pdfcomment/annot}{default}
+\NewTaggingSocket{pdfcomment/annotbox}{2}
+\NewTaggingSocketPlug{pdfcomment/annotbox}{default}
  {   
    \tag_mc_end_push:
-   \tag_struct_begin:n {tag=Annot,#1}
-   \pdfannot_dict_put:nne {widget}{StructParent}{ \tag_struct_parent_int: }
+   \tag_struct_begin:n {tag=\UseStructureName{pdfcomment/annot}}
+   \pdfdict_put:nne {#1}{StructParent}{ \tag_struct_parent_int: }
    #2
    \exp_args:Nee
    \tag_struct_insert_annot:nn {\pdfannot_ref_last:}{ \tag_struct_parent_int: }
    \tag_struct_end:
    \tag_mc_begin_pop:n{}
  }
-\AssignTaggingSocketPlug{pdfcomment/annot}{default} 
+\AssignTaggingSocketPlug{pdfcomment/annotbox}{default} 
 %    \end{macrocode}
 %
 %  \subsection{Tagging support for marginnote}
@@ -637,146 +664,162 @@
 % 
 %    \begin{macrocode}
 %<@@=pc>
-\cs_new_protected:Npn \@@_dict_store_dates:
- {
-   \pdfannot_dict_put:nne{widget}{CreationDate}{(\pc@lopt@date)}
-   \pdfannot_dict_put:nne{widget}{M}{(\pc@lopt@date)}   
- }
+\pdfdict_new:n   {l_@@_core_dict}
+\pdfdict_put:nnn {l_@@_core_dict} {CreationDate}{\pc@lopt@date}
+\pdfdict_put:nnn {l_@@_core_dict} {M}           {\pc@lopt@date}
+\pdfdict_put:nnn {l_@@_core_dict} {C}           {\pc@lopt@color}
+\pdfdict_put:nnn {l_@@_core_dict} {T}       {\pc@pdfenc@author}
+\pdfdict_put:nnn {l_@@_core_dict} {Contents}{\pc@pdfenc@contents}
+\pdfdict_put:nnn {l_@@_core_dict} {CA}      {\pc@lopt@opacity}
+\pdfdict_put:nnn {l_@@_core_dict} {Name}    {\pc@lopt@icon}
+\pdfdict_put:nnn {l_@@_core_dict} {Open}    {\pc@lopt@open}
+\pdfdict_put:nnn {l_@@_core_dict} {F}       {4}
 %    \end{macrocode}
+%
+% for text annotations 
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_dict_store_color:
-  {
-   \tl_if_empty:eF {\pc@lopt@color}
-    {
-      \pdfannot_dict_put:nne{widget}{C}{[\pc@hyenc@color]}
-    }
-  }    
+\pdfdict_new:n   {l_@@_text_dict}
+\pdfdict_set_eq:nn {l_@@_text_dict}{l_@@_core_dict}
+\pdfdict_put:nnn {l_@@_text_dict} {Subtype}       {/Text}
 %    \end{macrocode}
-% from \cs{pc@annot@text}:
-%    \begin{macrocode}
-\cs_new_protected:Npn \@@_dict_store_text:
- {
-   \pdfannot_dict_put:nne{widget}{Subtype}{/Text}
-   \pdfannot_dict_put:nne{widget}{CA}{\pc@lopt@opacity}
-   \pdfannot_dict_put:nne{widget}{T}{(\pc@pdfenc@author)}
-   \pdfannot_dict_put:nne{widget}{Subj}{(\pc@pdfenc@subject)}
-   \pdfannot_dict_put:nne{widget}{Name}{(\pc@lopt@icon)}
-   \pdfannot_dict_put:nne{widget}{Contents}{(\pc@pdfenc@contents)}
-   \pdfannot_dict_put:nne{widget}{Open}{\pc@lopt@open}
-   \pdfannot_dict_put:nne{widget}{F}{4}  
- }
-%    \end{macrocode}
+%
 % for free text annotations
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_dict_store_freetext:
+\pdfdict_new:n   {l_@@_freetext_dict}
+\pdfdict_set_eq:nn {l_@@_freetext_dict}{l_@@_core_dict}
+\pdfdict_put:nnn {l_@@_freetext_dict} {Subtype}       {/FreeText}
+%!!!!!!!!! Check!!! Color setting is wrong!!!!
+\pdfdict_put:nnn {l_@@_freetext_dict} 
+   {DA}
+   {(/\pc@lopt@font\space \pc@lopt@fontsize\space Tf\space 1~1~1%\pc@hyenc@fontcolor
+    \space rg)}
+\pdfdict_put:nnn {l_@@_freetext_dict} {Q}  {\pc@lopt@justification}
+\pdfdict_put:nnn {l_@@_freetext_dict} {CL} {[\pc@lopt@line]}
+\pdfdict_put:nnn {l_@@_freetext_dict} {LE} {\pc@lopt@lineend}
+\pdfdict_put:nnn {l_@@_freetext_dict} {BE} {<</S /\pc@lopt@bse/I~\pc@lopt@bsei>>}
+\pdfdict_put:nnn {l_@@_freetext_dict} {BS} 
+   {<</W~\pc@lopt@linewidth/S/\pc@lopt@borderstyle/D~[\pc@lopt@dashstyle]>>}
+\pdfdict_put:nnn {l_@@_freetext_dict} {IT} {\pc@lopt@type}
+   
+\cs_new_protected:Npn \@@_dict_update_freetext:
  {
-   \pdfannot_dict_put:nne{widget}{Subtype}{/FreeText}
-   \pdfannot_dict_put:nne{widget}{CA}{\pc@lopt@opacity}
-%    \end{macrocode}
-% TODO: Check DA entry
-%    \begin{macrocode}
-   \pdfannot_dict_put:nne{widget}{DA}{(/\pc@lopt@font\space \pc@lopt@fontsize\space Tf\space \pc@hyenc@fontcolor\space rg)}
-   \pdfannot_dict_put:nne{widget}{T}{(\pc@pdfenc@author)}
-   \pdfannot_dict_put:nne{widget}{Subj}{(\pc@pdfenc@subject)}
-   \pdfannot_dict_put:nne{widget}{Contents}{(\pc@pdfenc@contents)}
-   \pdfannot_dict_put:nne{widget}{F}{4}  
-   \pdfannot_dict_put:nne{widget}{Q}{\pc@lopt@justification}  
-   \pdfannot_dict_put:nne{widget}{CL}{[\pc@lopt@line]}
-   \pdfannot_dict_put:nne{widget}{LE}{\pc@lopt@lineend}
-   \pdfannot_dict_put:nne{widget}{BE}{<</S /\pc@lopt@bse/I~\pc@lopt@bsei>>}
-   \str_if_eq:eeTF {\pc@lopt@type}{FreeTextTypewriter}
+   \str_if_eq:eeT {\pc@lopt@type}{/FreeTextTypewriter}
     {%
-      \pdfannot_dict_put:nne{widget/BS}{W}{0}     
+      \tl_set:Nn\pc@lopt@linewidth{0}
+      \tl_set:Nn\pc@lopt@color{}
     }%
-    {
-     \pdfannot_dict_put:nne{widget/BS}{W}{\pc@lopt@linewidth}
-     \tl_if_empty:eF {\pc@lopt@color}
-      {
-        \pdfannot_dict_put:nne{widget}{C}{[\pc@hyenc@color]}
-      }
-    }
-   \pdfannot_dict_put:nne{widget/BS}{S}{/\pc@lopt@borderstyle}
-   \pdfannot_dict_put:nne{widget/BS}{D}{[\pc@lopt@dashstyle]}
-   \tl_if_empty:eF\pc@lopt@type
-    {\pdfannot_dict_put:nne{widget}{IT}{/\pc@lopt@type}}
  }
 %    \end{macrocode}
 %
 % for square and circle annotations:
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_dict_store_geometric:n #1
- {
-   \pdfannot_dict_put:nne{widget}{Subtype}{/#1}
-   \pdfannot_dict_put:nne{widget}{CA}{\pc@lopt@opacity}
-   \pdfannot_dict_put:nne{widget}{T}{(\pc@pdfenc@author)}
-   \pdfannot_dict_put:nne{widget}{Subj}{(\pc@pdfenc@subject)}
-   \pdfannot_dict_put:nne{widget}{Contents}{(\pc@pdfenc@contents)}
-   \pdfannot_dict_put:nne{widget}{F}{4}  
-   \pdfannot_dict_put:nne{widget/BS}{W}{\pc@lopt@linewidth}
-   \pdfannot_dict_put:nne{widget/BS}{S}{/\pc@lopt@borderstyle}
-   \pdfannot_dict_put:nne{widget/BS}{D}{[\pc@lopt@dashstyle]} 
-   \pdfannot_dict_put:nne{widget}{BE}{<</S /\pc@lopt@bse/I~\pc@lopt@bsei>>}
-   \tl_if_empty:eF{\pc@lopt@icolor}
-    {
-      \pdfannot_dict_put:nne{widget}{IC}{[\pc@hyenc@icolor]}
-    }
- }
+\pdfdict_new:n   {l_@@_geometric_dict}
+\pdfdict_set_eq:nn {l_@@_geometric_dict}{l_@@_core_dict}
+\pdfdict_put:nnn {l_@@_geometric_dict} {BE} {<</S /\pc@lopt@bse/I~\pc@lopt@bsei>>}
+\pdfdict_put:nnn {l_@@_geometric_dict} {BS} 
+   {<</W~\pc@lopt@linewidth/S/\pc@lopt@borderstyle/D~[\pc@lopt@dashstyle]>>}
+\pdfdict_put:nnn {l_@@_geometric_dict} {IC} {\pc@lopt@icolor}
+\cs_new_protected:Npn \@@_dict_update_geometric:n #1
+  {
+   \pdfdict_put:nnn {l_@@_geometric_dict} {Subtype}{/#1}
+  }
 %    \end{macrocode}
 % for line annotations
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_dict_store_line:
+\pdfdict_new:n   {l_@@_line_dict}
+\pdfdict_set_eq:nn {l_@@_line_dict}{l_@@_core_dict}
+\pdfdict_put:nnn {l_@@_line_dict}{Subtype}{\pc@lopt@type}
+\pdfdict_put:nnn {l_@@_line_dict} {BE} {<</S /\pc@lopt@bse/I~\pc@lopt@bsei>>}
+\pdfdict_put:nnn {l_@@_line_dict} {BS} 
+   {<</W~\pc@lopt@linewidth/S/\pc@lopt@borderstyle/D~[\pc@lopt@dashstyle]>>}
+\pdfdict_put:nnn {l_@@_line_dict} {IC} {\pc@lopt@icolor}
+\pdfdict_put:nnn {l_@@_line_dict} {LE} {[\pc@lopt@linebegin\space\pc@lopt@lineend]} 
+\cs_new_protected:Npn \@@_dict_update_line:
  {
-   \pdfannot_dict_put:nne{widget}{Subtype}{/\pc@lopt@type}
-   \pdfannot_dict_put:nne{widget}{CA}{\pc@lopt@opacity}
-   \pdfannot_dict_put:nne{widget}{T}{(\pc@pdfenc@author)}
-   \pdfannot_dict_put:nne{widget}{Subj}{(\pc@pdfenc@subject)}
-   \pdfannot_dict_put:nne{widget}{Contents}{(\pc@pdfenc@contents)}
-   \pdfannot_dict_put:nne{widget}{F}{4}  
-   \pdfannot_dict_put:nne{widget/BS}{W}{\pc@lopt@linewidth}
-   \pdfannot_dict_put:nne{widget/BS}{S}{/\pc@lopt@borderstyle}
-   \pdfannot_dict_put:nne{widget/BS}{D}{[\pc@lopt@dashstyle]} 
-   \pdfannot_dict_put:nne{widget}{BE}{<</S /\pc@lopt@bse/I~\pc@lopt@bsei>>}
-   \tl_if_empty:eF{\pc@lopt@icolor}
+   \str_if_eq:eeTF{\pc@lopt@type}{/Line}
     {
-      \pdfannot_dict_put:nne{widget}{IC}{[\pc@hyenc@icolor]}
-    }
-   \pdfannot_dict_put:nne{widget}{LE}{[\pc@lopt@linebegin\space\pc@lopt@lineend]} 
-   \str_if_eq:eeTF{\pc@lopt@type}{Line}
-    {
-     \pdfannot_dict_put:nne{widget}{L}{[\pc@lopt@line]}     
+     \pdfdict_put:nnn {l_@@_line_dict} {L} {[\pc@lopt@line]}     
      \str_if_eq:eeTF{\pc@lopt@caption}{none}
       {
-        \pdfannot_dict_put:nne{widget}{Cap}{false}       
+        \pdfdict_put:nnn {l_@@_line_dict} {Cap}{false}       
       }
       {
-        \pdfannot_dict_put:nne{widget}{Cap}{true}       
-        \pdfannot_dict_put:nne{widget}{CP}{/\pc@lopt@caption}
+        \pdfdict_put:nnn {l_@@_line_dict} {Cap}{true}       
+        \pdfdict_put:nnn {l_@@_line_dict} {CP} {/\pc@lopt@caption}
       }
-     \pdfannot_dict_put:nne{widget}
+     \pdfdict_put:nnn {l_@@_line_dict}
        {CO}
-       {[\pc@lopt@captionhoffset\space \pc@lopt@captionvoffset]}% 
+       {[\pc@lopt@captionhoffset\space \pc@lopt@captionvoffset]}
     }
     {
-     \pdfannot_dict_put:nne{widget}{Vertices}{[\pc@lopt@line]}     
-    }
-        
+     \pdfdict_put:nnn {l_@@_line_dict} {Vertices} {[\pc@lopt@line]}     
+    }      
  }
 %    \end{macrocode}
 % 
 % For tool tips. Note: tooltips are form fields!
 %    \begin{macrocode}
+\pdfdict_new:n   {l_@@_tooltip_dict}
 \cs_new_protected:Npn\@@_dict_store_tooltip:
  {
-   \pdfannot_dict_put:nne{widget}{TU}{(\pc@pdfenc@contents)}
-   \pdfannot_dict_put:nne{widget}{T}{(tooltip \thezref@unique)}
-   \pdfannot_dict_put:nne{widget}{FT}{/Btn}
-   \pdfannot_dict_put:nne{widget}{F}{768}
-   \pdfannot_dict_put:nne{widget}{Ff}{65536}
-   \pdfannot_dict_put:nne{widget}{H}{/N}
-   \pdfannot_dict_put:nne{widget/BS}{W}{0}
+   \pdfdict_put:nne {l_@@_tooltip_dict} {TU}{\pc@pdfenc@contents}
+   \pdfdict_put:nne {l_@@_tooltip_dict} {T} {(tooltip \thezref@unique)}
+   \pdfdict_put:nne {l_@@_tooltip_dict} {FT}{/Btn}
+   \pdfdict_put:nne {l_@@_tooltip_dict} {F}{768}
+   \pdfdict_put:nne {l_@@_tooltip_dict} {Ff}{65536}
+   \pdfdict_put:nne {l_@@_tooltip_dict} {H}{/N}
+   \pdfdict_put:nne {l_@@_tooltip_dict} {BS}{<<W~0>>}
  }
 %    \end{macrocode}
-% This is used for the \cs{pdfreply}. TODO: check code
+% For markup annotations:
+%    \begin{macrocode}
+\pdfdict_new:n{l_@@_markup_dict}
+\pdfdict_set_eq:nn {l_@@_markup_dict}{l_@@_core_dict}
+\pdfdict_put:nnn {l_@@_markup_dict} {Subtype}    {/\pc@lopt@markup}
+\pdfdict_put:nnn {l_@@_markup_dict} {Subj}    {\pc@pdfenc@subject}
+\pdfdict_put:nnn {l_@@_markup_dict} {QuadPoints}    {\pc@annot@quadpoints}
+%    \end{macrocode}
+%
+% For sideline annotations:
+%    \begin{macrocode}
+\pdfdict_new:n{l_@@_sideline_dict}
+\pdfdict_set_eq:nn {l_@@_sideline_dict}{l_@@_core_dict}
+\pdfdict_remove:nn {l_@@_sideline_dict}{Name}
+\pdfdict_remove:nn {l_@@_sideline_dict}{Open}
+\pdfdict_put:nnn {l_@@_sideline_dict} {Subtype} {/Line}
+\pdfdict_put:nnn {l_@@_sideline_dict} {IC}{\pc@lopt@icolor}
+\pdfdict_put:nnn {l_@@_sideline_dict} 
+  {LE} 
+  {[\pc@lopt@linebegin\space\pc@lopt@lineend]}
+\pdfdict_put:nnn {l_@@_sideline_dict} 
+  {CO}
+  {[\pc@lopt@captionhoffset\space \pc@lopt@captionvoffset]}
+\pdfdict_put:nnn {l_@@_sideline_dict} 
+  {BS} 
+    {
+     <</W~\pc@lopt@linewidth\space
+       /S~/\pc@lopt@borderstyle\space
+       /D~[\pc@lopt@dashstyle]\space
+     >>
+    }
+\pdfdict_put:nnn {l_@@_sideline_dict} 
+  {BE} 
+  {<</S~/\pc@lopt@bse\space/I~\pc@lopt@bsei>>} 
+\pdfdict_put:nnn {l_@@_sideline_dict} {L}{[\pc@lopt@line]}     
+\cs_new_protected:Npn \@@_dict_update_sideline:
+ {  
+  \str_if_eq:eeTF{\pc@lopt@caption}{none}%
+    {
+      \pdfdict_put:nnn {l_@@_sideline_dict} {Cap} {false}
+    }
+    {
+      \pdfdict_put:nnn {l_@@_sideline_dict} {Cap} {true}
+      \pdfdict_put:nnn {l_@@_sideline_dict} {CP}{/\pc@lopt@caption}
+    } 
+ }  
+%    \end{macrocode}
+%
+% This is used for the \cs{pdfreply} command. TODO: check code
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_collect_objid:
  {
@@ -789,7 +832,7 @@
  {
    \tl_if_empty:eF{\pc@lopt@id}
     {
-      \pc@save@PDFOBJID{\pc@lopt@id}%  
+      \pc@save@PDFOBJID{\pc@lopt@id}
     }   
  } 
 %    \end{macrocode}
@@ -804,43 +847,45 @@
 % TODO Check if the command needs to be set globally!
 %    \begin{macrocode}
    \group_begin:
-  \gdef\pc@collect@PDFOBJID{S}
-  \keys_set:nn{pdfcomment}{#1}
+   \gdef\pc@collect@PDFOBJID{S}
+   \keys_set:nn{pdfcomment}{#1}
 %    \end{macrocode}
 %  Encode Contents, Author and Subject to pdf encodings  
 %  and transform color input to pdf color
 %  
 %    \begin{macrocode}
-  \pc@encode@PDF{#2}%
-  \pc@encode@colors
+   \pc@encode@PDF{#2}
 %    \end{macrocode}
 %
 %    \begin{macrocode}  
-  \ifpc@gopt@final\else
-    \ifpc@lopt@disable\else
-      \hspace*{0pt}%
+   \ifpc@gopt@final\else
+     \ifpc@lopt@disable\else
+       \hspace*{0pt}
 %    \end{macrocode}
 % This creates the list entry
 %    \begin{macrocode}
-      \pc@create@lpc% 
+       \pc@create@lpc
 %    \end{macrocode}
 % Typeset the text annotation in a box of size zero.
 %    \begin{macrocode}
         \vbox%
-        {\tagpdfparaOff%
-          \hsize=0pt%
-          \noindent%
-          \vspace{\pc@lopt@voffset}%
-          \hbox to 0pt%
-          {%
-            \vsize=0pt%
-            \hskip\pc@lopt@hoffset%
-            \@@_dict_store_color:
-            \@@_dict_store_dates:
-            \@@_dict_store_text:                    
-            \UseTaggingSocket{pdfcomment/annot}
-             {}
-             {\pdfannot_widget_box:nnn{\normalbaselineskip}{\normalbaselineskip}{0pt}}
+        {\tagpdfparaOff
+          \hsize=0pt
+          \noindent
+          \vspace{\pc@lopt@voffset}
+          \hbox to 0pt
+           {
+            \vsize=0pt
+            \hskip\pc@lopt@hoffset
+            \UseTaggingSocket{pdfcomment/annotbox}
+             {l_@@_text_dict}
+             {
+               \pdfannot_box:nnne
+                 {\normalbaselineskip}
+                 {\normalbaselineskip}
+                 {0pt}
+                 {\pdfdict_use:n {l_@@_text_dict}}
+             }
 %    \end{macrocode}
 % TODO: check
 %    \begin{macrocode}
@@ -849,329 +894,331 @@
             \hss%
           }%
         }%
-      \hspace{\pc@lopt@hspace}%
+      \hspace{\pc@lopt@hspace}
     \fi
   \fi
   \group_end:  
 }%
 %    \end{macrocode}
+%
 % \subsection{\cs{pdfmargincomment}}
-% The marginnote is patched above. 
+% The \cs{marginnote} command is patched above. 
 %    \begin{macrocode}
-\newcommand{\pdfmargincomment}[2][]%
-{%
+\newcommand{\pdfmargincomment}[2][]
+ {
   \ifhmode\unskip\fi
   \ifvmode\leavevmode\fi
-  % Copy all global options to local options
   \group_begin:
-  %\pc@copy@gopt@lopt%
   \gdef\pc@collect@PDFOBJID{S}
-  % Change local options if specified
   \keys_set:nn{pdfcomment}{#1}
 %    \end{macrocode}
 % Encode Contents, Author and Subject 
- % and transform color input to pdf color
+% and transform color input to pdf color
 %    \begin{macrocode}
-  \pc@encode@PDF{#2}%  
-  \pc@encode@colors
+  \pc@encode@PDF{#2} 
   \ifpc@gopt@final\else
     \ifpc@lopt@disable\else
-      \hspace*{0pt}%
-      \pc@create@lpc%
-      \@@_dict_store_color:
-      \@@_dict_store_dates:
-      \@@_dict_store_text:      
-      % center marginnotes!
-        \renewcommand{\raggedleftmarginnote}{\pc@raggedleftmarginnote}%
-        \renewcommand{\raggedrightmarginnote}{\pc@raggedrightmarginnote}%
-        % typeset text annotation (see: PDF Reference)
-        \marginnote%
-        {%
-            \vbox%
-            {\tagpdfparaOff%
-              \hsize=0pt%
-              \noindent%
-              \vspace{\pc@lopt@voffset}%
-              \hbox to 0pt%
-              {%
-                \vsize=0pt%
-                \hskip\pc@lopt@hoffset%
-                \UseTaggingSocket{pdfcomment/annot}
-                {}
-                {\pdfannot_widget_box:nnn{\normalbaselineskip}{\normalbaselineskip}{0pt}}
+      \hspace*{0pt}
+      \pc@create@lpc
+%    \end{macrocode}
+% Center marginnotes:
+%    \begin{macrocode}      
+       \renewcommand{\raggedleftmarginnote}{\pc@raggedleftmarginnote}
+       \renewcommand{\raggedrightmarginnote}{\pc@raggedrightmarginnote}
+%    \end{macrocode}
+% Typeset the annotation in a \cs{marginnote}:
+%    \begin{macrocode}
+       \marginnote
+        {
+          \vbox
+            {\tagpdfparaOff
+              \hsize=0pt
+              \noindent
+              \vspace{\pc@lopt@voffset}
+              \hbox to 0pt
+              {
+                \vsize=0pt
+                \hskip\pc@lopt@hoffset
+                \UseTaggingSocket{pdfcomment/annotbox}
+                {l_@@_text_dict}
+                {
+                  \pdfannot_box:nnne
+                   {\normalbaselineskip}
+                   {\normalbaselineskip}
+                   {0pt}
+                   {\pdfdict_use:n {l_@@_text_dict}}
+                }
                 \@@_collect_objid:
                 \@@_save_objid:
-                \hss%
-              }%
-            }%
-          \hspace{\pc@lopt@hspace}%
-        }%     
+                \hss
+              }
+            }
+          \hspace{\pc@lopt@hspace}
+        }     
     \fi
   \fi  
   \group_end:
-}%
-
+ }
 %    \end{macrocode}
 % \subsection{pdffreetextcomment}
 % 
 %    \begin{macrocode}
-\newcommand{\pdffreetextcomment}[2][]%
-{%
+\newcommand{\pdffreetextcomment}[2][] 
+ {
   \ifhmode\unskip\fi
   \ifvmode\leavevmode\fi
-  % Copy all global options to local options
   \group_begin:
-  %\pc@copy@gopt@lopt%
   \gdef\pc@collect@PDFOBJID{S}
-  % Change local options if specified
   \keys_set:nn{pdfcomment}{#1}
-  %\setkeys{pdffreetextcomment}{#1}%
-  % Encode Contents, Author and Subject 
-  \pc@encode@PDF{#2}%  
-  \pc@encode@colors
+  \@@_dict_update_freetext:
+%    \end{macrocode}
+% Encode Contents, Author and Subject  and colors:
+%    \begin{macrocode}
+  \pc@encode@PDF{#2} 
   \ifpc@gopt@final\else
     \ifpc@lopt@disable\else
-      \hspace*{0pt}%
-      % typeset freetext annotation (see: PDF Reference)      
-        \vbox to 0pt%
-        {\tagpdfparaOff%
-          \hsize=0pt%
-          \noindent%
-          \vskip-\pc@lopt@voffset%
-          \hbox to 0pt%
-          {%
-            \vsize=0pt%
-            \hskip\pc@lopt@hoffset%
-            \pc@create@lpc%
+      \hspace*{0pt}
 %    \end{macrocode}
-% color is set inside the freetext command
+% typeset freetext annotation
 %    \begin{macrocode}
-            \@@_dict_store_dates:
-            \@@_dict_store_freetext:
-            \UseTaggingSocket{pdfcomment/annot}
-             {}
+        \vbox to 0pt
+        {
+          \tagpdfparaOff
+          \hsize=0pt
+          \noindent%
+          \vskip-\pc@lopt@voffset
+          \hbox to 0pt
+          {
+            \vsize=0pt
+            \hskip\pc@lopt@hoffset
+            \pc@create@lpc          
+            \UseTaggingSocket{pdfcomment/annotbox}
+             {l_@@_freetext_dict}
              {
-              \pdfannot_widget_box:nnn
-               {\dim_eval:n{\pc@lopt@width+0pt}}
-               {\dim_eval:n{\pc@lopt@height+0pt}}
-               {\dim_eval:n{\pc@lopt@depth+0pt}}
-              }            
+               \pdfannot_box:nnne
+                 {\dim_eval:n{\pc@lopt@width+0pt}}
+                 {\dim_eval:n{\pc@lopt@height+0pt}}
+                 {\dim_eval:n{\pc@lopt@depth+0pt}}
+                 {\pdfdict_use:n {l_@@_text_dict}}
+             }            
              \@@_collect_objid:
              \@@_save_objid:
-          \hss%
-          }%
-        \vss%
-        }%
+          \hss
+          }
+        \vss
+        }
     \fi
   \fi
   \group_end:
-}%
+ }
 %    \end{macrocode}
 %
 % \subsection{\cs{pdfsquarecomment}}
 %    \begin{macrocode}
-\newcommand{\pdfsquarecomment}[2][]%
-{%
+\newcommand{\pdfsquarecomment}[2][]
+ {
   \ifhmode\unskip\fi
   \ifvmode\leavevmode\fi
-  % Copy all global options to local options
   \group_begin:
-  %\pc@copy@gopt@lopt%
   \gdef\pc@collect@PDFOBJID{S}
-  % Change local options if specified
   \keys_set:nn{pdfcomment}{#1}
-  %\setkeys{pdfsquarecomment}{#1}%
-  % Encode Contents, Author and Subject to pdf encodings (PD or PU) with hyperref's \pdfstringdef
-  % and transform color input to pdf color
-  \pc@encode@PDF{#2}%
-  \pc@encode@colors
+%    \end{macrocode}
+% Encode Contents, Author and Subject and color
+%    \begin{macrocode}
+  \pc@encode@PDF{#2}
+  \ifpc@gopt@final\else
+    \ifpc@lopt@disable\else
+      \hspace*{0pt}
+%    \end{macrocode}
+%   typeset square annotation
+%    \begin{macrocode}
+        \vbox to 0pt
+        {
+          \tagpdfparaOff
+          \hsize=0pt
+          \noindent
+          \vskip-\pc@lopt@voffset
+          \hbox to 0pt
+          {
+            \vsize=0pt
+            \hskip\pc@lopt@hoffset
+            \pc@create@lpc
+            \@@_dict_update_geometric:n{Square}
+            \UseTaggingSocket{pdfcomment/annotbox}
+             {l_@@_geometric_dict}
+             {
+               \pdfannot_box:nnne
+                 {\dim_eval:n{\pc@lopt@width+0pt}}
+                 {\dim_eval:n{\pc@lopt@height+0pt}}
+                 {\dim_eval:n{\pc@lopt@depth+0pt}}
+                 {\pdfdict_use:n {l_@@_geometric_dict}}
+             }                        
+            \@@_collect_objid:
+            \@@_save_objid:
+            \hss
+          }
+          \vss
+        }
+    \fi
+  \fi
+  \group_end:
+ }
+%    \end{macrocode}
+% \subsection{\cs{pdfcirclecomment}}
+%    \begin{macrocode}
+\newcommand{\pdfcirclecomment}[2][]
+ {
+  \ifhmode\unskip\fi
+  \ifvmode\leavevmode\fi
+  \group_begin:
+  \gdef\pc@collect@PDFOBJID{S}
+  \keys_set:nn{pdfcomment}{#1}
+%    \end{macrocode}
+% Encode Contents, Author and Subject and color
+%    \begin{macrocode}
+  \pc@encode@PDF{#2}
   \ifpc@gopt@final\else
     \ifpc@lopt@disable\else
       \hspace*{0pt}%
-      % typeset square annotation (see: PDF Reference)
-        \vbox to 0pt%
-        {\tagpdfparaOff%
-          \hsize=0pt%
-          \noindent%
-          \vskip-\pc@lopt@voffset%
-          \hbox to 0pt%
-          {%
-            \vsize=0pt%
-            \hskip\pc@lopt@hoffset%
-            \pc@create@lpc%
-            \@@_dict_store_color:
-            \@@_dict_store_dates:
-            \@@_dict_store_geometric:n{Square}
-            \UseTaggingSocket{pdfcomment/annot}
-             {}
+%    \end{macrocode}
+% typeset circle annotation
+%    \begin{macrocode}
+        \vbox to 0pt
+        {
+          \tagpdfparaOff
+          \hsize=0pt
+          \noindent
+          \vskip-\pc@lopt@voffset
+          \hbox to 0pt
+          {
+            \vsize=0pt
+            \hskip\pc@lopt@hoffset
+            \pc@create@lpc
+            \@@_dict_update_geometric:n{Circle}
+            \UseTaggingSocket{pdfcomment/annotbox}
+             {l_@@_geometric_dict}
              {
-              \pdfannot_widget_box:nnn
-               {\dim_eval:n{\pc@lopt@width+0pt}}
-               {\dim_eval:n{\pc@lopt@height+0pt}}
-               {\dim_eval:n{\pc@lopt@depth+0pt}}
-              }                        
+               \pdfannot_box:nnne
+                 {\dim_eval:n{\pc@lopt@width+0pt}}
+                 {\dim_eval:n{\pc@lopt@height+0pt}}
+                 {\dim_eval:n{\pc@lopt@depth+0pt}}
+                 {\pdfdict_use:n {l_@@_geometric_dict}}
+             }                                             
             \@@_collect_objid:
             \@@_save_objid:
-            \hss%
-          }%
-          \vss%
-        }%
+            \hss
+          }
+          \vss
+        }
     \fi
   \fi
   \group_end:
 }%
 %    \end{macrocode}
 %
-%    \begin{macrocode}
-\newcommand{\pdfcirclecomment}[2][]%
-{%
-  \ifhmode\unskip\fi
-  \ifvmode\leavevmode\fi
-  \group_begin:
-  % Copy all global options to local options
-  %\pc@copy@gopt@lopt%
-  \gdef\pc@collect@PDFOBJID{S}
-  % Change local options if specified
-  %\setkeys{pdfcirclecomment}{#1}%
-  \keys_set:nn{pdfcomment}{#1}
-  % Encode Contents, Author and Subject to pdf encodings (PD or PU) with hyperref's \pdfstringdef
-  % and transform color input to pdf color
-  \pc@encode@PDF{#2}%
-  \pc@encode@colors
-  \ifpc@gopt@final\else
-    \ifpc@lopt@disable\else
-      \hspace*{0pt}%
-      % typeset circle annotation (see: PDF Reference)
-        \vbox to 0pt%
-        {\tagpdfparaOff%
-          \hsize=0pt%
-          \noindent%
-          \vskip-\pc@lopt@voffset%
-          \hbox to 0pt%
-          {%
-            \vsize=0pt%
-            \hskip\pc@lopt@hoffset%
-            \pc@create@lpc%
-            \@@_dict_store_color:
-            \@@_dict_store_dates:
-            \@@_dict_store_geometric:n{Circle}
-            \UseTaggingSocket{pdfcomment/annot}
-             {}
-             {
-              \pdfannot_widget_box:nnn
-               {\dim_eval:n{\pc@lopt@width+0pt}}
-               {\dim_eval:n{\pc@lopt@height+0pt}}
-               {\dim_eval:n{\pc@lopt@depth+0pt}}
-             }                      
-            \@@_collect_objid:
-            \@@_save_objid:
-            \hss%
-          }%
-          \vss%
-        }%
-    \fi
-  \fi
-  \group_end:
-}%
-%    \end{macrocode}
 % \subsection{\cs{pdflinecomment}}
 %    \begin{macrocode}
-\newcommand{\pdflinecomment}[2][]%
-{%
+\newcommand{\pdflinecomment}[2][]
+ {
   \ifhmode\unskip\fi
   \ifvmode\leavevmode\fi
   \group_begin:
-  % Copy all global options to local options
-  %\pc@copy@gopt@lopt%
   \gdef\pc@collect@PDFOBJID{S}
-  % Change local options if specified
   \keys_set:nn{pdfcomment}{#1}
-  %\setkeys{pdflinecomment}{#1}%
-  % Encode Contents, Author and Subject 
-  % and transform color input to pdf color
-  \pc@encode@PDF{#2}%
-  \pc@encode@colors  
+  \pc@encode@PDF{#2}
   \ifpc@gopt@final\else
     \ifpc@lopt@disable\else
-      \hspace*{0pt}%
-      \pc@create@lpc%
-      % typeset line annotation (see: PDF Reference) 
-        \vbox to 0pt%
-        {\tagpdfparaOff%
-          \hsize=0pt%
-          \noindent%
-          \hbox to 0pt%
-          {%
-            \vsize=0pt%
-            \@@_dict_store_color:
-            \@@_dict_store_dates:
-            \@@_dict_store_line:
-            \UseTaggingSocket{pdfcomment/annot}
-             {}
+      \hspace*{0pt}
+      \pc@create@lpc
+        \vbox to 0pt
+        {
+          \tagpdfparaOff
+          \hsize=0pt
+          \noindent
+          \hbox to 0pt
+          {
+            \vsize=0pt
+            \@@_dict_update_line:
+            \UseTaggingSocket{pdfcomment/annotbox}
+             {l_@@_line_dict}
              {
-              \pdfannot_widget_box:nnn
-               {\dim_eval:n{\pc@lopt@width+0pt}}
-               {\dim_eval:n{\pc@lopt@height+0pt}}
-               {\dim_eval:n{\pc@lopt@depth+0pt}}
-             }  
+               \pdfannot_box:nnne
+                 {\dim_eval:n{\pc@lopt@width+0pt}}
+                 {\dim_eval:n{\pc@lopt@height+0pt}}
+                 {\dim_eval:n{\pc@lopt@depth+0pt}}
+                 {\pdfdict_use:n {l_@@_line_dict}}
+             }                        
             \@@_collect_objid:
             \@@_save_objid:
-            \hss%
-          }%
-          \vss%
-        }%
+            \hss
+          }
+          \vss
+        }
     \fi
   \fi
   \group_end:
-}%
+ }
 %    \end{macrocode}
+%
 % \subsection{\cs{pdfmarkupcomment}}
-% These are not yet tagged. TODO: We need to get rid of soul with luatex.
+% TODO: We need to get rid of soul with luatex.
 %    \begin{macrocode}
-\newcommand{\pdfmarkupcomment}[3][]%#1 option, #2 text, #3 comment
-{%
-  \leavevmode%
+\newcommand{\pdfmarkupcomment}[3][] %#1 option, #2 text, #3 comment
+ {
+  \leavevmode
   \group_begin:  
   \gdef\pc@collect@PDFOBJID{S}
   \keys_set:nn{pdfcomment}{#1}  
-  \@@_dict_store_dates:
   \ifmmode%
-    \zsavepos{pdfcomment:\thezref@unique}%
-    \zref@refused{pdfcomment:\thezref@unique}%
-    \setlength{\pc@Sposx}{\zposx{pdfcomment:\thezref@unique}sp}%
-    \setlength{\pc@Sposy}{\zposy{pdfcomment:\thezref@unique}sp}%
+    \zsavepos{pdfcomment:\thezref@unique}
+    \zref@refused{pdfcomment:\thezref@unique}
+    \setlength{\pc@Sposx}{\zposx{pdfcomment:\thezref@unique}sp}
+    \setlength{\pc@Sposy}{\zposy{pdfcomment:\thezref@unique}sp}
     \stepcounter{zref@unique}%
-    \setlength{\pc@Eposx}{\zposx{pdfcomment:\thezref@unique}sp}%
-    \setlength{\pc@Eposy}{\zposy{pdfcomment:\thezref@unique}sp}%
+    \setlength{\pc@Eposx}{\zposx{pdfcomment:\thezref@unique}sp}
+    \setlength{\pc@Eposy}{\zposy{pdfcomment:\thezref@unique}sp}
     \ifpc@gopt@final\else
       \ifpc@lopt@disable\else
-        \pc@encode@colors
-        \setbox\pc@nullbox=\hbox{\SuspendTagging{}\pc@encode@PDF{#3}$\pc@lopt@mathstyle#2$}        
-        \setbox\pc@mathannot@box=\hbox to\wd\pc@nullbox%
-        {%
-          \vrule height\ht\pc@nullbox~depth\dp\pc@nullbox~width\z@%
-          \hfill%
-          \pc@annot@calc@pos@math%
-          \xdef\pc@annot@quadpoints{\pc@x@one\space\pc@y@one\space\pc@x@two\space\pc@y@two\space\pc@x@three\space\pc@y@three\space\pc@x@four\space\pc@y@four}%
-          \UseTaggingSocket{pdfcomment/annot}{}{\pc@annot@markup}          
-        }%
+        \setbox\pc@nullbox=
+          \hbox{\SuspendTagging{}\pc@encode@PDF{#3}$\pc@lopt@mathstyle#2$}        
+        \setbox\pc@mathannot@box=\hbox to\wd\pc@nullbox
+         {
+          \vrule height\ht\pc@nullbox~depth\dp\pc@nullbox~width\z@
+          \hfill
+          \pc@annot@calc@pos@math
+          \edef\pc@annot@quadpoints
+            {
+             \pc@x@one\space\pc@y@one\space\pc@x@two\space\pc@y@two\space
+             \pc@x@three\space\pc@y@three\space\pc@x@four\space\pc@y@four
+            }
+            
+          \UseTaggingSocket
+           {pdfcomment/annotbox}
+           {l_@@_markup_dict}
+           {
+             \pdfannot_box:nnne {0pt} {0pt} {0pt}
+              {
+                \pdfdict_use:n{l_@@_markup_dict}
+              }
+           }     
+         }
         \@@_collect_objid:
-        \wd\pc@mathannot@box\z@%
-        \ht\pc@mathannot@box\z@%
-        \dp\pc@mathannot@box\z@%
-        \box\pc@mathannot@box%
+        \wd\pc@mathannot@box\z@
+        \ht\pc@mathannot@box\z@
+        \dp\pc@mathannot@box\z@
+        \box\pc@mathannot@box
         \nobreak%
       \fi
     \fi
-    \ifpc@gopt@final%
-     \str_if_eq:eeTF{\pc@lopt@markup}{StrikeOut}%
+    \ifpc@gopt@final
+     \str_if_eq:eeTF{\pc@lopt@markup}{StrikeOut}
       {
         \bool_if:NTF\@@_lopt_printSOfinal_bool
-         {#2\pc@ignorespacesfalse}%
-         {\pc@ignorespacestrue}%
+         {#2\pc@ignorespacesfalse}
+         {\pc@ignorespacestrue}
       }
       {
-        #2\pc@ignorespacesfalse%
+        #2\pc@ignorespacesfalse
       }
     \else
       \ifpc@lopt@disable
@@ -1193,7 +1240,6 @@
     \stepcounter{zref@unique}
   \else
     \pc@encode@PDF{#3}
-    \pc@encode@colors
     \settoheight{\pc@box@height}{#2}
     \str_if_eq:eeTF 
       {\pc@lopt@markup}
@@ -1211,6 +1257,9 @@
       \def\ulp@sgap{0pt}
       \def\ulp@egap{0pt}
       \def\ulp@pos{\z@}
+%    \end{macrocode}
+% Here the annotation is created:
+%    \begin{macrocode}
       \def\ulp@draw{\pc@soul@markup}
       \ulp@preamble
      }
@@ -1225,17 +1274,17 @@
        ##1\use:c{pdffakespace}\space
       \ulp@stepput\@ne
      }
-    \let\SOUL@everyhyphen\ulp@everyhyphen%
-    \let\SOUL@everyexhyphen\ulp@everyexhyphen%
-    \let\SOUL@everysyllable\@empty%
-    \def\SOUL@everytoken{\the\SOUL@token}%
-    \ifpc@gopt@final%      
+    \let\SOUL@everyhyphen\ulp@everyhyphen
+    \let\SOUL@everyexhyphen\ulp@everyexhyphen
+    \let\SOUL@everysyllable\@empty
+    \def\SOUL@everytoken{\the\SOUL@token}
+    \ifpc@gopt@final      
      \str_if_eq:eeTF
       {\pc@lopt@markup}
       {StrikeOut}
       {        
         \bool_if:NTF\@@_lopt_printSOfinal_bool
-         {\SuspendTagging{}\SOUL@{#2}\ResumeTagging{}\pc@ignorespacesfalse}%
+         {\SuspendTagging{}\SOUL@{#2}\ResumeTagging{}\pc@ignorespacesfalse}
          {\pc@ignorespacestrue}
       }
       {
@@ -1274,58 +1323,18 @@
 %    \end{macrocode}
 % \subsection{pdfsidelinecomment}
 %    \begin{macrocode}
-\pdfdict_new:n{l_@@_sideline_dict}
-\newenvironment{pdfsidelinecomment}[2][]%
-{
+\newenvironment{pdfsidelinecomment}[2][]
+ {
   \ifhmode\unskip\fi
   \ifvmode\leavevmode\fi
   \gdef\pc@collect@PDFOBJID{S}
   \keys_set:nn{pdfcomment}{#1}
+  \@@_dict_update_sideline:
 %    \end{macrocode}
 % Encode Contents, Author and Subject 
 % and transform color input to pdf color
 %    \begin{macrocode}
-  \pc@encode@PDF{#2}%
-  \pc@encode@colors
-  \pdfdict_put:nne {l_@@_sideline_dict} {Subtype} {/Line}
-  \tl_if_empty:eF{\pc@lopt@color} 
-   {
-     \pdfdict_put:nne {l_@@_sideline_dict} {C}{[\pc@hyenc@color]}
-   }
-  \tl_if_empty:eF{\pc@lopt@icolor} 
-   {
-     \pdfdict_put:nne {l_@@_sideline_dict} {IC}{[\pc@hyenc@icolor]}
-   } 
-  \pdfdict_put:nne {l_@@_sideline_dict} {CreationDate} {(\pc@lopt@date)}
-  \pdfdict_put:nne {l_@@_sideline_dict} {M} {(\pc@lopt@date)}    
-  \pdfdict_put:nne {l_@@_sideline_dict} {LE} {[\pc@lopt@linebegin\space\pc@lopt@lineend]}
-  \str_if_eq:eeTF{\pc@lopt@caption}{none}%
-    {
-      \pdfdict_put:nne {l_@@_sideline_dict} {Cap} {false}
-    }
-    {
-     \pdfdict_put:nne {l_@@_sideline_dict} {Cap} {true}
-     \pdfdict_put:nne {l_@@_sideline_dict} {CP}{/\pc@lopt@caption}
-    } 
-   \pdfdict_put:nne {l_@@_sideline_dict} 
-      {CO}
-      {[\pc@lopt@captionhoffset\space \pc@lopt@captionvoffset]}
-   
-   \pdfdict_put:nne {l_@@_sideline_dict} {CA} {\pc@lopt@opacity}
-   \pdfdict_put:nne {l_@@_sideline_dict} {T} {(\pc@pdfenc@author)}
-   \pdfdict_put:nne {l_@@_sideline_dict} {Subj} {(\pc@pdfenc@subject)}
-   \pdfdict_put:nne {l_@@_sideline_dict} {Contents} {(\pc@pdfenc@contents)}
-   \pdfdict_put:nne {l_@@_sideline_dict} {F} {4}
-   \pdfdict_put:nne {l_@@_sideline_dict} {BS} 
-    {
-     <</W~\pc@lopt@linewidth\space
-       /S~/\pc@lopt@borderstyle\space
-       /D~[\pc@lopt@dashstyle]\space
-     >>
-    }
-   \pdfdict_put:nne {l_@@_sideline_dict} {BE} 
-    {<</S~/\pc@lopt@bse\space/I~\pc@lopt@bsei>>} 
-   
+  \pc@encode@PDF{#2}
   \zsavepos{pdfcomment:slc:\thepc@count@iv}
   \zref@refused{pdfcomment:slc:\thepc@count@iv}
   \setlength{\pc@Sposx}{\zposx{pdfcomment:slc:\thepc@count@iv}sp}
@@ -1376,7 +1385,6 @@
             \renewcommand{\pc@y@two}{\pc@y@bottom@text}
             
             \def\pc@lopt@line{\pc@x@two\space\pc@y@one\space\pc@x@two\space\pc@y@two}
-            \pdfdict_put:nne {l_@@_sideline_dict} {L}{[\pc@lopt@line]}           
             \pdfdict_put:nne {l_@@_sideline_dict} {LE} {[\pc@lopt@linebegin\space/None]}
             \marginnote{\pc@create@lpc\pc@create@annot@sideline}
           \fi
@@ -1386,20 +1394,18 @@
           \renewcommand{\pc@y@two}{\pc@y@bottom@text}
           
           \def\pc@lopt@line{\pc@x@two\space\pc@y@one\space\pc@x@two\space\pc@y@two}
-          \pdfdict_put:nne {l_@@_sideline_dict} {L}{[\pc@lopt@line]}           
           \pdfdict_put:nne {l_@@_sideline_dict} {LE} {[\pc@lopt@linebegin\space/None]}
           \marginnote{\pc@create@lpc\pc@create@annot@sideline}
           
           \def\pc@lopt@line{\pc@x@one\space\pc@y@two\space\pc@x@one\space\pc@y@one}
-          \pdfdict_put:nne {l_@@_sideline_dict} {L}{[\pc@lopt@line]}           
           \pdfdict_put:nne {l_@@_sideline_dict} {LE} {[/None\space \pc@lopt@linebegin]}          
           \marginnote{\pc@create@annot@sideline}
         \fi
       \fi
     \fi
   \fi
-}
-{
+ }
+ {
   \zsavepos{pdfcomment:slc:\thepc@count@iv}
   \zref@refused{pdfcomment:slc:\thepc@count@iv}
   \label{pdfcomment:pageE:\thepc@count@i}
@@ -1417,7 +1423,6 @@
               \pc@calc@sidelinepos
               
               \def\pc@lopt@line{\pc@x@one\space\pc@y@two\space\pc@x@one\space\pc@y@one}
-              \pdfdict_put:nne {l_@@_sideline_dict} {L}{[\pc@lopt@line]}                         
               \pdfdict_put:nne {l_@@_sideline_dict} {LE} {[\pc@lopt@lineend\space \pc@lopt@linebegin]}
               \marginnote{\pc@create@lpc\pc@create@annot@sideline}
               
@@ -1428,7 +1433,6 @@
               \renewcommand{\pc@y@two}{\pc@y@bottom@text}
               
               \def\pc@lopt@line{\pc@x@one\space\pc@y@two\space\pc@x@one\space\pc@y@one}
-              \pdfdict_put:nne {l_@@_sideline_dict} {L}{[\pc@lopt@line]}           
               \pdfdict_put:nne {l_@@_sideline_dict} {LE} {[/None\space \pc@lopt@linebegin]}
               \marginnote{\pc@create@lpc\pc@create@annot@sideline}
               
@@ -1437,7 +1441,6 @@
               \renewcommand{\pc@y@one}{\pc@y@top@text}
                             
               \def\pc@lopt@line{\pc@x@two\space\pc@y@one\space\pc@x@two\space\pc@y@two}
-              \pdfdict_put:nne {l_@@_sideline_dict} {L}{[\pc@lopt@line]}           
               \pdfdict_put:nne {l_@@_sideline_dict} {LE} {[/None\space \pc@lopt@lineend]}
               \marginnote{\pc@create@annot@sideline}
               
@@ -1451,7 +1454,6 @@
               \pc@calc@sidelinepos
               
               \def\pc@lopt@line{\pc@x@two\space\pc@y@one\space\pc@x@two\space\pc@y@two}
-              \pdfdict_put:nne {l_@@_sideline_dict} {L}{[\pc@lopt@line]}                       
               \pdfdict_put:nne {l_@@_sideline_dict} {LE} {[\pc@lopt@linebegin\space \pc@lopt@lineend]}
               \marginnote{\pc@create@lpc\pc@create@annot@sideline}
             \fi
@@ -1460,12 +1462,10 @@
           \pc@calc@sidelinepos
           
           \def\pc@lopt@line{\pc@x@two\space\pc@y@one\space\pc@x@two\space\pc@y@two}
-          \pdfdict_put:nne {l_@@_sideline_dict} {L}{[\pc@lopt@line]}                    
           \pdfdict_put:nne {l_@@_sideline_dict} {LE} {[\pc@lopt@linebegin\space\pc@lopt@lineend]}
           \marginnote{\pc@create@lpc\pc@create@annot@sideline}
           
           \def\pc@lopt@line{\pc@x@one\space\pc@y@two\space\pc@x@one\space\pc@y@one}
-          \pdfdict_put:nne {l_@@_sideline_dict} {L}{[\pc@lopt@line]}                    
           \pdfdict_put:nne {l_@@_sideline_dict} {LE} {[\pc@lopt@lineend\space\pc@lopt@linebegin]}
           \marginnote{\pc@create@annot@sideline}
           
@@ -1481,7 +1481,6 @@
             \renewcommand{\pc@y@one}{\pc@y@top@text}
             
             \def\pc@lopt@line{\pc@x@one\space\pc@y@two\space\pc@x@one\space\pc@y@one}
-            \pdfdict_put:nne {l_@@_sideline_dict} {L}{[\pc@lopt@line]}                       
             \pdfdict_put:nne {l_@@_sideline_dict} {LE} {[\pc@lopt@lineend\space/None]}
             \marginnote{\pc@create@annot@sideline}
             
@@ -1499,12 +1498,10 @@
           \renewcommand{\pc@y@one}{\pc@y@top@text}
           
           \def\pc@lopt@line{\pc@x@two\space\pc@y@one\space\pc@x@two\space\pc@y@two}
-          \pdfdict_put:nne {l_@@_sideline_dict} {L}{[\pc@lopt@line]}           
           \pdfdict_put:nne {l_@@_sideline_dict} {LE} {[/None\space\pc@lopt@lineend]}
           \marginnote{\pc@create@annot@sideline}
           
           \def\pc@lopt@line{\pc@x@one\space\pc@y@two\space\pc@x@one\space\pc@y@one}
-          \pdfdict_put:nne {l_@@_sideline_dict} {L}{[\pc@lopt@line]}                     
           \pdfdict_put:nne {l_@@_sideline_dict} {LE} {[\pc@lopt@lineend\space/None]}
           \marginnote{\pc@create@annot@sideline}
           
@@ -1513,12 +1510,18 @@
     \fi
   \fi
   \@@_save_objid:
-}
+ }
 %    \end{macrocode}
 %
 % \subsection{\cs{pdfreply}}
 % 
 %    \begin{macrocode}
+\pdfdict_new:n{l_@@_reply_dict}
+\pdfdict_set_eq:nn {l_@@_reply_dict}{l_@@_core_dict}
+\pdfdict_put:nnn {l_@@_reply_dict}  {Subtype}{/Text}
+      
+
+
 \newcommand{\pdfreply}[2][]
  {
   \ifhmode\unskip\fi
@@ -1531,9 +1534,6 @@
 % and transform color input to pdf color
 %    \begin{macrocode}
   \pc@encode@PDF{#2}
-  \pc@encode@colors
-  \@@_dict_store_color:
-  \@@_dict_store_dates:
   \ifpc@gopt@final\else
     \ifpc@lopt@disable\else
       \hspace*{0pt}%
@@ -1552,7 +1552,7 @@
           {
            \str_if_eq:eeF{##1}{S}            
             {
-              \edef\pc@irt{/IRT\space ##1}
+              \pdfdict_put:nnn {l_@@_reply_dict}  {IRT}{##1}
               \vbox
               {\tagpdfparaOff
                 \hsize=0pt
@@ -1562,33 +1562,29 @@
                 {
                   \vsize=0pt
                   \hskip\pc@lopt@hoffset
-                  \UseTaggingSocket{pdfcomment/annot}
-                  {}
-                  {
-                    \pdfannot_box:nnne {0pt}{\normalbaselineskip}{0pt}
-                    {
-                      /Subtype /Text
-                      \pc@lopt@c\space
-                      \pc@lopt@cdate\space
-                      /T (\pc@pdfenc@author)\space
-                      /Subj (\pc@pdfenc@subject)\space
-                      /Contents (\pc@pdfenc@contents)\space
-                      \pc@irt%%
-                      /F~4\space%
-                    }%
-                  }
+                  \UseTaggingSocket{pdfcomment/annotbox}
+                   {l_@@_reply_dict} 
+                   {
+                    \pdfannot_box:nnne 
+                      {0pt}
+                      {\normalbaselineskip}
+                      {0pt}
+                      {
+                        \pdfdict_use:n{l_@@_reply_dict}
+                      }
+                   }
                   \@@_collect_objid:
-                  \hss%
-                }%
-              }%
-            }%
-          }%
-        }%
+                  \hss
+                }
+              }
+            }
+          }
+        }
         \@@_save_objid:
     \fi
   \fi
   \group_end:
-}%
+}
 %
 %
 %
@@ -1606,21 +1602,22 @@
     \setbox\pc@nullbox=\hbox{\SuspendTagging{}$\pc@lopt@mathstyle#2$}
   \else 
     \pc@encode@PDF{#3}
-    \pc@encode@colors
     \setbox\pc@nullbox=\hbox{\SuspendTagging{}#2}
   \fi   
   \ifpc@lopt@disable
      #2
   \else
-    \@@_dict_store_tooltip:
     \AssignStructureRole{pdfcomment/annot}{Form}
-    \UseTaggingSocket{pdfcomment/annot}
-      {}
+    \UseTaggingSocket{pdfcomment/annotbox}
+      {l_@@_tooltip_dict}
       {
-       \pdfannot_widget_box:nnn
-              {\wd\pc@nullbox}
-              {\ht\pc@nullbox}
-              {\dp\pc@nullbox}
+       \pdfannot_box:nnne
+         {\wd\pc@nullbox}
+         {\ht\pc@nullbox}
+         {\dp\pc@nullbox}
+         {
+           \pdfdict_use:n{l_@@_tooltip_dict}
+         }  
       }  
       #2
    \fi
@@ -1788,22 +1785,24 @@
 %    \end{macrocode}
 % The command that encodes the text in PDF format. 
 %    \begin{macrocode}
-\newcommand{\pc@encode@PDF}[1]%
- {%
-  \def\pc@lopt@comment{#1}%  
-  \ifthenelse{\equal{\pc@lopt@deadline}{}}%
-  {%
-    \def\pc@comment@deadline{\pc@lopt@comment}%
-    \pdfstringdef\pc@pdfenc@contents{\pc@comment@deadline}%
-  }%
-  {%
-    \def\pc@comment@deadline{\pc@lopt@comment\textCR(\pc@lopt@deadline)}%
-    \pdfstringdef\pc@pdfenc@contents{\pc@comment@deadline}%
-  }%
+\newcommand{\pc@encode@PDF}[1]
+ {
+  \tl_if_empty:oTF {\pc@lopt@deadline}
+   {
+     \pdfstringdef\pc@pdfenc@contents{#1}
+   }
+   {
+     \pdfstringdef\pc@pdfenc@contents{#1\textCR(\pc@lopt@deadline)}
+   }
+  \tl_set:Ne\pc@pdfenc@contents {(\pc@pdfenc@contents)} 
   \pdfstringdef\pc@pdfenc@author  {\pc@lopt@author}
+  \tl_set:Ne\pc@pdfenc@author {(\pc@pdfenc@author)}
   \pdfstringdef\pc@pdfenc@subject {\pc@lopt@subject}
-}%
-%
+  \tl_set:Ne\pc@pdfenc@subject {(\pc@pdfenc@subject)}
+ }
+%    \end{macrocode}
+% The command that encodes the color arguments:
+%    \begin{macrocode}
 \newcommand\pc@encode@colors
  {
    \HyColor@XZeroOneThreeFour{\pc@lopt@color}{\pc@hyenc@color}{pdfcomment}{color}
@@ -1813,22 +1812,6 @@
 %    \end{macrocode}
 % This should use dictionaries so that we can add the StructParent.
 %    \begin{macrocode}
-\newcommand\pc@annot@markup
-  {
-    \pdfannot_box:nnne {0pt} {0pt} {0pt}
-    {
-      /Subtype /\pc@lopt@markup\space
-      /C~[\pc@hyenc@color]\space
-      \pc@lopt@cdate\space <------------------
-      /CA~\pc@lopt@opacity\space
-      /T (\pc@pdfenc@author)\space    
-      /Subj~(\pc@pdfenc@subject)\space
-      /Contents~(\pc@pdfenc@contents)\space
-      /Open~\pc@lopt@open\space
-      /QuadPoints~[\pc@annot@quadpoints]\space
-      /F~4\space
-    }
-  }
 
 \cs_set_eq:NN\pc@pttobp\dim_to_decimal_in_bp:n
 
@@ -1848,7 +1831,7 @@
  }
 
 
-\newcommand{\pc@create@annot@sideline}%
+\newcommand{\pc@create@annot@sideline}
   {  
    \ifpc@gopt@final\else
     % typeset line annotation (see: PDF Reference)
@@ -1859,8 +1842,8 @@
         \hbox to 0pt
          {
           \vsize=0pt
-          \UseTaggingSocket{pdfcomment/annot}
-           {}
+          \UseTaggingSocket{pdfcomment/annotbox}
+           {l_@@_sideline_dict} 
            {
              \pdfannot_box:nnne
               {\dim_eval:n{\pc@lopt@width+0pt}}            
@@ -1884,10 +1867,10 @@
       \fi
    \fi
   }
-%
 
-\newcommand{\pc@annot@complete}%
-{%
+
+\newcommand{\pc@annot@complete}
+ {
   \renewcommand{\pc@x@one}{\pc@pttobp{\pc@Sposx}}%
   \renewcommand{\pc@x@two}{\pc@pttobp{\pc@Eposx}}%
   \renewcommand{\pc@x@three}{\pc@pttobp{\pc@Sposx}}%
@@ -1897,10 +1880,17 @@
   \renewcommand{\pc@y@three}{\pc@pttobp{\dimexpr \pc@Sposy - \pc@box@depth - 1pt\relax}}%
   \renewcommand{\pc@y@four}{\pc@pttobp{\dimexpr \pc@Eposy - \pc@box@depth - 1pt\relax}}%
   \def\pc@annot@quadpoints{\pc@x@one\space\pc@y@one\space\pc@x@two\space\pc@y@two\space\pc@x@three\space\pc@y@three\space\pc@x@four\space\pc@y@four}%
-    \pc@annot@markup%
+  \UseTaggingSocket{pdfcomment/annotbox}
+    {l_@@_markup_dict}
+    {
+     \pdfannot_box:nnne {0pt} {0pt} {0pt}
+      {
+       \pdfdict_use:n{l_@@_markup_dict}
+      }%
+    }  
     \@@_collect_objid:
-}%
-%
+ }
+
 
 \newcommand*{\pc@soul@markup}
  {
@@ -1916,7 +1906,7 @@
   \setlength{\pc@Eposx}{\pc@Sposx}
   \addtolength{\pc@Eposx}{\ulwidth}
   \setlength{\pc@Eposy}{\pc@Sposy}
-  \pc@annot@complete% tagging should go here, but we need the structparent
+  \pc@annot@complete
  }
 
 \newcommand{\pc@calc@textblockpos}
