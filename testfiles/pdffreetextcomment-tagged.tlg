@@ -96,11 +96,11 @@ Completed box being shipped out [1]
 .......\penalty 10000
 .......\hbox(0.0+0.0)x0.0, direction TLT
 ........\hbox(0.0+0.0)x0.0, shifted -12.0, direction TLT
-.........\pdfdest name{section*.1} xyz
-.........\pdfdest name{section*.1} xyz
+.........\pdfdest name{pdfcomment*.1} xyz
+.........\pdfdest name{pdfcomment*.1} xyz
 .........\penalty 10000
 .......\kern0.0
-.......\write1{\@writefile{lpc}{\protect \contentsline {lpcsec}{\protect \numberline {}\ - }{\thepage }{section*.1}\protected@file@percent }}
+.......\write1{\@writefile{lpc}{\protect \contentsline {lpcsec}{\protect \numberline {}\ - }{\thepage }{pdfcomment*.1}\protected@file@percent }}
 .......\pdfliteral page <lua data reference ...>
 .......\pdfliteral page <lua data reference ...>
 .......\pdfannot(142.26378+0.0)x113.81102{/Subtype /FreeText /CreationDate (D:20160520090000Z) /M (D:20160520090000Z) /CA 1.0 /DA (/Helv 11.99995 Tf 0 0 0 rg) /T () /Subj () /Contents (\376\377\000W\000o\000w\000,\000\040\000t\000h\000a\000t\000'\000s\000\040\000n\000i\000c\000e\000!) /F 4 /Q 0 /CL [50 50 300 600] /LE /OpenArrow /BE <</S/S/I 1>> /C [0 0 1] /StructParent 1 /BS 29 0 R }

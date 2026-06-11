@@ -156,11 +156,11 @@ Completed box being shipped out [1]
 .....\penalty 10000
 .....\hbox(0.0+0.0)x0.0, direction TLT
 ......\hbox(0.0+0.0)x0.0, shifted -12.0, direction TLT
-.......\pdfdest name{section*.1} xyz
-.......\pdfdest name{section*.1} xyz
+.......\pdfdest name{pdfcomment*.1} xyz
+.......\pdfdest name{pdfcomment*.1} xyz
 .......\penalty 10000
 .....\kern0.0
-.....\write1{\@writefile{lpc}{\protect \contentsline {lpcsec}{\protect \numberline {}UF\ - }{\thepage }{section*.1}\protected@file@percent }}
+.....\write1{\@writefile{lpc}{\protect \contentsline {lpcsec}{\protect \numberline {}UF\ - }{\thepage }{pdfcomment*.1}\protected@file@percent }}
 .....\vbox(20.0+0.0)x0.0, direction TLT
 ......\hbox(0.0+0.0)x0.0, direction TLT
 .......\localpar
@@ -207,11 +207,11 @@ Completed box being shipped out [1]
 .....\penalty 10000
 .....\hbox(0.0+0.0)x0.0, direction TLT
 ......\hbox(0.0+0.0)x0.0, shifted -12.0, direction TLT
-.......\pdfdest name{section*.2} xyz
-.......\pdfdest name{section*.2} xyz
+.......\pdfdest name{pdfcomment*.2} xyz
+.......\pdfdest name{pdfcomment*.2} xyz
 .......\penalty 10000
 .....\kern0.0
-.....\write1{\@writefile{lpc}{\protect \contentsline {lpcsec}{\protect \numberline {}\ - }{\thepage }{section*.2}\protected@file@percent }}
+.....\write1{\@writefile{lpc}{\protect \contentsline {lpcsec}{\protect \numberline {}\ - }{\thepage }{pdfcomment*.2}\protected@file@percent }}
 .....\vbox(12.0+0.0)x0.0, direction TLT
 ......\hbox(0.0+0.0)x0.0, direction TLT
 .......\localpar
@@ -258,11 +258,11 @@ Completed box being shipped out [1]
 .....\penalty 10000
 .....\hbox(0.0+0.0)x0.0, direction TLT
 ......\hbox(0.0+0.0)x0.0, shifted -12.0, direction TLT
-.......\pdfdest name{section*.3} xyz
-.......\pdfdest name{section*.3} xyz
+.......\pdfdest name{pdfcomment*.3} xyz
+.......\pdfdest name{pdfcomment*.3} xyz
 .......\penalty 10000
 .....\kern0.0
-.....\write1{\@writefile{lpc}{\protect \contentsline {lpcsec}{\protect \numberline {}UF\ - }{\thepage }{section*.3}\protected@file@percent }}
+.....\write1{\@writefile{lpc}{\protect \contentsline {lpcsec}{\protect \numberline {}UF\ - }{\thepage }{pdfcomment*.3}\protected@file@percent }}
 .....\vbox(12.0+0.0)x0.0, direction TLT
 ......\hbox(0.0+0.0)x0.0, direction TLT
 .......\localpar
@@ -309,11 +309,11 @@ Completed box being shipped out [1]
 .....\penalty 10000
 .....\hbox(0.0+0.0)x0.0, direction TLT
 ......\hbox(0.0+0.0)x0.0, shifted -12.0, direction TLT
-.......\pdfdest name{section*.4} xyz
-.......\pdfdest name{section*.4} xyz
+.......\pdfdest name{pdfcomment*.4} xyz
+.......\pdfdest name{pdfcomment*.4} xyz
 .......\penalty 10000
 .....\kern0.0
-.....\write1{\@writefile{lpc}{\protect \contentsline {lpcsec}{\protect \numberline {}UF\ - }{\thepage }{section*.4}\protected@file@percent }}
+.....\write1{\@writefile{lpc}{\protect \contentsline {lpcsec}{\protect \numberline {}UF\ - }{\thepage }{pdfcomment*.4}\protected@file@percent }}
 .....\vbox(20.0+0.0)x0.0, direction TLT
 ......\hbox(0.0+0.0)x0.0, direction TLT
 .......\localpar

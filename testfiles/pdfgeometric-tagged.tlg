@@ -139,11 +139,11 @@ Completed box being shipped out [1]
 .......\penalty 10000
 .......\hbox(0.0+0.0)x0.0, direction TLT
 ........\hbox(0.0+0.0)x0.0, shifted -12.0, direction TLT
-.........\pdfdest name{section*.1} xyz
-.........\pdfdest name{section*.1} xyz
+.........\pdfdest name{pdfcomment*.1} xyz
+.........\pdfdest name{pdfcomment*.1} xyz
 .........\penalty 10000
 .......\kern0.0
-.......\write1{\@writefile{lpc}{\protect \contentsline {lpcsec}{\protect \numberline {}\ - square}{\thepage }{section*.1}\protected@file@percent }}
+.......\write1{\@writefile{lpc}{\protect \contentsline {lpcsec}{\protect \numberline {}\ - square}{\thepage }{pdfcomment*.1}\protected@file@percent }}
 .......\pdfliteral page <lua data reference ...>
 .......\pdfliteral page <lua data reference ...>
 .......\pdfannot(71.13188+0.0)x165.02606{/Subtype /Square /C [0 0 1] /CreationDate (D:20160520090000Z) /M (D:20160520090000Z) /CA 1.0 /T () /Subj (\376\377\000s\000q\000u\000a\000r\000e) /Contents (\376\377\000T\000h\000i\000s\000\040\000i\000s\000\040\000a\000\040\000S\000q\000u\000a\000r\000e\000\040\000a\000n\000n\000o\000t\000a\000t\000i\000o\000n\000!) /F 4 /BE <<../I 2.5>> /IC [0 0 1] /StructParent 1 /BS 29 0 R }
@@ -176,11 +176,11 @@ Completed box being shipped out [1]
 .......\penalty 10000
 .......\hbox(0.0+0.0)x0.0, direction TLT
 ........\hbox(0.0+0.0)x0.0, shifted -12.0, direction TLT
-.........\pdfdest name{section*.2} xyz
-.........\pdfdest name{section*.2} xyz
+.........\pdfdest name{pdfcomment*.2} xyz
+.........\pdfdest name{pdfcomment*.2} xyz
 .........\penalty 10000
 .......\kern0.0
-.......\write1{\@writefile{lpc}{\protect \contentsline {lpcsec}{\protect \numberline {}\ - circle}{\thepage }{section*.2}\protected@file@percent }}
+.......\write1{\@writefile{lpc}{\protect \contentsline {lpcsec}{\protect \numberline {}\ - circle}{\thepage }{pdfcomment*.2}\protected@file@percent }}
 .......\pdfliteral page <lua data reference ...>
 .......\pdfliteral page <lua data reference ...>
 .......\pdfannot(71.13188+0.0)x165.02606{/Subtype /Circle /C [0 0 1] /CreationDate (D:20160520090000Z) /M (D:20160520090000Z) /CA 1.0 /T () /Subj (\376\377\000c\000i\000r\000c\000l\000e) /Contents (\376\377\000T\000h\000i\000s\000\040\000i\000s\000\040\000a\000\040\000C\000i\000r\000c\000l\000e\000\040\000a\000n\000n\000o\000t\000a\000t\000i\000o\000n\000!) /F 4 /BE <</S/S/I 1>> /IC [0 0 1 0] /StructParent 2 /BS 35 0 R }
@@ -209,11 +209,11 @@ Completed box being shipped out [1]
 .....\penalty 10000
 .....\hbox(0.0+0.0)x0.0, direction TLT
 ......\hbox(0.0+0.0)x0.0, shifted -12.0, direction TLT
-.......\pdfdest name{section*.3} xyz
-.......\pdfdest name{section*.3} xyz
+.......\pdfdest name{pdfcomment*.3} xyz
+.......\pdfdest name{pdfcomment*.3} xyz
 .......\penalty 10000
 .....\kern0.0
-.....\write1{\@writefile{lpc}{\protect \contentsline {lpcsec}{\protect \numberline {}\ - polyline}{\thepage }{section*.3}\protected@file@percent }}
+.....\write1{\@writefile{lpc}{\protect \contentsline {lpcsec}{\protect \numberline {}\ - polyline}{\thepage }{pdfcomment*.3}\protected@file@percent }}
 .....\vbox(0.0+0.0)x0.0, direction TLT
 ......\hbox(0.0+0.0)x0.0, direction TLT
 .......\localpar

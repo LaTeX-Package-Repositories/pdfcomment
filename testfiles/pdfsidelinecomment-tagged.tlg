@@ -212,11 +212,11 @@ Completed box being shipped out [1]
 ............\hbox(0.0+0.0)x0.0, shifted -12.0, direction TLT
 .............\pdfliteral page <lua data reference ...>
 .............\pdfliteral page <lua data reference ...>
-.............\pdfdest name{section*.1} xyz
-.............\pdfdest name{section*.1} xyz
+.............\pdfdest name{pdfcomment*.1} xyz
+.............\pdfdest name{pdfcomment*.1} xyz
 .............\penalty 10000
 ...........\kern0.0
-...........\write1{\@writefile{lpc}{\protect \contentsline {lpcsec}{\protect \numberline {}\ - sideline}{\thepage }{section*.1}\protected@file@percent }}
+...........\write1{\@writefile{lpc}{\protect \contentsline {lpcsec}{\protect \numberline {}\ - sideline}{\thepage }{pdfcomment*.1}\protected@file@percent }}
 ...........\vbox(0.0+0.0)x0.0, direction TLT
 ............\hbox(0.0+0.0)x0.0, direction TLT
 .............\localpar
