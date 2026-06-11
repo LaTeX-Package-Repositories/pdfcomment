@@ -1637,8 +1637,8 @@
 
 \keys_define:nn{pdfcomment}
  {
-   ,liststyle .tl_set:N = \pc@lopt@liststyle  
-   ,liststyle .groups:n = {listofpdfcomment}
+   ,liststyle .code:n   = {\setliststyle{#1}}
+   ,liststyle .groups:n = {listofpdfcomments}
  }
 \define@key{listofpdfcomments}{liststyle}[AuthorSubject]%
 {%
@@ -1647,7 +1647,7 @@
 \keys_define:nn{pdfcomment}
  {
    ,heading .tl_set:N = \pc@lopt@liststyle  
-   ,heading .groups:n = {listofpdfcomment}
+   ,heading .groups:n = {listofpdfcomments}
  }
 \define@key{listofpdfcomments}{heading}[\lpcname]%
 {%
@@ -2743,52 +2743,70 @@
 %
 % define predefined set of liststyles
 \newcommand{\defineliststyle}[2]%
-{%
-  \expandafter\gdef\csname pc@liststyle@#1\endcsname{#2}%
-}%
+ {
+   
+  \cs_if_exist:cTF {@@_set_list_style_#1:}
+   {
+     \cs_set_protected:cpn {@@_set_list_style_#1:}
+       { \cs_set:Npn \pc@lpc@format {#2} }
+    % Warning?   
+   }
+   {
+     \cs_new_protected:cpn {@@_set_list_style_#1:}
+       { \cs_set:Npn \pc@lpc@format {#2} }
+   }
+ }
 %
 \newcommand{\setliststyle}[1]%
-{%
-  \gdef\pc@lopt@liststyle{#1}%
-  \edef\pc@edef@liststyle{pc@liststyle@#1}%
-  \@ifundefined{\pc@edef@liststyle}%
-  {%
-    \setliststyle{AuthorSubject}%
-    \PackageWarning{pdfcomment}{Unknown liststyle #1\MessageBreak%
-                                in command setliststyle\MessageBreak%
-                                Using liststyle AuthorSubject instead!}%
-  }%
-  {%
-    \expandafter\gdef\expandafter\pc@lpc@format{\expandafter\csname \pc@edef@liststyle\endcsname}%
-  }%
-}%
+ {
+  \cs_if_exist_use:cF { @@_set_list_style_#1: }
+    {
+     \setliststyle{AuthorSubject}%
+     \PackageWarning{pdfcomment}{Unknown~liststyle~#1\MessageBreak%
+                                in~command~setliststyle\MessageBreak%
+                                Using~liststyle~AuthorSubject~instead!}%
+    }
+ }
 %
-\defineliststyle{AuthorSubject}{\pc@lopt@author\ - \pc@lopt@subject}%
-\defineliststyle{AuthorSubjectDeadline}{\pc@lopt@author\ - \pc@lopt@subject\ (\pc@lopt@deadline)}%
-\defineliststyle{SubjectAuthorComment}{\pc@lopt@subject\ (\pc@lopt@author): \pc@lopt@comment}%
-\defineliststyle{SubjectAuthorCommentDeadline}{\pc@lopt@subject\ (\pc@lopt@author): \pc@lopt@comment\ (\pc@lopt@deadline)}%
-\defineliststyle{AuthorComment}{\pc@lopt@author: \pc@lopt@comment}%
-\defineliststyle{AuthorCommentDeadline}{\pc@lopt@author: \pc@lopt@comment\ (\pc@lopt@deadline)}%
-\defineliststyle{SubjectComment}{\pc@lopt@subject: \pc@lopt@comment}%
-\defineliststyle{SubjectCommentDeadline}{\pc@lopt@subject: \pc@lopt@comment\ (\pc@lopt@deadline)}%
-\defineliststyle{Comment}{\pc@lopt@comment}%
-\defineliststyle{CommentDeadline}{\pc@lopt@comment\ (\pc@lopt@deadline)}%
+\cs_new_protected:cpn {__pc_set_list_style_:}
+  { \cs_set_eq:N \pc@lpc@format \prg_do_nothing: }
+\defineliststyle
+   {}
+   {}
+\defineliststyle
+   {AuthorSubject}
+   {\pc@lopt@author\ -\ \pc@lopt@subject}
+\defineliststyle
+   {AuthorSubjectDeadline}
+   {\pc@lopt@author\ -\ \pc@lopt@subject\ (\pc@lopt@deadline)}
+\defineliststyle
+   {SubjectAuthorComment}
+   {\pc@lopt@subject\ (\pc@lopt@author) :\ \pc@lopt@comment}
+\defineliststyle
+   {SubjectAuthorCommentDeadline}
+   {\pc@lopt@subject\ (\pc@lopt@author) :\ \pc@lopt@comment\ (\pc@lopt@deadline)}
+\defineliststyle
+   {AuthorComment}
+   {\pc@lopt@author :\ \pc@lopt@comment}
+\defineliststyle
+   {AuthorCommentDeadline}
+   {\pc@lopt@author :\ \pc@lopt@comment\ (\pc@lopt@deadline)}
+\defineliststyle
+   {SubjectComment}
+   {\pc@lopt@subject :\ \pc@lopt@comment}
+\defineliststyle
+   {SubjectCommentDeadline}
+   {\pc@lopt@subject :\ \pc@lopt@comment\ (\pc@lopt@deadline)}
+\defineliststyle
+   {Comment}
+   {\pc@lopt@comment}
+\defineliststyle
+  {CommentDeadline}
+  {\pc@lopt@comment\ (\pc@lopt@deadline)}
 %
 \newcommand{\listofpdfcomments}[1][]%
-{%
-  \keys_set_groups:nnn {pdfcomment}{listofpdfcomments}{#1}
-  %\setkeys{listofpdfcomments}{#1}%
-  \edef\pc@edef@liststyle{pc@liststyle@\pc@lopt@liststyle}%
-  \@ifundefined{\pc@edef@liststyle}%
-  {%
-    \PackageWarning{pdfcomment}{Unknown liststyle \pc@lopt@liststyle\MessageBreak%
-                                in command listofpdfcomments\MessageBreak%
-                                Using liststyle=AuthorSubject instead!}%
-    \setliststyle{AuthorSubject}%
-  }%
-  {%
-    \expandafter\gdef\expandafter\pc@lpc@format{\expandafter\csname \pc@edef@liststyle\endcsname}%
-  }%
+{ 
+  \keys_set_groups:nnn {pdfcomment}{listofpdfcomments}{#1} 
   \ifpc@gopt@final\else%
     \setboolean{@restonecol}{false}%
     \ifthenelse{\boolean{@twocolumn}}%
@@ -2796,17 +2814,15 @@
       {}%
     \@ifundefined{chapter}%
       {\section*{\lpcname\@mkboth{\lpcname}{\lpcname}}\addcontentsline{toc}{section}{\lpcname{}}}%
-      {\chapter*{\lpcname\@mkboth{\lpcname}{\lpcname}}\addcontentsline{toc}{chapter}{\lpcname{}}}%
-    {%
-      \setlength{\parindent}{0pt}%
-      \@starttoc{lpc}%
-    }%
-    \ifthenelse{\boolean{@restonecol}}%
+      {\chapter*{\lpcname\@mkboth{\lpcname}{\lpcname}}\addcontentsline{toc}{chapter}{\lpcname{}}}%    
+    \@starttoc{lpc}
+    \ifthenelse{\boolean{@restonecol}}
       {\twocolumn}%
-      {}%
-  \fi%
-}%
-%
+      {}
+  \fi  
+}
+
+
 \zref@newlist{pdfcomment}%
 \zref@newprop{PCPDFOBJID}[]{\pc@collect@PDFOBJID}%
 \zref@addprop{pdfcomment}{PCPDFOBJID}%
@@ -2821,10 +2837,13 @@
 }%
 %
 \newcommand{\pc@create@lpc}%
-{%
-  \phantomsection%
-  \addcontentsline{lpc}{lpcsec}{\protect\numberline{}\pc@lpc@format}%
-}%
+ {
+  \cs_if_eq:NNF\pc@lpc@format\prg_do_nothing:
+   {
+    \MakeLinkTarget[pdfcomment]{}
+    \addcontentsline{lpc}{lpcsec}{\protect\numberline{}\pc@lpc@format}
+   }
+ }
 %
 \newcommand{\pc@copy@gopt@lopt}%
 {%

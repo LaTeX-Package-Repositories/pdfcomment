@@ -1,0 +1,31 @@
+
+\DocumentMetadata{tagging=on}
+\input{regression-test}
+\documentclass{article}
+\usepackage{xcolor}
+\usepackage{pdfcomment}
+\begin{document}
+\START\showoutput
+\tableofcontents
+
+\listofpdfcomments[liststyle=SubjectAuthorCommentDeadline,heading=MyComments]
+
+\section{bla}
+\defineavatar{UF}{color=orange,author={UF},voffset=20pt}
+
+\definestyle{MyStar}{icon=Star,opacity=0.7,voffset=12pt}%
+
+aaa\pdfcomment[subject=TODO,avatar=UF,deadline=today]{mycomment}
+
+\bigskip 
+
+bbb\pdfcomment[liststyle=Comment,style=MyStar,date={}]{It's enough now!}
+
+\bigskip
+bbb\pdfcomment[avatar=UF,style=MyStar,date={}]{It's enough now!}
+
+\bigskip
+bbb\pdfcomment[liststyle=,avatar=UF,style=MyStar,date={}]{Not in toc!}
+
+\SHOWPDFTAGS
+\end{document} 
