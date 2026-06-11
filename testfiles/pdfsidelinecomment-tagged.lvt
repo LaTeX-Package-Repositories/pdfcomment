@@ -2,7 +2,7 @@
 \DocumentMetadata{tagging=on}
 \input{regression-test}
 \documentclass{article}
-\usepackage{xcolor}
+\usepackage{xcolor,lipsum}
 \usepackage{pdfcomment}
 \begin{document}
 \START\showoutput
