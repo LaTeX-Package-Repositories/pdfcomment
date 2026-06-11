@@ -49,7 +49,7 @@
 
 %    \end{macrocode}
 %\subsection{Variables} 
-% Default values for global package options, the commands use \texttt{goptd}.
+% Default values. The commands use \texttt{goptd}.
 %    \begin{macrocode}
 \gdef\pc@goptd@subject{}%
 \gdef\pc@goptd@color{0~0~1}%
@@ -89,46 +89,6 @@
 \gdef\pc@goptd@timezone{+00'00'}%
 \gdef\pc@goptd@printSOfinal{true}%
 %
-%    \end{macrocode}
-% Variables for global package options
-%    \begin{macrocode}
-\gdef\pc@gopt@subject{}%
-\gdef\pc@gopt@color{}%
-\gdef\pc@gopt@author{}%
-\gdef\pc@gopt@deadline{}%
-\gdef\pc@gopt@icon{}%
-\gdef\pc@gopt@open{}%
-\gdef\pc@gopt@hspace{}%
-\gdef\pc@gopt@voffset{}%
-\gdef\pc@gopt@hoffset{}%
-\gdef\pc@gopt@width{}%
-\gdef\pc@gopt@height{}%
-\gdef\pc@gopt@depth{}%
-\gdef\pc@gopt@opacity{}%
-\gdef\pc@gopt@markup{}%
-\gdef\pc@gopt@font{}%
-\gdef\pc@gopt@fontsize{}%
-\gdef\pc@gopt@fontcolor{}%
-\gdef\pc@gopt@justification{}%
-\gdef\pc@gopt@borderstyle{}%
-\gdef\pc@gopt@linewidth{}%
-\gdef\pc@gopt@dashstyle{}%
-\gdef\pc@gopt@bse{}%
-\gdef\pc@gopt@bsei{}%
-\gdef\pc@gopt@type{}%
-\gdef\pc@gopt@lineend{}%
-\gdef\pc@gopt@linebegin{}%
-\gdef\pc@gopt@icolor{}%
-\gdef\pc@gopt@line{}%
-\gdef\pc@gopt@caption{}%
-\gdef\pc@gopt@captionhoffset{}%
-\gdef\pc@gopt@captionvoffset{}%
-\gdef\pc@gopt@linesep{}%
-\gdef\pc@gopt@disable{}%
-\gdef\pc@gopt@id{}%
-\gdef\pc@gopt@date{}%
-\gdef\pc@gopt@timezone{}%
-\gdef\pc@gopt@printSOfinal{}%
 %    \end{macrocode}
 % Variables for local command options
 %    \begin{macrocode} 
@@ -189,7 +149,6 @@
 %    \begin{macrocode}
 \newif\ifpc@gopt@final\pc@gopt@finalfalse%
 \newif\ifpc@lopt@disable\pc@lopt@disablefalse%
-\newif\ifpc@gopt@disable\pc@gopt@disablefalse%
 \newif\ifpc@annot@samepage\pc@annot@samepagetrue%
 \newif\ifpc@annot@secondpage\pc@annot@secondpagefalse%
 \newif\ifpc@afterpage\pc@afterpagefalse%
@@ -1772,53 +1731,6 @@
     \addcontentsline{lpc}{lpcsec}{\protect\numberline{}\pc@lpc@format}
    }
  }
-%
-\newcommand{\pc@copy@gopt@lopt}%
-{%
-  \gdef\pc@lopt@subject{\pc@gopt@subject}%
-  \gdef\pc@lopt@color{\pc@gopt@color}%
-  \gdef\pc@lopt@author{\pc@gopt@author}%
-  \gdef\pc@lopt@deadline{\pc@gopt@deadline}%
-  \gdef\pc@lopt@icon{\pc@gopt@icon}%
-  \gdef\pc@lopt@open{\pc@gopt@open}%
-  \gdef\pc@lopt@hspace{\pc@gopt@hspace}%
-  \gdef\pc@lopt@voffset{\pc@gopt@voffset}%
-  \gdef\pc@lopt@hoffset{\pc@gopt@hoffset}%
-  \gdef\pc@lopt@width{\pc@gopt@width}%
-  \gdef\pc@lopt@height{\pc@gopt@height}%
-  \gdef\pc@lopt@depth{\pc@gopt@depth}%
-  \gdef\pc@lopt@opacity{\pc@gopt@opacity}%
-  \gdef\pc@lopt@markup{\pc@gopt@markup}%
-  \gdef\pc@lopt@font{\pc@gopt@font}%
-  \gdef\pc@lopt@fontsize{\pc@gopt@fontsize}%
-  \gdef\pc@lopt@fontcolor{\pc@gopt@fontcolor}%
-  \gdef\pc@lopt@justification{\pc@gopt@justification}%
-  \gdef\pc@lopt@borderstyle{\pc@gopt@borderstyle}%
-  \gdef\pc@lopt@linewidth{\pc@gopt@linewidth}%
-  \gdef\pc@lopt@dashstyle{\pc@gopt@dashstyle}%
-  \gdef\pc@lopt@bse{\pc@gopt@bse}%
-  \gdef\pc@lopt@bsei{\pc@gopt@bsei}%
-  \gdef\pc@lopt@type{\pc@gopt@type}%
-  \gdef\pc@lopt@lineend{\pc@gopt@lineend}%
-  \gdef\pc@lopt@linebegin{\pc@gopt@linebegin}%
-  \gdef\pc@lopt@icolor{\pc@gopt@icolor}%
-  \gdef\pc@lopt@line{\pc@gopt@line}%
-  \gdef\pc@lopt@caption{\pc@gopt@caption}%
-  \gdef\pc@lopt@captionhoffset{\pc@gopt@captionhoffset}%
-  \gdef\pc@lopt@captionvoffset{\pc@gopt@captionvoffset}%
-  \gdef\pc@lopt@linesep{\pc@gopt@linesep}%
-  \gdef\pc@lopt@date{\pc@gopt@date}%
-  \gdef\pc@lopt@timezone{\pc@gopt@timezone}%
-  \gdef\pc@lopt@id{}%
-  \gdef\pc@collect@PDFOBJID{S}%
-  \global\pc@lopt@disablefalse%
-  \gdef\pc@lopt@printSOfinal{\pc@gopt@printSOfinal}%
-  \ifpc@gopt@disable%
-    \global\pc@lopt@disabletrue%
-  \else%
-    \global\pc@lopt@disablefalse%
-  \fi%
-}%
 %
 \newcommand{\pc@encode@PDF}[1]%
 {%
