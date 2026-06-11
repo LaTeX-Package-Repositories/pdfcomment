@@ -2729,14 +2729,14 @@
 %
 % define predefined set of options (Avatar)
 \newcommand{\defineavatar}[2]%
-{%
-  \expandafter\gdef\csname pc@avatar@#1\endcsname{#2}%
+{%  
+  \expandafter\gdef\csname pc@avatar@#1\endcsname{\keys_set:nn{pdfcomment}{#2}}%
 }%
 %
 % define predefined set of options (Style)
 \newcommand{\definestyle}[2]%
 {%
-  \expandafter\gdef\csname pc@style@#1\endcsname{#2}%
+  \expandafter\gdef\csname pc@style@#1\endcsname{\keys_set:nn{pdfcomment}{#2}}%
 }%
 %
 \newcommand\l@lpcsec{\@dottedtocline{1}{0em}{0em}}%
