@@ -493,6 +493,8 @@ Possible \margcs{\cmd\pdfmarkupcomment\oarg{options}\\\marg{markup text}\marg{co
 \bigskip
 \cmd\pdfmarkupcomment{} will typeset so called PDF text markup annotations over the text specified in the argument \marg{markup text}. Possible types for the option \styleoption{markup} are: \pdfcommentsetup{subject={\textbackslash pdfmarkupcomment test}}\pdfmarkupcomment[color=yellow,markup=Highlight]{Highlight}{This is a Highlight markup annotation!}, \pdfmarkupcomment[color=red,markup=Underline]{Underline}{This is a Underline markup annotation!}, \pdfmarkupcomment[color=Teal,markup=Squiggly]{Squiggly}{This is a Squiggly markup annotation!} and \pdfmarkupcomment[color=red,markup=StrikeOut]{StrikeOut}{This is a StrikeOut markup annotation!}
 
+\texttt{Note:} The use of \emph{markup} in the name of the command is a bit wrong and confusing as the PDF specification calls nearly all comments provided by this package \enquote{markup} annotations. The annotations here are more correctly named \emph{text markup annotations}.
+
 \hspace*{0pt}\newline
 Limitations:
 
@@ -564,10 +566,11 @@ Possible \margcs{\cmd\pdfreply\\\oarg{options}\marg{comment}}options: \styleopti
 \cmd\pdfreply{} will add a comment as a reply to an existing comment. 
 It should use the option \styleoption{replyto} to identify the target. As an example
 \begin{verbatim}
-\pdfcomment[id=A]{Wow, that's nice!}
+\pdfcomment[id=A]{Wow, that's nice!}%
 \pdfreply[replyto=A]{Yes true}
 \end{verbatim}
 
+The annotation must be created on the same page as the annotation is refers too!
 \textbf{Note:} The command already existed in version 2.4a but was undocumented (and broken). With version 2.4a the command works only with pdflatex and lualatex, with version 3.0 the other backends are supported too.
 
 
@@ -714,7 +717,9 @@ Please report problems! Improvements need tests and feedbacks from user!
 Known restrictions are:
 \begin{itemize}
 \item \cs{pdfmarkupcomment} uses the soul package to get the dimension of the annotation. The soul package is not compatible with the tagging, and so tagging is suspended in the argument of the command.
-\item Inside a tikz-picture tagging is normally suspended (if you use the \texttt{alt} or \texttt{actualtext} key), and so also annotations are not tagged too. This is allowed by the standard (untagged annotations are artifacts) but some validator complain nevertheless.   
+\item Inside a tikz-picture tagging is normally suspended (if you use the \texttt{alt} or \texttt{actualtext} key), and so also annotations are not tagged too. This is allowed by the standard (untagged annotations are artifacts) but some validator complain nevertheless.      
+\item Markup annotations going over more than one line create more than one annation. These should probably be in one Annot structure, but currently everyone is tagged independantly.    
+\item  In PDF 2.0 annotations should actually have appearances, but this isn't done yet.    
 \end{itemize}    
 
 \end{document}
