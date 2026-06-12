@@ -369,8 +369,7 @@
       \tl_if_blank:eTF {#1}
        {\tl_set:Nn\pc@lopt@fontcolor{}}
        {
-         \HyColor@XZeroOneThreeFour{#1}{\pc@lopt@fontcolor}{pdfcomment}{color}
-         \tl_set:Ne \pc@lopt@fontcolor {\pc@lopt@fontcolor}
+         \HyColor@XZeroOneThreeFour{#1}{\pc@hyenc@fontcolor}{pdfcomment}{color}
        }  
      }
    ,fontcolor .value_required:n = true
@@ -785,6 +784,10 @@
 \pdfdict_put:nnn {l_@@_freetext_dict} {BS} 
    {<</W~\pc@lopt@linewidth/S/\pc@lopt@borderstyle/D~[\pc@lopt@dashstyle]>>}
 %    \end{macrocode}
+% LE
+%    \begin{macrocode}
+\pdfdict_put:nnn {l_@@_freetext_dict} {LE} {\pc@lopt@lineend}
+%    \end{macrocode}
 % In a FreeTextTypewriter color and line are currently removed. TODO: check if that is needed. 
 %    \begin{macrocode}
   \cs_new_protected:Npn \@@_dict_update_freetext:
@@ -869,16 +872,16 @@
 %    \end{macrocode}
 % BS:
 %    \begin{macrocode}
-\pdfdict_put:nnn {l_@@_line_dict} {BS} 
+\pdfdict_put:nnn {l_@@_poly_dict} {BS} 
    {<</W~\pc@lopt@linewidth/S/\pc@lopt@borderstyle/D~[\pc@lopt@dashstyle]>>}
 %    \end{macrocode}
 % IC: internal color
 %    \begin{macrocode}
-\pdfdict_put:nnn {l_@@_line_dict} {IC} {\pc@lopt@icolor}
+\pdfdict_put:nnn {l_@@_poly_dict} {IC} {\pc@lopt@icolor}
 %    \end{macrocode}
 % BE (meaningful only for polygon)
 %    \begin{macrocode}
-\pdfdict_put:nnn {l_@@_freetext_dict} {BE} {<</S /\pc@lopt@bse/I~\pc@lopt@bsei>>}
+\pdfdict_put:nnn {l_@@_poly_dict} {BE} {<</S /\pc@lopt@bse/I~\pc@lopt@bsei>>}
 %    \end{macrocode}
 % IT, Measure, Path: currently ignored. TODO?
 % 
@@ -911,7 +914,7 @@
 %    \begin{macrocode}
 \pdfdict_new:n     {l_@@_textmarkup_dict}
 \pdfdict_set_eq:nn {l_@@_textmarkup_dict}{l_@@_core_dict}
-\pdfdict_put:nnn {l_@@_textmarkup_dict} {QuadPoints}    {\pc@annot@quadpoints}
+\pdfdict_put:nnn {l_@@_textmarkup_dict} {QuadPoints}    {[\pc@annot@quadpoints]}
 %    \end{macrocode}
 %
 % \subsection{Collecting references}
@@ -1467,6 +1470,7 @@
   \gdef\pc@collect@PDFOBJID{S}
   \keys_set:nn{pdfcomment}{#1}
   \def\pc@lopt@subtype{/Line}
+  \@@_dict_update_line:
 %    \end{macrocode}
 % Encode Contents, Author and Subject 
 % and transform color input to pdf color
