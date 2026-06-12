@@ -1,0 +1,18 @@
+
+\DocumentMetadata{tagging=on}
+\input{regression-test}
+\documentclass{article}
+\usepackage{xcolor}
+\usepackage{pdfcomment}
+\begin{document}
+\START\showoutput
+\listofpdfcomments
+
+\pdfcomment[liststyle=Comment]{a comment}
+
+\RenewCommandCopy\pdftooltip\pdfsquaretooltip
+You can use tooltips with simple \pdftooltip{\textcolor{red}{words}}{This is a tooltip! Grüße!} or chemical notation like: $\pdftooltip{H_{2}SO_{4}}{Sulfuric acid}$ 
+
+
+\SHOWPDFTAGS
+\end{document} 

@@ -30,7 +30,7 @@ TEST 1: Show PDF Tags
       >
      <TOCI xmlns="http://iso.org/pdf/ssn"
         id="ID.009"
-        title="Listofpdfcomments"
+        title="List of pdfcomments"
        >
        <?References objects="1" ?>
       <Reference xmlns="http://iso.org/pdf/ssn"
@@ -39,7 +39,7 @@ TEST 1: Show PDF Tags
        <Link xmlns="http://iso.org/pdf2/ssn"
           id="ID.011"
          >
-        <?MarkedContent page="1" ?>Listofpdfcomments
+        <?MarkedContent page="1" ?>List of pdfcomments
         <?ReferencedObject type="Annot" page="1" ?>
        </Link>
        <?MarkedContent page="1" ?>1
@@ -75,11 +75,11 @@ TEST 1: Show PDF Tags
      >
     <section xmlns="https://www.latex-project.org/ns/dflt"
        id="ID.017"
-       title="Listofpdfcomments"
+       title="List of pdfcomments"
        rolemaps-to="H1"
        referenced-as="1"
       >
-     <?MarkedContent page="1" ?>Listofpdfcomments
+     <?MarkedContent page="1" ?>List of pdfcomments
     </section>
     <TOC xmlns="http://iso.org/pdf/ssn"
        id="ID.018"
@@ -340,7 +340,7 @@ Completed box being shipped out [1]
 ....\glue(\parskip) 0.0 plus 1.0
 ....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 4.8272
-....\hbox(7.0+1.94)x345.0, glue set 234.13998fil, direction TLT
+....\hbox(7.0+1.94)x345.0, glue set 226.47998fil, direction TLT
 .....\glue(\leftskip) 15.0
 .....\localpar
 ......\localinterlinepenalty=0
@@ -355,10 +355,12 @@ Completed box being shipped out [1]
 .....\TU/lmr/bx/n/10 i
 .....\TU/lmr/bx/n/10 s
 .....\TU/lmr/bx/n/10 t
+.....\TU/lmr/bx/n/10  
+.....\glue(\spaceskip) 0.0 plus 1.915 minus 1.27667
 .....\TU/lmr/bx/n/10 o
 .....\TU/lmr/bx/n/10 f
-.....\discretionary (penalty 50)
-......< \TU/lmr/bx/n/10 -
+.....\TU/lmr/bx/n/10  
+.....\glue(\spaceskip) 0.0 plus 1.915 minus 1.27667
 .....\TU/lmr/bx/n/10 p
 .....\kern0.32 (font)
 .....\TU/lmr/bx/n/10 d
@@ -436,7 +438,7 @@ Completed box being shipped out [1]
 ....\glue(\parskip) 0.0 plus 1.0
 ....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 7.86
-....\hbox(10.08+2.7936)x345.0, glue set 210.63368fil, direction TLT
+....\hbox(10.08+2.7936)x345.0, glue set 199.8337fil, direction TLT
 .....\localpar
 ......\localinterlinepenalty=0
 ......\localbrokenpenalty=0
@@ -459,10 +461,12 @@ Completed box being shipped out [1]
 .....\TU/lmr/bx/n/14.4 i
 .....\TU/lmr/bx/n/14.4 s
 .....\TU/lmr/bx/n/14.4 t
+.....\TU/lmr/bx/n/14.4  
+.....\glue(\spaceskip) 0.0 plus 2.7 minus 1.8
 .....\TU/lmr/bx/n/14.4 o
 .....\TU/lmr/bx/n/14.4 f
-.....\discretionary (penalty 50)
-......< \TU/lmr/bx/n/14.4 -
+.....\TU/lmr/bx/n/14.4  
+.....\glue(\spaceskip) 0.0 plus 2.7 minus 1.8
 .....\TU/lmr/bx/n/14.4 p
 .....\kern0.4464 (font)
 .....\TU/lmr/bx/n/14.4 d
@@ -487,7 +491,7 @@ Completed box being shipped out [1]
 ....\glue 9.913 plus 0.86198
 ....\pdfliteral page <lua data reference ...>
 ....\pdfliteral page <lua data reference ...>
-....\write1{\@writefile{toc}{\protect \contentsline {section}{Listofpdfcomments{}}{\thepage }{section*.2}\protected@file@percent }}
+....\write1{\@writefile{toc}{\protect \contentsline {section}{List of pdfcomments{}}{\thepage }{section*.2}\protected@file@percent }}
 ....\penalty 10000
 ....\glue 0.0 plus 0.2
 ....\glue(\parskip) 0.0 plus 1.0

@@ -28,7 +28,7 @@
 % \fi
 %
 % \title{The \textsf{pdfcomment} package}
-% \author{\LaTeX{} Project\thanks{Initial implementation done by Josef Kleber}}
+% \author{Ulrike Fischer, \LaTeX{} Project\thanks{Initial implementation done by Josef Kleber}}
 % \date{v3.0a 2026-06-07}
 %
 % \maketitle
@@ -207,7 +207,7 @@
 %
 % \subsection{List of pdfcomments}
 %    \begin{macrocode}
-\newcommand{\lpcname}{List of pdfcomments}%
+\newcommand{\lpcname}{List~of~pdfcomments}%
 \gdef\pc@lpc@format{\pc@lopt@author\ -~ \pc@lopt@subject}%
 \gdef\pc@lopt@liststyle{AuthorSubject}%
 %
@@ -729,7 +729,6 @@
 %    \end{macrocode}
 % RT: currently ignored. Needs an IRT entry. TODO?\\
 % IT: Intent. Currently ignored. TODO? 
-%    \end{macrocode}
 %
 % \subsection{Keys of text annotations} 
 %    \begin{macrocode}
@@ -949,6 +948,7 @@
    \gdef\pc@collect@PDFOBJID{S}
    \keys_set:nn{pdfcomment}{#1}
    \def\pc@lopt@subtype{/Text}
+   \def\pc@lopt@comment{#2}
 %    \end{macrocode}
 %  Encode Contents, Author and Subject to pdf encodings  
 %  and transform color input to pdf color
@@ -1017,6 +1017,7 @@
   \gdef\pc@collect@PDFOBJID{S}
   \keys_set:nn{pdfcomment}{#1}
   \def\pc@lopt@subtype{/Text}
+  \def\pc@lopt@comment{#2}
 %    \end{macrocode}
 % Encode Contents, Author and Subject 
 % and transform color input to pdf color
@@ -1080,6 +1081,7 @@
   \gdef\pc@collect@PDFOBJID{S}
   \keys_set:nn{pdfcomment}{#1}
   \def\pc@lopt@subtype{/FreeText}
+  \def\pc@lopt@comment{#2}
   \@@_dict_update_freetext:
 %    \end{macrocode}
 % Encode Contents, Author and Subject  and colors:
@@ -1136,6 +1138,7 @@
   \gdef\pc@collect@PDFOBJID{S}
   \keys_set:nn{pdfcomment}{#1}
   \def\pc@lopt@subtype{/Square}
+  \def\pc@lopt@comment{#2}
 %    \end{macrocode}
 % Encode Contents, Author and Subject and color
 %    \begin{macrocode}
@@ -1190,6 +1193,7 @@
   \gdef\pc@collect@PDFOBJID{S}
   \keys_set:nn{pdfcomment}{#1}
   \def\pc@lopt@subtype{/Circle}
+  \def\pc@lopt@comment{#2}
 %    \end{macrocode}
 % Encode Contents, Author and Subject and color
 %    \begin{macrocode}
@@ -1243,7 +1247,8 @@
   \ifvmode\leavevmode\fi
   \group_begin:
   \gdef\pc@collect@PDFOBJID{S}
-  \keys_set:nn{pdfcomment}{#1}    
+  \keys_set:nn{pdfcomment}{#1}  
+  \def\pc@lopt@comment{#2}  
   \pc@encode@PDF{#2}
   \ifpc@gopt@final\else
     \ifpc@lopt@disable\else
@@ -1307,7 +1312,8 @@
   \leavevmode
   \group_begin:  
   \gdef\pc@collect@PDFOBJID{S}
-  \keys_set:nn{pdfcomment}{#1}    
+  \keys_set:nn{pdfcomment}{#1}   
+  \def\pc@lopt@comment{#3} 
   \ifmmode%
     \zsavepos{pdfcomment:\thezref@unique}
     \zref@refused{pdfcomment:\thezref@unique}
@@ -1470,6 +1476,7 @@
   \gdef\pc@collect@PDFOBJID{S}
   \keys_set:nn{pdfcomment}{#1}
   \def\pc@lopt@subtype{/Line}
+  \def\pc@lopt@comment{#2}
   \@@_dict_update_line:
 %    \end{macrocode}
 % Encode Contents, Author and Subject 
@@ -1653,6 +1660,48 @@
   \@@_save_objid:
  }
 %    \end{macrocode}
+% The helper command with the annotation:
+% \begin{macro}[int]{\pc@create@annot@sideline}
+%    \begin{macrocode}
+\newcommand{\pc@create@annot@sideline}
+  {  
+   \ifpc@gopt@final\else
+    % typeset line annotation (see: PDF Reference)
+      \vbox to 0pt
+       {\tagpdfparaOff
+        \hsize=0pt
+        \noindent
+        \hbox to 0pt
+         {
+          \vsize=0pt
+          \UseTaggingSocket{pdfcomment/annotbox}
+           {l_@@_line_dict} 
+           {
+             \pdfannot_box:nnne
+              {\dim_eval:n{\pc@lopt@width+0pt}}            
+              {\dim_eval:n{\pc@lopt@height+0pt}} 
+              {\dim_eval:n{\pc@lopt@depth+0pt}}
+              {          
+                \pdfdict_use:n {l_@@_line_dict} 
+                \pdfdict_use:n {l_@@_markup_dict}               
+              }
+           }   
+          \hss
+        }
+        \vss
+      }
+      \ifpc@annot@samepage
+        \@@_collect_objid:
+      \else
+        \ifpc@annot@secondpage
+          \@@_collect_objid:
+        \else
+        \fi
+      \fi
+   \fi
+  }
+%    \end{macrocode}
+% \end{macro}
 %
 % \subsection{\cs{pdfreply}}
 % 
@@ -1665,6 +1714,7 @@
   \gdef\pc@collect@PDFOBJID{S}
   \keys_set:nn{pdfcomment}{#1}
   \def\pc@lopt@subtype{/Text}
+  \def\pc@lopt@comment{#2}
 %    \end{macrocode}
 % Encode Contents, Author and Subject 
 % and transform color input to pdf color
@@ -1722,11 +1772,10 @@
   \fi
   \group_end:
 }
-%
-%
-%
 %    \end{macrocode}
+%
 % \subsection{\cs{pdftooltip}}
+% \begin{macro}[no-user-doc]{\pdftooltip}
 %    \begin{macrocode}
 \newcommand{\pdftooltip}[3][]
  {
@@ -1735,6 +1784,7 @@
   \gdef\pc@collect@PDFOBJID{S}
   \keys_set:nn{pdfcomment}{#1} 
   \def\pc@lopt@subtype{/Widget} 
+  \def\pc@lopt@comment{#3}
   \ifmmode
     \setbox\pc@nullbox=\hbox{\SuspendTagging{}\pc@encode@PDF{#3}}
     \setbox\pc@nullbox=\hbox{\SuspendTagging{}$\pc@lopt@mathstyle#2$}
@@ -1761,17 +1811,47 @@
    \fi
   \stepcounter{zref@unique}
   \group_end:
-}%
-
+}
 %    \end{macrocode}
+% \end{macro}
+% 
+% \subsection{\cs{pdfsquaretooltip}}
+% \begin{macro}[no-user-doc]{\pdfsquaretooltip}
+%    \begin{macrocode}
+\newbox\pc@tmp@box 
+\NewDocumentCommand\pdfsquaretooltip{O{}mm}
+ {
+  \leavevmode
+  \sbox\pc@tmp@box{#2}%
+  \kern0pt\pdfsquarecomment
+    [liststyle=,
+     linewidth=0pt,
+     opacity=0,
+     color=,icolor=,
+     width=\wd\pc@tmp@box,
+     height=\ht\pc@tmp@box,
+     depth=\dp\pc@tmp@box,#1]
+     {#3}
+   \usebox\pc@tmp@box
+  }
+%    \end{macrocode}
+% \end{macro}
+
+% 
 % \subsection{Setup commands}
+% 
+% \begin{macro}[no-user-doc]{\pdfcommentsetup}
 %    \begin{macrocode}
 \newcommand{\pdfcommentsetup}[2][]
  {
    \keys_set:nn{pdfcomment}{#1,#2}
  }
 %    \end{macrocode}
+% \end{macro}
+% 
 % Define predefined set of options (Avatar)
+% 
+% \begin{macro}[no-user-doc]{\defineavatar}
 %    \begin{macrocode}
 \newcommand{\defineavatar}[2]
  {  
@@ -1785,7 +1865,11 @@
  }
 %
 %    \end{macrocode}
+% \end{macro}
+% 
 % Define predefined set of options (Style)
+% 
+% \begin{macro}[no-user-doc]{\definestyle}
 %    \begin{macrocode}
 \newcommand{\definestyle}[2]
  {
@@ -1798,12 +1882,18 @@
     }
  }
 %    \end{macrocode}
-% The format in the list of comments:
+% \end{macro}
+%
+% \subsection{List of pdf comments}
+%
+% The format of the list entries: 
 %    \begin{macrocode}
 \newcommand\l@lpcsec{\@dottedtocline{1}{0em}{0em}}%
 %    \end{macrocode}
 %
 % Define predefined set of liststyles:
+% 
+% \begin{macro}[no-user-doc]{\defineliststyle}
 %    \begin{macrocode}
 \newcommand{\defineliststyle}[2]
  {   
@@ -1819,7 +1909,10 @@
     }
  }
 %    \end{macrocode}
+% \end{macro}
+% 
 % Setting the list style:
+% \begin{macro}[no-user-doc]{\setliststyle}
 %    \begin{macrocode}
 \newcommand{\setliststyle}[1]
  {
@@ -1835,6 +1928,8 @@
      }
  }
 %    \end{macrocode}
+% \end{macro}
+% 
 % The predefined styles. The empty style suppresses the list entry.
 %    \begin{macrocode}
 \cs_new_protected:cpn {__pc_set_list_style_:}
@@ -1873,29 +1968,29 @@
   {CommentDeadline}
   {\pc@lopt@comment\ (\pc@lopt@deadline)}
 %    \end{macrocode}
+%
 % The list of pdf comments
 %    \begin{macrocode}
 \newcommand{\listofpdfcomments}[1][]
-{ 
+ { 
   \keys_set_groups:nnn {pdfcomment}{listofpdfcomments}{#1} 
   \ifpc@gopt@final\else
-    \setboolean{@restonecol}{false}
-    \legacy_if:nTF{@twocolumn}
-      {\setboolean{@restonecol}{true}\onecolumn}
-      {}%
     \@ifundefined{chapter}%
-      {\section*{\lpcname\@mkboth{\lpcname}{\lpcname}}\addcontentsline{toc}{section}{\lpcname{}}}
-      {\chapter*{\lpcname\@mkboth{\lpcname}{\lpcname}}\addcontentsline{toc}{chapter}{\lpcname{}}}    
+      {
+       \section*{\lpcname\@mkboth{\lpcname}{\lpcname}}
+       \addcontentsline{toc}{section}{\lpcname{}}
+      }
+      {
+       \chapter*{\lpcname\@mkboth{\lpcname}{\lpcname}}
+       \addcontentsline{toc}{chapter}{\lpcname{}}
+      }    
     \@starttoc{lpc}
-    \legacy_if:nTF{@restonecol}% 
-      {\twocolumn}%
-      {}
   \fi  
-}
+ }
 %    \end{macrocode}
-% The command that creates the list entry:
+% The command that creates the list entries in the annotations:
+% \begin{macro}[int]{\pc@create@lpc}
 %    \begin{macrocode}
-
 \newcommand{\pc@create@lpc}%
  {
   \cs_if_eq:NNF\pc@lpc@format\prg_do_nothing:
@@ -1905,7 +2000,9 @@
    }
  }
 %    \end{macrocode}
-% 
+% \end{macro}
+%
+% \subsection{Helper code}
 % These properties are used for the reply command:
 %    \begin{macrocode}
 \zref@newlist{pdfcomment}
@@ -1921,14 +2018,13 @@
    \zref@extract{#1}{PCPDFOBJID}
  }
 %    \end{macrocode}
+%
+%
 % The command that encodes the text in PDF format. 
+% 
 %    \begin{macrocode}
 \newcommand{\pc@encode@PDF}[1]
  {
-%    \end{macrocode}
-% we store the argument for the list of comments:
-%    \begin{macrocode}
-  \tl_set:Nn\pc@lopt@comment{#1} 
   \tl_if_empty:oTF {\pc@lopt@deadline}
    {
      \pdfstringdef\pc@pdfenc@contents{#1}
@@ -1943,86 +2039,55 @@
   \tl_gset:Ne\pc@pdfenc@subject {(\pc@pdfenc@subject)}
  }
 %    \end{macrocode}
-% The command that encodes the color arguments:
-%    \begin{macrocode}
-\newcommand\pc@encode@colors
- {
-   \HyColor@XZeroOneThreeFour{\pc@lopt@color}{\pc@hyenc@color}{pdfcomment}{color}
-   \HyColor@XZeroOneThreeFour{\pc@lopt@fontcolor}{\pc@hyenc@fontcolor}{pdfcomment}{color}
-   \HyColor@XZeroOneThreeFour{\pc@lopt@icolor}{\pc@hyenc@icolor}{pdfcomment}{color}
- }
-%    \end{macrocode}
-% This should use dictionaries so that we can add the StructParent.
-%    \begin{macrocode}
 
+  
+%    \begin{macrocode}
 \cs_set_eq:NN\pc@pttobp\dim_to_decimal_in_bp:n
 
 
 \newcommand{\pc@annot@calc@pos@math}
  {
-  \renewcommand{\pc@x@one}{\pc@pttobp{\pc@Sposx}}
-  \renewcommand{\pc@x@two}{\pc@pttobp{\dimexpr \pc@Sposx + \wd\pc@nullbox\relax}}
-  \renewcommand{\pc@x@three}{\pc@pttobp{\pc@Sposx}}
-  \renewcommand{\pc@x@four}{\pc@pttobp{\dimexpr \pc@Sposx + \wd\pc@nullbox\relax}}
-  \renewcommand{\pc@y@one}{\pc@pttobp{\dimexpr \pc@Sposy + \ht\pc@nullbox + 1pt\relax}}
-  \renewcommand{\pc@y@two}{\pc@pttobp{\dimexpr \pc@Sposy + \ht\pc@nullbox + 1pt\relax}}
-  \renewcommand{\pc@y@three}{\pc@pttobp{\dimexpr \pc@Sposy - \dp\pc@nullbox - 1pt\relax}}
-  \renewcommand{\pc@y@four}{\pc@pttobp{\dimexpr \pc@Sposy - \dp\pc@nullbox - 1pt\relax}}
+  \renewcommand{\pc@x@one}
+     {\pc@pttobp{\pc@Sposx}}
+  \renewcommand{\pc@x@two}
+     {\pc@pttobp{\dimexpr \pc@Sposx + \wd\pc@nullbox\relax}}
+  \renewcommand{\pc@x@three}
+     {\pc@pttobp{\pc@Sposx}}
+  \renewcommand{\pc@x@four}
+     {\pc@pttobp{\dimexpr \pc@Sposx + \wd\pc@nullbox\relax}}
+  \renewcommand{\pc@y@one}
+     {\pc@pttobp{\dimexpr \pc@Sposy + \ht\pc@nullbox + 1pt\relax}}
+  \renewcommand{\pc@y@two}
+     {\pc@pttobp{\dimexpr \pc@Sposy + \ht\pc@nullbox + 1pt\relax}}
+  \renewcommand{\pc@y@three}
+     {\pc@pttobp{\dimexpr \pc@Sposy - \dp\pc@nullbox - 1pt\relax}}
+  \renewcommand{\pc@y@four}
+     {\pc@pttobp{\dimexpr \pc@Sposy - \dp\pc@nullbox - 1pt\relax}}
   \setlength{\pc@dima}{\dimexpr \pc@Sposy - \dp\pc@nullbox - 1pt\relax}
   \setlength{\pc@dimb}{\dimexpr \pc@Eposy - \dp\pc@nullbox - 1pt\relax}
  }
 
-
-\newcommand{\pc@create@annot@sideline}
-  {  
-   \ifpc@gopt@final\else
-    % typeset line annotation (see: PDF Reference)
-      \vbox to 0pt
-       {\tagpdfparaOff
-        \hsize=0pt
-        \noindent
-        \hbox to 0pt
-         {
-          \vsize=0pt
-          \UseTaggingSocket{pdfcomment/annotbox}
-           {l_@@_line_dict} 
-           {
-             \pdfannot_box:nnne
-              {\dim_eval:n{\pc@lopt@width+0pt}}            
-              {\dim_eval:n{\pc@lopt@height+0pt}} 
-              {\dim_eval:n{\pc@lopt@depth+0pt}}
-              {          
-                \pdfdict_use:n {l_@@_line_dict} 
-                \pdfdict_use:n {l_@@_markup_dict}               
-              }
-           }   
-          \hss
-        }
-        \vss
-      }
-      \ifpc@annot@samepage
-        \@@_collect_objid:
-      \else
-        \ifpc@annot@secondpage
-          \@@_collect_objid:
-        \else
-        \fi
-      \fi
-   \fi
-  }
-
-
 \newcommand{\pc@annot@complete}
  {
-  \renewcommand{\pc@x@one}{\pc@pttobp{\pc@Sposx}}%
-  \renewcommand{\pc@x@two}{\pc@pttobp{\pc@Eposx}}%
-  \renewcommand{\pc@x@three}{\pc@pttobp{\pc@Sposx}}%
-  \renewcommand{\pc@x@four}{\pc@pttobp{\pc@Eposx}}%
-  \renewcommand{\pc@y@one}{\pc@pttobp{\dimexpr \pc@Sposy + \pc@box@height + 1pt\relax}}%
-  \renewcommand{\pc@y@two}{\pc@pttobp{\dimexpr \pc@Eposy + \pc@box@height + 1pt\relax}}%
-  \renewcommand{\pc@y@three}{\pc@pttobp{\dimexpr \pc@Sposy - \pc@box@depth - 1pt\relax}}%
-  \renewcommand{\pc@y@four}{\pc@pttobp{\dimexpr \pc@Eposy - \pc@box@depth - 1pt\relax}}%
-  \def\pc@annot@quadpoints{\pc@x@one\space\pc@y@one\space\pc@x@two\space\pc@y@two\space\pc@x@three\space\pc@y@three\space\pc@x@four\space\pc@y@four}%
+  \renewcommand{\pc@x@one}{\pc@pttobp{\pc@Sposx}}
+  \renewcommand{\pc@x@two}{\pc@pttobp{\pc@Eposx}}
+  \renewcommand{\pc@x@three}{\pc@pttobp{\pc@Sposx}}
+  \renewcommand{\pc@x@four}{\pc@pttobp{\pc@Eposx}}
+  \renewcommand{\pc@y@one}
+    {\pc@pttobp{\dimexpr \pc@Sposy + \pc@box@height + 1pt\relax}}
+  \renewcommand{\pc@y@two}
+    {\pc@pttobp{\dimexpr \pc@Eposy + \pc@box@height + 1pt\relax}}
+  \renewcommand{\pc@y@three}
+    {\pc@pttobp{\dimexpr \pc@Sposy - \pc@box@depth - 1pt\relax}}
+  \renewcommand{\pc@y@four}
+    {\pc@pttobp{\dimexpr \pc@Eposy - \pc@box@depth - 1pt\relax}}
+  \def\pc@annot@quadpoints
+    {
+     \pc@x@one\space\pc@y@one\space
+     \pc@x@two\space\pc@y@two\space
+     \pc@x@three\space\pc@y@three\space
+     \pc@x@four\space\pc@y@four
+    }
   \UseTaggingSocket{pdfcomment/annotbox}
     {l_@@_textmarkup_dict}
     {
@@ -2068,15 +2133,15 @@
            {\pc@pttobp{1in + \hoffset + \oddsidemargin + \columnwidth}}%
         \else
           \renewcommand{\pc@x@left@text}
-           {\pc@pttobp{1in + \hoffset + \oddsidemargin + \textwidth - \columnwidth}}%
+           {\pc@pttobp{1in + \hoffset + \oddsidemargin + \textwidth - \columnwidth}}
           \renewcommand{\pc@x@right@text}
-           {\pc@pttobp{1in + \hoffset + \oddsidemargin + \textwidth}}%
+           {\pc@pttobp{1in + \hoffset + \oddsidemargin + \textwidth}}
         \fi
       \else
         \renewcommand{\pc@x@left@text}
          {\pc@pttobp{1in + \hoffset + \oddsidemargin}}
         \renewcommand{\pc@x@right@text}
-         {\pc@pttobp{1in + \hoffset + \oddsidemargin + \textwidth}}%
+         {\pc@pttobp{1in + \hoffset + \oddsidemargin + \textwidth}}
       \fi
     \else
       \if@twocolumn%
@@ -2121,7 +2186,12 @@
   \renewcommand{\pc@y@top@text}
     {\pc@pttobp{\paperheight - 1in - \voffset - \topmargin - \headheight - \headsep}}
   \renewcommand{\pc@y@bottom@text}
-    {\pc@pttobp{\paperheight - 1in - \voffset - \topmargin - \headheight - \headsep - \textheight}}
+    {
+     \pc@pttobp
+      {\paperheight - 1in - \voffset - \topmargin - \headheight - 
+       \headsep - \textheight
+      }
+    }
  }
 
 \newcommand{\pc@calc@sidelinepos}
@@ -2134,25 +2204,30 @@
       \renewcommand{\pc@x@one}
         {\pc@pttobp{  1in + \hoffset + \oddsidemargin -  \pc@lopt@linesep bp }}
       \renewcommand{\pc@x@two}
-        {\pc@pttobp{  1in + \hoffset + \oddsidemargin + \textwidth +  \pc@lopt@linesep bp }}
+        {\pc@pttobp{  1in + \hoffset + \oddsidemargin + \textwidth +  
+                      \pc@lopt@linesep bp }}
     \else
       \renewcommand{\pc@x@one}
         {\pc@pttobp{  1in + \hoffset + \evensidemargin -  \pc@lopt@linesep bp }}
       \renewcommand{\pc@x@two}
-        {\pc@pttobp{  1in + \hoffset + \evensidemargin + \textwidth +  \pc@lopt@linesep bp }}
+        {\pc@pttobp{  1in + \hoffset + \evensidemargin + \textwidth + 
+                      \pc@lopt@linesep bp }}
     \fi
   \else
     \renewcommand{\pc@x@one}
       {\pc@pttobp{  1in + \hoffset + \oddsidemargin -  \pc@lopt@linesep bp }}
     \renewcommand{\pc@x@two}
-      {\pc@pttobp{  1in + \hoffset + \oddsidemargin + \textwidth +  \pc@lopt@linesep bp }}
+      {\pc@pttobp{  1in + \hoffset + \oddsidemargin + \textwidth +  
+                 \pc@lopt@linesep bp }}
   \fi
   \renewcommand{\pc@y@one}{\pc@pttobp{ \pc@Sposy + \pc@box@height + 1pt}}
   \renewcommand{\pc@y@two}{\pc@pttobp{ \pc@Eposy - \pc@box@depth - 1pt}}
   \renewcommand{\pc@y@top@text}
-     {\pc@pttobp{ \paperheight -  1in - \voffset - \topmargin - \headheight - \headsep}}
+     {\pc@pttobp{ \paperheight -  1in - \voffset - \topmargin - 
+                  \headheight - \headsep}}
   \renewcommand{\pc@y@bottom@text}
-     {\pc@pttobp{ \paperheight -  1in - \voffset - \topmargin - \headheight - \headsep - \textheight}}
+     {\pc@pttobp{ \paperheight -  1in - \voffset - \topmargin - 
+                  \headheight - \headsep - \textheight}}
  }
 %    \end{macrocode}
 %    \begin{macrocode}
