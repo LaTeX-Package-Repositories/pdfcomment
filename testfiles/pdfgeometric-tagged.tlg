@@ -115,9 +115,9 @@ Completed box being shipped out [1]
 ...\vbox(550.0+0.0)x345.0, glue set 515.94489fil, direction TLT
 ....\write-{}
 ....\pdfcolorstack 0 push {0 g 0 G}
+....\pdfdest name{Doc-Start} xyz
+....\pdfdest name{Doc-Start} xyz
 ....\openout3=pdfgeometric-tagged.upa
-....\pdfdest name{Doc-Start} xyz
-....\pdfdest name{Doc-Start} xyz
 ....\glue(\topskip) 10.0
 ....\hbox(0.0+0.0)x345.0, glue set 330.0fil, direction TLT
 .....\localpar
@@ -146,7 +146,7 @@ Completed box being shipped out [1]
 .......\write1{\@writefile{lpc}{\protect \contentsline {lpcsec}{\protect \numberline {}\ - square}{\thepage }{pdfcomment*.1}\protected@file@percent }}
 .......\pdfliteral page <lua data reference ...>
 .......\pdfliteral page <lua data reference ...>
-.......\pdfannot(71.13188+0.0)x165.02606{/Subtype /Square /C [0 0 1] /CreationDate (D:20160520090000Z) /M (D:20160520090000Z) /CA 1.0 /T () /Subj (\376\377\000s\000q\000u\000a\000r\000e) /Contents (\376\377\000T\000h\000i\000s\000\040\000i\000s\000\040\000a\000\040\000S\000q\000u\000a\000r\000e\000\040\000a\000n\000n\000o\000t\000a\000t\000i\000o\000n\000!) /F 4 /BE <<../I 2.5>> /IC [0 0 1] /StructParent 1 /BS 29 0 R }
+.......\pdfannot(71.13188+0.0)x165.02606{/CreationDate (D:20160520090000Z) /M (D:20160520090000Z) /C [0 0 1] /T () /Contents (\376\377\000T\000h\000i\000s\000\040\000i\000s\000\040\000a\000\040\000S\000q\000u\000a\000r\000e\000\040\000a\000n\000n\000o\000t\000a\000t\000i\000o\000n\000!) /CA 1.0 /Name /Comment /Open false /F 4 /BE <<../I 2.5>> /BS <</W 7.97012/S/S/D [3 3]>> /IC [0 0 1] /Subtype /Square /StructParent 1 }
 .......\write1{\new@label@record{@tag@objr@page@1}{{tagabspage}{\__property_code_tagabspage: }}}
 .......\glue 0.0 plus 1.0fil minus 1.0fil
 ......\glue 0.0 plus 1.0fil minus 1.0fil
@@ -183,7 +183,7 @@ Completed box being shipped out [1]
 .......\write1{\@writefile{lpc}{\protect \contentsline {lpcsec}{\protect \numberline {}\ - circle}{\thepage }{pdfcomment*.2}\protected@file@percent }}
 .......\pdfliteral page <lua data reference ...>
 .......\pdfliteral page <lua data reference ...>
-.......\pdfannot(71.13188+0.0)x165.02606{/Subtype /Circle /C [0 0 1] /CreationDate (D:20160520090000Z) /M (D:20160520090000Z) /CA 1.0 /T () /Subj (\376\377\000c\000i\000r\000c\000l\000e) /Contents (\376\377\000T\000h\000i\000s\000\040\000i\000s\000\040\000a\000\040\000C\000i\000r\000c\000l\000e\000\040\000a\000n\000n\000o\000t\000a\000t\000i\000o\000n\000!) /F 4 /BE <</S/S/I 1>> /IC [0 0 1 0] /StructParent 2 /BS 35 0 R }
+.......\pdfannot(71.13188+0.0)x165.02606{/CreationDate (D:20160520090000Z) /M (D:20160520090000Z) /C [0 0 1] /T () /Contents (\376\377\000T\000h\000i\000s\000\040\000i\000s\000\040\000a\000\040\000C\000i\000r\000c\000l\000e\000\040\000a\000n\000n\000o\000t\000a\000t\000i\000o\000n\000!) /CA 1.0 /Name /Comment /Open false /F 4 /BE <</S/S/I 1>> /BS <</W 11.95517/S/D/D [10 5]>> /IC [0 0 1 0] /Subtype /Circle /StructParent 2 }
 .......\write1{\new@label@record{@tag@objr@page@2}{{tagabspage}{\__property_code_tagabspage: }}}
 .......\glue 0.0 plus 1.0fil minus 1.0fil
 ......\glue 0.0 plus 1.0fil minus 1.0fil
@@ -224,7 +224,7 @@ Completed box being shipped out [1]
 .......\hbox(0.0+0.0)x0.0, direction TLT
 ........\pdfliteral page <lua data reference ...>
 ........\pdfliteral page <lua data reference ...>
-........\pdfannot(0.0+0.0)x0.0{/Subtype /PolyLine /C [0 1 0] /CreationDate (D:20160520090000Z) /M (D:20160520090000Z) /CA 1 /T () /Subj (\376\377\000p\000o\000l\000y\000l\000i\000n\000e) /Contents (\376\377\000T\000h\000i\000s\000\040\000i\000s\000\040\000a\000\040\000P\000o\000l\000y\000l\000i\000n\000e\000\040\000c\000o\000m\000m\000e\000n\000t\000!) /F 4 /BE <</S/C/I 1>> /IC [0 0 1] /LE [/Slash /Diamond] /Vertices [150 120 260 120 300 150 400 80] /StructParent 3 /BS 41 0 R }
+........\pdfannot(0.0+0.0)x0.0{/CreationDate (D:20160520090000Z) /M (D:20160520090000Z) /C [0 1 0] /T () /Contents (\376\377\000T\000h\000i\000s\000\040\000i\000s\000\040\000a\000\040\000P\000o\000l\000y\000l\000i\000n\000e\000\040\000c\000o\000m\000m\000e\000n\000t\000!) /CA 1 /Name /Comment /Open false /F 4 /Subtype /PolyLine /BE <</S/C/I 1>> /BS <</W 3/S/S/D [3 3]>> /IC [0 0 1] /LE [/Slash /Diamond] /Vertices [150 120 260 120 300 150 400 80] /StructParent 3 }
 ........\write1{\new@label@record{@tag@objr@page@3}{{tagabspage}{\__property_code_tagabspage: }}}
 ........\glue 0.0 plus 1.0fil minus 1.0fil
 .......\penalty 10000

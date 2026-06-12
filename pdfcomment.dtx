@@ -1785,6 +1785,10 @@
 %    \begin{macrocode}
 \newcommand{\pc@encode@PDF}[1]
  {
+%    \end{macrocode}
+% we store the argument for the list of comments:
+%    \begin{macrocode}
+  \tl_set:Nn\pc@lopt@comment{#1} 
   \tl_if_empty:oTF {\pc@lopt@deadline}
    {
      \pdfstringdef\pc@pdfenc@contents{#1}
