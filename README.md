@@ -10,7 +10,7 @@ The package is tagging compatible.
 Version: 2026-06-12 v3.0a
 
 ## Copyright (C)
-*    2008-2026 Josef Kleber
+*    2008-2018 Josef Kleber
 *    2026 Ulrike Fischer, LaTeX Project
 
 

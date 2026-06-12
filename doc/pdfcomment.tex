@@ -1,12 +1,8 @@
-%\RequirePackage{pdfmanagement}
-\DocumentMetadata{tagging=on}
+\DocumentMetadata{tagging=on,tagging-setup={math/setup=mathml-SE}}
 \documentclass[a4paper]{ltxdoc}%
 \usepackage[english]{babel}%
-%\usepackage[T1]{fontenc}%
-%\usepackage{lmodern}%
-%\usepackage{bera}%
 \usepackage{microtype}%
-\usepackage{attachfile2}%
+\usepackage{lua-unicode-math}
 \usepackage{ltxdocext}%
 \usepackage{marginnote}%
 \usepackage{metalogo}%
@@ -135,7 +131,6 @@
 %
 \begin{document}
 \date{2026-06-12}
-\bibliographystyle{alphadin}
 \title{\filename}%
 \Subtitle{A user-friendly interface to PDF annotations}%
 \author{Ulrike Fischer/Josef Kleber}
@@ -153,7 +148,7 @@ In this version the code has been splitted:
 
     This is big change, it involved lots of clean up and code changes and quite probably not everything will work from the start. 
             
-    Please report bugs and issues at XXXXXXX
+    Please report bugs and issues at \url{https://github.com/LaTeX-Package-Repositories/pdfcomment}
 \end{itemize}
 
 \section*{Documentation}
