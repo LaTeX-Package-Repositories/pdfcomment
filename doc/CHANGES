@@ -1,4 +1,11 @@
 === pdfcomment.sty ===
+-- pdfcomment.sty (v3.0a) (<- v2.4a)
+
+2026-06-12 
+  * Full rewrite to use the PDF management and add tagging support. 
+  * add \pdfsquaretooltip
+  * correct and document \pdfreply
+         
 
 -- pdfcomment.sty (v2.4a) (<- v2.4) (Commit: f467678cc1b5aaf7a008a31c29de2f55e98ecc17)
 

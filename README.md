@@ -1,21 +1,19 @@
-# README #
+# pdfcomment
 
-For a long time pdflatex has offered the command `\pdfannot` for inserting
-arbitrary PDF annotations. However, the command is presented in
-a form where additional knowledge of the definition of the PDF format is
-indispensable. This package is an answer to the – occasional – questions
-in newsgroups, about how one could use the comment function of Adobe
-Reader. At least for the writer of LaTeX code, the package offers a
-convenient and user-friendly means of using `\pdfannot` to provide comments
-in PDF files. Since version v1.1, pdfcomment.sty also supports:
+A user-friendly interface to PDF annotations.
 
-  LaTeX -> dvips -> ps2pdf, LaTeX -> dvipdfmx, XeLaTeX and LuaLaTeX
+Support of PDF annotations by PDF viewers may vary. 
+The package is tagging compatible. 
 
-Unfortunately, support of PDF annotations by PDF viewers may vary.
-The reference viewer for the development of this package is Adobe Reader.
 
-License: **LPPL**
 
-Changes in v2.4a:
+Version: 2026-06-12 v3.0a
 
-* fix issue #22: fix "Wrong driver 'hpdftex.def'" warning when using `lualatex`
+## Copyright (C)
+*    2008-2026 Josef Kleber
+*    2026 Ulrike Fischer, LaTeX Project
+
+
+## License
+LATEX Project Public License, version 1.3c or later.
+

@@ -134,7 +134,7 @@
 \hypersetup{pdfauthor={UlrikeFischer,Josef Kleber},pdftitle={A user-friendly interface to PDF annotations},pdfsubject={Documentation for LaTeX style \filename}}%
 %
 \begin{document}
-\date{2026-06-08}
+\date{2026-06-12}
 \bibliographystyle{alphadin}
 \title{\filename}%
 \Subtitle{A user-friendly interface to PDF annotations}%
@@ -156,7 +156,7 @@ In this version the code has been splitted:
     Please report bugs and issues at XXXXXXX
 \end{itemize}
 
-
+\section*{Documentation}
 \Headline{Abstract}
 \begin{abstract}
 For a long time \texttt{pdflatex} has offered the command \cmd\pdfannot{} for inserting arbitrary PDF annotations. However, the command is presented in a form where additional knowledge of the definition of the PDF format is indispensable. This package is an answer to the -- occasional -- questions in newsgroups, about how one could use the comment function of \texttt{Adobe Reader}. At least for the writer of \LaTeX{} code, the package offers a convenient and user-friendly means of using \cmd\pdfannot{} to provide comments in PDF files. Since version v1.1, \texttt{\filename{}} also supports: 
@@ -290,7 +290,7 @@ Furthermore the following icons are also supported by \texttt{Adobe Reader} and 
 You can use the option \styleoption{deadline} for defining a time limit until a problem has to be solved. The deadline will be added at the end of the comment, as well as in the list of comments, if an appropriate list style is chosen.
 
 \subsubsection[\texttt{color}]{\styleoption{color}  (\underline{\texttt{\lbrack 0 0 1\rbrack}} (blue))}\label{sec:color}
-You can use the option \styleoption{color} for defining the color of PDF annotations in the form \{0.34 0.56 0.12\} (RGB). If you are using the additional package \package{xcolor} you can use predefined color names, as well as the available optional color names. Furthermore you can use the command \cmd\definecolor{} to define your own named colors. Please take a look at the attached example \file{example.tex}.\marginnote{\attachfile[author={Josef Kleber},subject={example.tex},description={source code: example.tex} ,mimetype={text/plain}, icon={Tag}]{example.tex}} It shows the different possibilities of defining colors.
+You can use the option \styleoption{color} for defining the color of PDF annotations in the form \{0.34 0.56 0.12\} (RGB). If you are using the additional package \package{xcolor} you can use predefined color names, as well as the available optional color names. Furthermore you can use the command \cmd\definecolor{} to define your own named colors. Please take a look at the provided example files. They show the different possibilities of defining colors.
 
 By definition the PDF specification allows four different color spaces with different numbers of color values:
 
