@@ -760,6 +760,8 @@
 % For tool tips. Note: tooltips are form fields!
 %    \begin{macrocode}
 \pdfdict_new:n   {l_@@_tooltip_dict}
+\pdfdict_put:nnn {l_@@_tooltip_dict} {Subtype}{/Widget}
+
 \cs_new_protected:Npn\@@_dict_store_tooltip:
  {
    \pdfdict_put:nnn {l_@@_tooltip_dict} {TU}{\pc@pdfenc@contents}
@@ -768,7 +770,7 @@
    \pdfdict_put:nnn {l_@@_tooltip_dict} {F}{768}
    \pdfdict_put:nnn {l_@@_tooltip_dict} {Ff}{65536}
    \pdfdict_put:nnn {l_@@_tooltip_dict} {H}{/N}
-   \pdfdict_put:nnn {l_@@_tooltip_dict} {BS}{<<W~0>>}
+   \pdfdict_put:nnn {l_@@_tooltip_dict} {BS}{<</W~0>>}
  }
 %    \end{macrocode}
 % For markup annotations:
@@ -1795,11 +1797,11 @@
    {
      \pdfstringdef\pc@pdfenc@contents{#1\textCR(\pc@lopt@deadline)}
    }
-  \tl_set:Ne\pc@pdfenc@contents {(\pc@pdfenc@contents)} 
+  \tl_gset:Ne\pc@pdfenc@contents {(\pc@pdfenc@contents)} 
   \pdfstringdef\pc@pdfenc@author  {\pc@lopt@author}
-  \tl_set:Ne\pc@pdfenc@author {(\pc@pdfenc@author)}
+  \tl_gset:Ne\pc@pdfenc@author {(\pc@pdfenc@author)}
   \pdfstringdef\pc@pdfenc@subject {\pc@lopt@subject}
-  \tl_set:Ne\pc@pdfenc@subject {(\pc@pdfenc@subject)}
+  \tl_gset:Ne\pc@pdfenc@subject {(\pc@pdfenc@subject)}
  }
 %    \end{macrocode}
 % The command that encodes the color arguments:
