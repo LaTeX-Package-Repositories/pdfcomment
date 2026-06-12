@@ -109,7 +109,7 @@ Completed box being shipped out [1]
 ........\glue 0.0
 ........\pdfliteral page <lua data reference ...>
 ........\pdfliteral page <lua data reference ...>
-........\pdfannot(12.0+0.0)x12.0{/CreationDate (D:20160520090000Z) /M (D:20160520090000Z) /C [0 0 1] /T () /Contents (\376\377\000W\000o\000w\000,\000\040\000t\000h\000a\000t\000'\000s\000\040\000n\000i\000c\000e\000!) /CA 1.0 /Name /Comment /Open false /F 4 /Subtype /Text /StructParent 1 }
+........\pdfannot(12.0+0.0)x12.0{/Subtype /Text /Contents (\376\377\000W\000o\000w\000,\000\040\000t\000h\000a\000t\000'\000s\000\040\000n\000i\000c\000e\000!) /M (D:20160520090000Z) /F 4 /C [0 0 1] /CA 1.0 /Open false /Name /Comment /StructParent 1 /T () /CreationDate (D:20160520090000Z) /Subj () }
 ........\write1{\new@label@record{@tag@objr@page@1}{{tagabspage}{\__property_code_tagabspage: }}}
 ........\glue 0.0 plus 1.0fil minus 1.0fil
 .......\penalty 10000
