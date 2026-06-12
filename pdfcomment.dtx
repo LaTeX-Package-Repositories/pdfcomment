@@ -88,6 +88,7 @@
 \gdef\pc@goptd@date{\c_sys_timestamp_str}
 \gdef\pc@goptd@timezone{+00'00'}
 
+\gdef\pc@hyenc@fontcolor{0.0~0.0~0.0}
 %    \end{macrocode}
 % Variables for local command options
 %    \begin{macrocode} 
@@ -687,11 +688,13 @@
 %    \begin{macrocode}
 \pdfdict_new:n   {l_@@_freetext_dict}
 \pdfdict_set_eq:nn {l_@@_freetext_dict}{l_@@_core_dict}
+\pdfdict_remove:nn {l_@@_freetext_dict} {Name} 
+\pdfdict_remove:nn {l_@@_freetext_dict} {Open} 
 \pdfdict_put:nnn {l_@@_freetext_dict} {Subtype}       {/FreeText}
 %!!!!!!!!! Check!!! Color setting is wrong!!!!
 \pdfdict_put:nnn {l_@@_freetext_dict} 
    {DA}
-   {(/\pc@lopt@font\space \pc@lopt@fontsize\space Tf\space 1~1~1%\pc@hyenc@fontcolor
+   {(/\pc@lopt@font\space \pc@lopt@fontsize\space Tf\space\pc@hyenc@fontcolor
     \space rg)}
 \pdfdict_put:nnn {l_@@_freetext_dict} {Q}  {\pc@lopt@justification}
 \pdfdict_put:nnn {l_@@_freetext_dict} {CL} {[\pc@lopt@line]}
@@ -997,7 +1000,7 @@
                  {\dim_eval:n{\pc@lopt@width+0pt}}
                  {\dim_eval:n{\pc@lopt@height+0pt}}
                  {\dim_eval:n{\pc@lopt@depth+0pt}}
-                 {\pdfdict_use:n {l_@@_text_dict}}
+                 {\pdfdict_use:n {l_@@_freetext_dict}}
              }            
              \@@_collect_objid:
              \@@_save_objid:
