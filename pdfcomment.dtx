@@ -761,17 +761,13 @@
 %    \begin{macrocode}
 \pdfdict_new:n   {l_@@_tooltip_dict}
 \pdfdict_put:nnn {l_@@_tooltip_dict} {Subtype}{/Widget}
-
-\cs_new_protected:Npn\@@_dict_store_tooltip:
- {
-   \pdfdict_put:nnn {l_@@_tooltip_dict} {TU}{\pc@pdfenc@contents}
-   \pdfdict_put:nnn {l_@@_tooltip_dict} {T} {(tooltip \thezref@unique)}
-   \pdfdict_put:nnn {l_@@_tooltip_dict} {FT}{/Btn}
-   \pdfdict_put:nnn {l_@@_tooltip_dict} {F}{768}
-   \pdfdict_put:nnn {l_@@_tooltip_dict} {Ff}{65536}
-   \pdfdict_put:nnn {l_@@_tooltip_dict} {H}{/N}
-   \pdfdict_put:nnn {l_@@_tooltip_dict} {BS}{<</W~0>>}
- }
+\pdfdict_put:nnn {l_@@_tooltip_dict} {TU}{\pc@pdfenc@contents}
+\pdfdict_put:nnn {l_@@_tooltip_dict} {T} {(tooltip \thezref@unique)}
+\pdfdict_put:nnn {l_@@_tooltip_dict} {FT}{/Btn}
+\pdfdict_put:nnn {l_@@_tooltip_dict} {F}{768}
+\pdfdict_put:nnn {l_@@_tooltip_dict} {Ff}{65536}
+\pdfdict_put:nnn {l_@@_tooltip_dict} {H}{/N}
+\pdfdict_put:nnn {l_@@_tooltip_dict} {BS}{<</W~0>>}
 %    \end{macrocode}
 % For markup annotations:
 %    \begin{macrocode}
@@ -1598,8 +1594,7 @@
   \leavevmode
   \group_begin:
   \gdef\pc@collect@PDFOBJID{S}
-  \keys_set:nn{pdfcomment}{#1}
-  \@@_dict_store_tooltip:  
+  \keys_set:nn{pdfcomment}{#1}  
   \ifmmode
     \setbox\pc@nullbox=\hbox{\SuspendTagging{}\pc@encode@PDF{#3}}
     \setbox\pc@nullbox=\hbox{\SuspendTagging{}$\pc@lopt@mathstyle#2$}
