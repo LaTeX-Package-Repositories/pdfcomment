@@ -20,6 +20,7 @@ unpackfiles = {"pdfcomment.ins"}
 
 typesetfiles     = 
   {"pdfcomment.tex",
+   "pdfcomment-code.tex", 
    "example_math_markup.tex",
    "example.tex",
    "example-lualatex.tex"
@@ -33,7 +34,7 @@ recordstatus=true
 specialtypesetting = specialtypesetting or {}
 specialtypesetting["example.tex"] = {cmd = "pdflatex -interaction=nonstopmode"}
 specialtypesetting["example_math_markup.tex"] = {cmd = "pdflatex -interaction=nonstopmode"}
-specialtypesetting["pdfcomment.tex"] = {cmd = "pdflatex -interaction=nonstopmode"}
+--specialtypesetting["pdfcomment.tex"] = {cmd = "pdflatex -interaction=nonstopmode"}
 
 
 function docinit_hook() 

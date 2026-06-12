@@ -1,11 +1,12 @@
-\RequirePackage{pdfmanagement}
+%\RequirePackage{pdfmanagement}
+\DocumentMetadata{tagging=on}
 \documentclass[a4paper]{ltxdoc}%
 \usepackage[english]{babel}%
-\usepackage[T1]{fontenc}%
-\usepackage{lmodern}%
-\usepackage{bera}%
+%\usepackage[T1]{fontenc}%
+%\usepackage{lmodern}%
+%\usepackage{bera}%
 \usepackage{microtype}%
-\usepackage{attachfile}%
+\usepackage{attachfile2}%
 \usepackage{ltxdocext}%
 \usepackage{marginnote}%
 \usepackage{metalogo}%
@@ -142,7 +143,7 @@
 \maketitle
 
 \section*{Introduction to Version 3.0}
-The original author of the package, Josef Kleber, died some time ago and with version 3.0 the package has a new maintainer: Ulrike Fischer. 
+The original author of the package, Josef Kleber, died some time ago and starting with version 3.0 the package has a new maintainer: Ulrike Fischer. 
 
 In this version the code has been splitted: 
 \begin{itemize}
@@ -169,10 +170,9 @@ Unfortunately, support of PDF annotations by PDF viewers may vary. The reference
 If you can't see this annotation \pdfcomment[author={Josef Kleber},subject={Test annotation},color=lime,hspace=20pt]{This is an annotation} you are definitely using the wrong PDF viewer!
 \end{abstract}
 \vfill
-\begin{center}
 \subsubsection*{Required packages for using \substyle{\filename}}
 \fbox{\parbox[t]{.8\linewidth}{\small \package{hyperref} (v6.76a [2007/04/09]), \package{zref} (v1.8 [2007/04/22]), \package{xkeyval}, \package{etoolbox}, \package{luatex85}, \package{ifpdf}, \package{iflatex}, \package{ifthen}, \package{calc}, \package{marginnote}, \package{datetime2}, \package{refcount}, \package{soulpos} and the packages loaded by them.}}
-\end{center}
+
 \vfill
 \clearpage
 \begin{multicols}{2}
@@ -208,22 +208,25 @@ I want to thank the following persons for contributions to the development of th
 
 I also want to thank the following persons for bug reports, feature requests, ...: Til Birnstiel, Jannis von Buttlar, Gabriel Cardona, Thomas Feller, Florent Chervet, Jin-Hwan Cho, Marcel Dausend, Andrew Dawson, diabonas, Max Funk, Zvi Gilboa, Thomas König, Marc-André Michel, Guillaume Millet, Fritz Moore, Michael Niedermair, Stefan Pinnow, René Schwarz
 \clearpage
+
 \section{Options}
 \subsection{Global options}
 \subsubsection[\texttt{final}]{\styleoption{final}}\label{sec:final}
 The option \styleoption{final} will set the package to final mode. The PDF annotations will not be typeset and will not influence line breaking. Use the local option \styleoption{disable} if you want to disable single PDF annotations. (see: \ref{sec:disable})
+
 \subsubsection[\texttt{draft}]{\styleoption{draft}}\label{sec:draft}
 The option \styleoption{draft} (default) will set the package to draft mode. Therefore, the PDF annotations will be typeset.
+
 \subsubsection[\texttt{dvipdfmx}]{\styleoption{dvipdfmx}}\label{sec:dvipdfmx}
 If you want to use the driver \texttt{dvipdfmx} for creating your documents, you have to use the option \styleoption{dvipdfmx}. The other drivers are recognized automatically.
 
-\textbf{New in version 3.0:} If the PDF management is loaded the option is ignored.
+\textbf{Version 3.0:} If the PDF management is loaded the option is ignored.
 The backend has to be declared with \verb+backend=dvipdfmx+ when loading the PDF management.
 
 \subsubsection[\texttt{version}]{\styleoption{version}}\label{sec:version}
 Version v2.0 of \texttt{pdfcomment.sty} introduced a bugfix that removes unwanted whitespace before the comment commands. This may also change the reference point for options like \styleoption{hoffset}. If you want to preserve the old behavior for older documents simply use \texttt{version=1}. Otherwise \texttt{version=2} is used by default! 
 
-\textbf{New in version 3.0:} If the PDF management is loaded and the new code is used this key is ignored. The code from version 2.0 is always used. 
+\textbf{Version 3.0:} If the PDF management is loaded and the new code is used this key is ignored.  
 
 \subsection{Local options}
 The following options are useable as options for the commands presented in sections \ref{sec:umgebungen} and \ref{sec:befehle}, as well as style options. As style options they have global effect, whereas they have only local effect when used in commands.
@@ -246,9 +249,11 @@ You can use the option \styleoption{opacity} for defining the opacity of PDF ann
 \subsubsection[\texttt{icon}]{\styleoption{icon} (\underline{\texttt{Comment}})}\label{sec:icon}
 You can use the option \styleoption{icon} for defining the graphic used for the PDF text annotations. The following icons are defined as mandatory by the PDF reference:
 
+
 \pdfcommentsetup{author={Josef Kleber},subject={Icon Übersicht},width=17mm}
-{\renewcommand{\arraystretch}{2.5}
+
 \begin{center}
+\renewcommand{\arraystretch}{2.5}
 \begin{tabular}{rlrlrl}
 \texttt{Comment} & \pdfcomment[icon=Comment,color=Ivory,hspace=1.5cm]{options: icon=Comment,color=Ivory} &
 \texttt{Key} & \pdfcomment[icon=Key,color=Khaki,hspace=1.5cm]{options: icon=Key,color=Khaki} &
@@ -260,13 +265,13 @@ You can use the option \styleoption{icon} for defining the graphic used for the 
  & \\
 \end{tabular}
 \end{center}
-}
+
 
 \begin{samepage}
 Furthermore the following icons are also supported by \texttt{Adobe Reader} and some other PDF viewers:
 
-{\renewcommand{\arraystretch}{2.5}
 \begin{center}
+\renewcommand{\arraystretch}{2.5}
 \begin{tabular}{rlrlrl}
 \texttt{Check} & \pdfcomment[icon=Check,color=Orchid,hspace=1cm]{options: icon=Check,color=Orchid} &
 \texttt{Circle} & \pdfcomment[icon=Circle,color=LightCyan,hspace=1cm]{options: icon=Circle,color=LightCyan} &
@@ -279,7 +284,6 @@ Furthermore the following icons are also supported by \texttt{Adobe Reader} and 
 \texttt{CrossHairs (AR X)} & \pdfcomment[icon=CrossHairs,color=green,hspace=1cm]{options: icon=CrossHairs,color=green}
 \end{tabular}
 \end{center}
-}
 \end{samepage}
 
 \subsubsection[\texttt{deadline}]{\styleoption{deadline}}\label{sec:deadline}
@@ -301,6 +305,7 @@ By definition the PDF specification allows four different color spaces with diff
 \end{tabular}
 \end{center}
 
+
 \subsubsection[\texttt{icolor}]{\styleoption{icolor}}\label{sec:icolor}
 You can use the option \styleoption{icolor} for defining the so called 'inner color', which is used by some PDF annotations, like arrowheads or the inner area of PDF circle annotation. For the rest, the provisions of the option \styleoption{color} shall apply.
 
@@ -315,15 +320,18 @@ You can use the option \styleoption{hspace} for defining the horizontal space af
 \subsubsection[\texttt{type}]{\styleoption{type}}\label{sec:type}
 You can use the option \styleoption{type} for defining the type of PDF annotation, if a comment command supports more than one PDF annotations:
 
-{\renewcommand{\arraystretch}{1.2}
+
 \begin{center}
+\renewcommand{\arraystretch}{1.2}
 \begin{tabular}{ll}
 \multicolumn{1}{c}{comment command} & \multicolumn{1}{c}{possible types}\\
 \hline
 \cs{pdffreetextcomment} & \underline{freetext}, callout, typewriter \\
 \cs{pdflinecomment} & \underline{line}, polyline, polygon \\
 \end{tabular}
-\end{center}}
+\end{center}
+
+
 
 
 \subsubsection[\texttt{font}]{\styleoption{font} (\underline{\texttt{Helv}})}\label{sec:font}
@@ -338,8 +346,9 @@ You can use the option \styleoption{fontcolor} for defining the font color in PD
 \subsubsection[\texttt{line}]{\styleoption{line}}\label{sec:line}
 You can use the option \styleoption{line} for defining the coordinates of lines in certain PDF annotations, e.\,g. in the form \{$x_1$\space$y_1$\space$x_2$\space$y_2$\}. The origin is in the bottom left page corner. The given numbers will be interpreted as Postscript points (\LaTeX{} unit: bp (big points)), as usual in PDF documents.
 
-{\renewcommand{\arraystretch}{1.2}
+
 \begin{center}
+\renewcommand{\arraystretch}{1.2}
 \begin{tabular}{ll}
 \multicolumn{1}{c}{type of line} & \multicolumn{1}{c}{\# points}\\
 \hline
@@ -347,7 +356,7 @@ line & $n = 2$ \\
 polyline, polygon & $n > 2$ \\
 callout line & $n = 3$ \\
 \end{tabular}
-\end{center}}
+\end{center}
 
 In general, the points must be given from line begin to line end. For callout lines the points must be given from line end to line begin. Please note the example file \LinkEx!
 
@@ -410,6 +419,7 @@ You can use the option \styleoption{disable} for switching off single PDF annota
 \subsubsection[\texttt{date}]{\styleoption{date}}\label{sec:date}
 You can use the option \styleoption{date} to assign a date to PDF annotations. If no explicit date is assigned the date and time of the creation of the PDF document is used. The input has to be in PDF date format, e.g.:
 
+
 \begin{center}
 \begin{tabular}{l}
 \texttt{D:YYYYMMDDhhmmss+TZ}\\
@@ -452,6 +462,7 @@ Limitations:
 \item While using dvi files in the meantime you have to use a \LaTeX{} distribution, which is using \texttt{pdf(e)latex} as engine in a version $\geq$ v1.40.0\footnote{older versions are not capable of providing x/y coordinates of the current position in dvi mode.}!
 \item While using \XeLaTeX{} you have to make sure that page dimensions are written to the xdvi file, e.\,g. with the option \styleoption{pagesize} of the KoMa-Script classes, or as option of the package \package{typearea.sty} respectively.
 \end{itemize}
+
 \end{pdfsidelinecomment}
 
 \section{Commands}\label{sec:befehle}
@@ -468,6 +479,7 @@ Possible \margcs{\cmd\pdfcomment\\\oarg{options}\marg{comment}}options: \styleop
 \cmd\pdfcomment{} will typeset an annotation into the text at the current \pdfcommentsetup{subject={\textbackslash pdfcomment test},hspace=18pt}\pdfcomment[icon=Star,color=YellowGreen]{This is a comment in the text} position.
 
 Internally, the argument \marg{comment} needs to be converted to PDFDocEncoding/PDFUnicode\footnote{\cmd\hypersetup\{unicode\}}. Some chars with special meaning in \LaTeX{} (\texttt{\&}, \texttt{\%,} ...) must be escaped or replaced with their command form, e.\,g. \texttt{\string\_} or \texttt{\string\textunderscore}. Furthermore there are some commands for formatting:
+
 
 \begin{center}
 \begin{tabular}{cl}
@@ -649,17 +661,30 @@ If you want to annotate parts of a graphic with tooltips, special methods are ne
         |- (3.5,0) node (xaxis) [right] {$x$};
 \end{tikzpicture}
 
+\subsubsection{\texorpdfstring{\cs{pdfsquaretooltip}}{\textbackslash pdfsquaretooltip}}
+\margcs{\cmd\pdfsquaretooltip\oarg{options}\\\marg{object}\marg{comment}} 
+
+Tooltips are actually special Form fields and so not every PDF viewer can handle them. \cs{pdfsquaretooltip} are an alternative: this is a special invisible square annotation. If you prefer this variant, you can map it to 
+the tool tip command with 
+\begin{verbatim}
+\RenewCommandCopy\pdftooltip\pdfsquaretooltip
+\end{verbatim}
+
 \subsection{Misc. commands}
 
 \subsubsection{\texorpdfstring{\cs{pdfcommentsetup}}{\textbackslash pdfcommentsetup}}
 \label{sec:commentsetup}
 With the command \cmd\pdfcommentsetup \margcs{\cmd\pdfcommentsetup\\\oarg{options}\marg{options}} you can reset the global options at any time. By using the optional option \styleoption{local} you can keep the reset local within a \LaTeX\ group.
 
-\textbf{Note:} With the new code used if PDF management is loaded, options are always set locally and the option \styleoption{local} is ignored.
+\textbf{Version 3.0:} With the new code used if PDF management is loaded, options are always set locally and the option \styleoption{local} is ignored.
 
 \subsubsection{\texorpdfstring{\cs{listofpdfcomments}}{\textbackslash listofpdfcomments}}
 \label{sec:listofpdfcomments}
-The command \cmd\listofpdfcomments\margcs{\cmd\listofpdfcomments\oarg{options}} creates a list of the PDF comments to ease finding them. The command offers the following options:
+The command \cmd\listofpdfcomments\margcs{\cmd\listofpdfcomments\oarg{options}} creates a list of the PDF comments to ease finding them. 
+
+\textbf{Version 3.0:} With the new code the command no longer forces one column mode. 
+
+The command offers the following options:
 
 \begin{itemize}
 \item \styleoption{liststyle} specifies the list style. Possible option values are:
@@ -676,7 +701,9 @@ The command \cmd\listofpdfcomments\margcs{\cmd\listofpdfcomments\oarg{options}} 
 \item \mco{CommentDeadline}
 \end{itemize}
 
-\textbf{Note:} With the new code used if the PDF management is loaded the option can be also used in the optional argument of the various comment commands and then change the way they are added to list of pdf comments. An empty value suppresses the entry for this comment. 
+\textbf{Version 3.0:} With the new code used if the PDF management is loaded the option can be also used in the optional argument of the various comment commands and then change the way they are added to list of pdf comments. An empty value suppresses the entry for this comment. 
+
+
 
 \item \styleoption{heading} specifies an alternative heading, e.\,g. \styleoption{heading}=\{List of comments\}.
 \end{itemize}
