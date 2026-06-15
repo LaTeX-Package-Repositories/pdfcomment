@@ -1,7 +1,8 @@
 === pdfcomment.sty ===
+-- pdfcomment.sty (v3.0b) (<- v3.0a)
 
 2026-06-15
-  * remove patches for marginnote for tagging support. It is done by marginnote directly.
+  * remove marginnote patches for tagging support. It is done by the marginnote package directly.
 
 -- pdfcomment.sty (v3.0a) (<- v2.4a)
 
