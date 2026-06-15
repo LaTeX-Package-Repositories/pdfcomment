@@ -4454,7 +4454,6 @@ Completed box being shipped out [1]
 .....\vbox(8.39996+3.60004)x0.0, direction TLT
 ......\kern0.0
 ......\glue(\parskip) 0.0 plus 1.0
-......\glue(\parskip) 0.0
 ......\hbox(0.0+0.0)x345.0, glue set 330.0fil, direction TLT
 .......\localpar
 ........\localinterlinepenalty=0
@@ -4529,7 +4528,6 @@ Completed box being shipped out [1]
 .....\vbox(8.39996+3.60004)x0.0, direction TLT
 ......\kern0.0
 ......\glue(\parskip) 0.0 plus 1.0
-......\glue(\parskip) 0.0
 ......\hbox(0.0+0.0)x345.0, glue set 330.0fil, direction TLT
 .......\localpar
 ........\localinterlinepenalty=0
