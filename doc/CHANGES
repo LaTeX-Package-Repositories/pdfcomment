@@ -1,4 +1,8 @@
 === pdfcomment.sty ===
+
+2026-06-15
+  * remove patches for marginnote for tagging support. It is done by marginnote directly.
+
 -- pdfcomment.sty (v3.0a) (<- v2.4a)
 
 2026-06-12 
@@ -64,7 +68,7 @@
 2012/03/07  reimplemented \pdfmarkupcomment by using soulpos.sty [jk]
             (old implementation of twocolumn mode dumped)
               much better support of non standard text cases, like:
-              \twocolumn: feature request by: René Schwarz, Thomas Feller, Til Birnstiel
+              \twocolumn: feature request by: Renï¿½ Schwarz, Thomas Feller, Til Birnstiel
               setspace.sty: feature request by: Andrew Dawson
               enumerate, itemize, ...
 
@@ -155,7 +159,7 @@
 2010/06/11  Bugfix: empty line, \pdfcomment, empty line produced two new [jk]
                     paragraphs even in final mode
 
-            reported by: Marc-André Michel
+            reported by: Marc-Andrï¿½ Michel
 
 2010/05/05  revision of option declaration (code clean up) [jk] (svn rev 47)
 
@@ -221,8 +225,8 @@
               changed \baselineskip (=0 in tables) -> \normalbaselineskip [hv]
               see Msg-ID: <h377a3$avp$1@kleberj.eternal-september.org> ff
 
-            reported by: Thomas König
-            fixed by: Ulrike Fischer, Herbert Voß
+            reported by: Thomas Kï¿½nig
+            fixed by: Ulrike Fischer, Herbert Voï¿½
 
 -- pdfcomment.sty (v1.4) (<- v1.35dev 2009/04/01) -- (svn rev 36)
 
@@ -283,7 +287,7 @@
 
 2009/02/13  added "/F 4" to all annotations to allow printing [jk] (svn rev 8)
 
-            contributed by Christian Feuersänger (pdfmarginpar.sty)
+            contributed by Christian Feuersï¿½nger (pdfmarginpar.sty)
 
 2008/12/17  introduction of avatar system [jk] (svn rev 7)
               - \defineavatar
