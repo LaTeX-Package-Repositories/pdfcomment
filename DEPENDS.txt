@@ -1,0 +1,17 @@
+# https://tug.org/texlive/pkgdepend.html
+
+hard datetime2  # -> (collection-latexextra)
+hard hyperref
+hard marginnote # -> (collection-latexextra)
+hard soulpos    # -> (collection-latexextra)
+hard zref       # -> (collection-latexextra)
+soft luatex85   # -> (collection-luatex)
+
+# hard calc       # -> latex-tools (tools) -> latex
+# hard etoolbox   # -> datetime2
+# hard ifluatex   # -> iftex -> hyperref
+# hard ifpdf      # -> iftex -> hyperref
+# hard ifthen     # -> latex
+# hard refcount   # -> hyperref
+# hard xkeyval    # -> datetime2
+
