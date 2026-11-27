@@ -1,0 +1,9 @@
+# https://tug.org/texlive/pkgdepend.html
+
+hard hyperref
+hard etoolbox
+hard zref
+hard refcount
+hard ifthen
+hard marginnote
+hard soulpos
