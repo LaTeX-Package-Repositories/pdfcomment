@@ -138,23 +138,23 @@
 \maketitle
 
 \section*{Introduction to Version 3.0}
-The original author of the package, Josef Kleber, died some time ago and starting with version 3.0 the package has a new maintainer: Ulrike Fischer. 
+The original author of the package, Josef Kleber, died some time ago and starting with version 3.0 the package has a new maintainer: Ulrike Fischer.
 
-In this version the code has been split: 
+In this version the code has been split:
 \begin{itemize}
-\item If the PDF management is \emph{not} loaded, the original package code from version 2.4a is used (with a few small adaptions for the split and some bug report). 
+\item If the PDF management is \emph{not} loaded, the original package code from version 2.4a is used (with a few small adaptions for the split and some bug report).
 
-\item If the PDF management is loaded, either with \verb+\RequirePackage{pdfmanagement}+ or with \cs{DocumentMetadata}, then the annotations are created with the code from the PDF management and (basic) tagging support has added. 
+\item If the PDF management is loaded, either with \verb+\RequirePackage{pdfmanagement}+ or with \cs{DocumentMetadata}, then the annotations are created with the code from the PDF management and (basic) tagging support has added.
 
-    This is big change, it involved lots of clean up and code changes and quite probably not everything will work from the start. 
-            
+    This is big change, it involved lots of clean up and code changes and quite probably not everything will work from the start.
+
     Please report bugs and issues at \url{https://github.com/LaTeX-Package-Repositories/pdfcomment}
 \end{itemize}
 
 \section*{Documentation}
 \Headline{Abstract}
 \begin{abstract}
-For a long time \texttt{pdflatex} has offered the command \cmd\pdfannot{} for inserting arbitrary PDF annotations. However, the command is presented in a form where additional knowledge of the definition of the PDF format is indispensable. This package is an answer to the -- occasional -- questions in newsgroups, about how one could use the comment function of \texttt{Adobe Reader}. At least for the writer of \LaTeX{} code, the package offers a convenient and user-friendly means of using \cmd\pdfannot{} to provide comments in PDF files. Since version v1.1, \texttt{\filename{}} also supports: 
+For a long time \texttt{pdflatex} has offered the command \cmd\pdfannot{} for inserting arbitrary PDF annotations. However, the command is presented in a form where additional knowledge of the definition of the PDF format is indispensable. This package is an answer to the -- occasional -- questions in newsgroups, about how one could use the comment function of \texttt{Adobe Reader}. At least for the writer of \LaTeX{} code, the package offers a convenient and user-friendly means of using \cmd\pdfannot{} to provide comments in PDF files. Since version v1.1, \texttt{\filename{}} also supports:
 
 \medskip
 \noindent\hfill\texttt{\LaTeX{} $\rightarrow$ \texttt{dvips} $\rightarrow$ \texttt{ps2pdf}, \LaTeX{} $\rightarrow$ \texttt{dvipdfmx}\footnote{only with style option \texttt{dvipdfmx}} \XeLaTeX\ and \LuaLaTeX}.\hfill
@@ -219,9 +219,9 @@ If you want to use the driver \texttt{dvipdfmx} for creating your documents, you
 The backend has to be declared with \verb+backend=dvipdfmx+ when loading the PDF management.
 
 \subsubsection[\texttt{version}]{\styleoption{version}}\label{sec:version}
-Version v2.0 of \texttt{pdfcomment.sty} introduced a bugfix that removes unwanted whitespace before the comment commands. This may also change the reference point for options like \styleoption{hoffset}. If you want to preserve the old behavior for older documents simply use \texttt{version=1}. Otherwise \texttt{version=2} is used by default! 
+Version v2.0 of \texttt{pdfcomment.sty} introduced a bugfix that removes unwanted whitespace before the comment commands. This may also change the reference point for options like \styleoption{hoffset}. If you want to preserve the old behavior for older documents simply use \texttt{version=1}. Otherwise \texttt{version=2} is used by default!
 
-\textbf{Version 3.0:} If the PDF management is loaded and the new code is used this key is ignored.  
+\textbf{Version 3.0:} If the PDF management is loaded and the new code is used this key is ignored.
 
 \subsection{Local options}
 The following options are usable as options for the commands presented in sections \ref{sec:umgebungen} and \ref{sec:befehle}, as well as style options. As style options they have global effect, whereas they have only local effect when used in commands.
@@ -336,7 +336,7 @@ You can use the option \styleoption{font} for defining the font of PDF freetext 
 You can use the option \styleoption{fontsize} for defining the fontsize of PDF freetext annotations.
 
 \subsubsection[\texttt{fontcolor}]{\styleoption{fontcolor} (\underline{\texttt{\lbrack 0 0 0\rbrack}} (black))}\label{sec:fontcolor}
-You can use the option \styleoption{fontcolor} for defining the font color in PDF freetext annotations, which must be a RGB color. 
+You can use the option \styleoption{fontcolor} for defining the font color in PDF freetext annotations, which must be a RGB color.
 
 \subsubsection[\texttt{line}]{\styleoption{line}}\label{sec:line}
 You can use the option \styleoption{line} for defining the coordinates of lines in certain PDF annotations, e.\,g. in the form \{$x_1$\space$y_1$\space$x_2$\space$y_2$\}. The origin is in the bottom left page corner. The given numbers will be interpreted as Postscript points (\LaTeX{} unit: bp (big points)), as usual in PDF documents.
@@ -361,7 +361,7 @@ To avoid the method 'trail and error' you can load the PDF file with the Ghostsc
 You can use the option \styleoption{linewidth} for defining the line width of PDF annotations.
 
 \subsubsection[\texttt{linebegin}]{\styleoption{linebegin} (\underline{\texttt{/None})}}\label{sec:linebegin}
-You can use the option \styleoption{linebegin} for defining the arrow type at the line begin. The example file \LinkEx{} shows all possible types of arrows. \pdfcomment[icon=Help,color=blue,open=true,subject={arrow types}]{/None, /Square, /Circle, /Diamond, /OpenArrow, /ClosedArrow, /Butt (PDF1.5), /ROpenArrow (PDF1.5), /RClosedArrow (PDF1.5), /Slash (PDF1.6)} 
+You can use the option \styleoption{linebegin} for defining the arrow type at the line begin. The example file \LinkEx{} shows all possible types of arrows. \pdfcomment[icon=Help,color=blue,open=true,subject={arrow types}]{/None, /Square, /Circle, /Diamond, /OpenArrow, /ClosedArrow, /Butt (PDF1.5), /ROpenArrow (PDF1.5), /RClosedArrow (PDF1.5), /Slash (PDF1.6)}
 
 
 \subsubsection[\texttt{lineend}]{\styleoption{lineend} (\underline{\texttt{/OpenArrow}})}\label{sec:lineend}
@@ -380,12 +380,12 @@ You can use the option \styleoption{dashstyle} for defining the dash style, e.\,
 You can use the option \styleoption{bse} for defining the 'border style effect'.
 
 \subsubsection[\texttt{bsei}]{\styleoption{bsei} (\underline{\texttt{1}})}\label{sec:bsei}
-You can use the option \styleoption{bsei} for defining the 'border style effect intensity' (size of cloud elements). The PDF reference suggests values between 1 and 2. 
+You can use the option \styleoption{bsei} for defining the 'border style effect intensity' (size of cloud elements). The PDF reference suggests values between 1 and 2.
 
 \subsubsection[\texttt{caption}]{\styleoption{caption} (\texttt{none},\underline{\texttt{inline}},\texttt{top})}\label{sec:caption}
 You can use the option \styleoption{caption} for defining the caption type of lines.
 
-The options \styleoption{inline} and \styleoption{top} shows the comment 'inline' and on top of the line. While using \styleoption{none} the comment will be shown in a PDF popup annotation. 
+The options \styleoption{inline} and \styleoption{top} shows the comment 'inline' and on top of the line. While using \styleoption{none} the comment will be shown in a PDF popup annotation.
 
 \subsubsection[\texttt{captionhoffset}]{\styleoption{captionhoffset} (\underline{\texttt{0pt}})}\label{sec:captionhoffset}
 You can use the option \styleoption{captionhoffset} for defining a horizontal offset, that is a horizontal shift of the line caption.
@@ -426,13 +426,13 @@ You can use the option \styleoption{date} to assign a date to PDF annotations. I
 You only have to use the option \styleoption{timezone}, if you are using automatic date setting and \XeLaTeX. Otherwise the \texttt{pdflatex} primitive \string\pdfcreationdate\ will be used. \styleoption{timezone}=+01'00' sets the timezone to Central European time CET (default: +00'00' (GMT)).
 
 \subsubsection[\texttt{avatar}]{\styleoption{avatar}}\label{sec:avatar}
-With the option \styleoption{avatar} you can load the option lists, that were predefined with the command \cmd\defineavatar{} to avoid annoying typing. 
+With the option \styleoption{avatar} you can load the option lists, that were predefined with the command \cmd\defineavatar{} to avoid annoying typing.
 
 \subsubsection[\texttt{style}]{\styleoption{style}}\label{sec:style}
 With the option \styleoption{style} you can also load predefined option lists for splitting personal and stylistic options, e.\,g. \texttt{avatar=Josef, style=MyComment}.
 
 \subsubsection[\texttt{mathstyle}]{\styleoption{mathstyle} (\underline{\texttt{\string\textstyle}})}\label{sec:mathstyle}
-With the option \styleoption{mathstyle} you can correct the wrong size of PDF annotations produced with \texttt{\string\pdfmarkupcomment} or \texttt{\string\pdftooltip} in math mode by setting the math style to \texttt{\string\textstyle}, \texttt{\string\displaystyle}, \texttt{\string\scriptstyle} or \texttt{\string\scriptscriptstyle}. This option is only defined for \texttt{\string\pdfmarkupcomment} and \texttt{\string\pdftooltip}, so you can not set it globally! 
+With the option \styleoption{mathstyle} you can correct the wrong size of PDF annotations produced with \texttt{\string\pdfmarkupcomment} or \texttt{\string\pdftooltip} in math mode by setting the math style to \texttt{\string\textstyle}, \texttt{\string\displaystyle}, \texttt{\string\scriptstyle} or \texttt{\string\scriptscriptstyle}. This option is only defined for \texttt{\string\pdfmarkupcomment} and \texttt{\string\pdftooltip}, so you can not set it globally!
 
 \subsubsection[\texttt{printSOfinal}]{\styleoption{printSOfinal} (\underline{\texttt{true}},\texttt{false})}\label{sec:printSOfinal}
 With the option \styleoption{printSOfinal} you can automatically delete PDF StrikeOut markup annotations including the text while using one of the options \styleoption{final} or \styleoption{disable}.
@@ -509,7 +509,7 @@ Limitations:
 \item As the name PDF text markup annotation might lead to suggest, this form of comment is suitable for text only.
 \item The specified text with the argument \marg{markup text} must not be longer than one paragraph.
 \item The PDF text markup annotation must not be longer than one page, otherwise the recognition of the page break will fail.
-\item In text mode the command uses the package \package{soul}, this means that not every command works in the argument.     
+\item In text mode the command uses the package \package{soul}, this means that not every command works in the argument.
 \end{itemize}
 
 Since version v1.6, \texttt{\string\pdfmarkupcomment} is also supported in math mode. So you can also comment formula like:
@@ -533,7 +533,7 @@ Since version v1.6, \texttt{\string\pdfmarkupcomment} is also supported in math 
 \]
 
 Also see \LinkExMath{} for a more detailed explanation of the possibilities!
- 
+
 \subsubsection{\texorpdfstring{\cs{pdffreetextcomment}}{\textbackslash pdffreetextcomment}}
 \label{sec:pdffreetextcomment}
 Possible \margcs{\cmd\pdffreetextcomment\\\oarg{options}\marg{comment}} options: \styleoption{avatar}, \styleoption{style}, \styleoption{subject}, \styleoption{author}, \styleoption{color}, \styleoption{font}, \styleoption{fontsize}, \styleoption{fontcolor}, \styleoption{opacity}, \styleoption{line}, \styleoption{linewidth}, \styleoption{lineend}, \styleoption{borderstyle}, \styleoption{dashstyle}, \styleoption{bse}, \styleoption{bsei},  \styleoption{type}, \styleoption{height}, \styleoption{width}, \styleoption{voffset}, \styleoption{hoffset}, \styleoption{disable}, \styleoption{date}, \styleoption{timezone}, \styleoption{id}
@@ -570,7 +570,7 @@ Possible \margcs{\cmd\pdflinecomment\\\oarg{options}\marg{comment}}options: \sty
 Possible \margcs{\cmd\pdfreply\\\oarg{options}\marg{comment}}options: \styleoption{replyto}, \styleoption{avatar}, \styleoption{style}, \styleoption{subject}, \styleoption{author}, \styleoption{type}, \styleoption{color}, \styleoption{icolor}, \styleoption{opacity}, \styleoption{caption}, \styleoption{captionhoffset}, \styleoption{captionvoffset},  \styleoption{linewidth}, \styleoption{linebegin}, \styleoption{lineend}, \styleoption{line}, \styleoption{borderstyle}, \styleoption{dashstyle}, \styleoption{disable}, \styleoption{date}, \styleoption{timezone}, \styleoption{id}
 
 \bigskip
-\cmd\pdfreply{} will add a comment as a reply to an existing comment. 
+\cmd\pdfreply{} will add a comment as a reply to an existing comment.
 It should use the option \styleoption{replyto} to identify the target. As an example
 \begin{verbatim}
 \pdfcomment[id=A]{Wow, that's nice!}%
@@ -588,7 +588,7 @@ The annotation must be created on the same page as the annotation is refers too!
 Possible \margcs{\cmd\pdftooltip\oarg{options}\\\marg{object}\marg{comment}}options: \styleoption{disable}, \styleoption{mathstyle}
 
 \bigskip
-With the command \cmd\pdftooltip{} you can annotate any object with a tooltip - provided the the object can be set into a box to measure its size. Therefore you can smoothly use tooltips with \pdftooltip{\textcolor{red}{words}}{This is a tooltip!} or in a chemical notation: $\pdftooltip{H_{2}SO_{4}}{Sulfuric acid}$ 
+With the command \cmd\pdftooltip{} you can annotate any object with a tooltip - provided the the object can be set into a box to measure its size. Therefore you can smoothly use tooltips with \pdftooltip{\textcolor{red}{words}}{This is a tooltip!} or in a chemical notation: $\pdftooltip{H_{2}SO_{4}}{Sulfuric acid}$
 
 Of course, it also works in equations: \[\pdftooltip[mathstyle=\displaystyle]{\sum_{i=1}^{n}i=\frac{1}{2}n\cdot(n+1)}{little Gauß}\]
 
@@ -620,7 +620,7 @@ If you want to annotate parts of a graphic with tooltips, special methods are ne
     in
     node at (current path bounding box)
     {\pdftooltip{\rule{\dimexpr\x2-\x1\relax}{0pt}\rule{0pt}{\dimexpr\y2-\y1\relax}}%
-    {This is the intersection point\textCR of the two lines!}};   
+    {This is the intersection point\textCR of the two lines!}};
 \end{tikzpicture}
 \hspace{1cm}
 \begin{tikzpicture}
@@ -657,10 +657,10 @@ If you want to annotate parts of a graphic with tooltips, special methods are ne
 \end{tikzpicture}
 
 \subsubsection{\texorpdfstring{\cs{pdfsquaretooltip}}{\textbackslash pdfsquaretooltip}}
-\margcs{\cmd\pdfsquaretooltip\oarg{options}\\\marg{object}\marg{comment}} 
+\margcs{\cmd\pdfsquaretooltip\oarg{options}\\\marg{object}\marg{comment}}
 
-Tooltips are actually special Form fields and so not every PDF viewer can handle them. \cs{pdfsquaretooltip} are an alternative: this is a special invisible square annotation. If you prefer this variant, you can map it to 
-the tool tip command with 
+Tooltips are actually special Form fields and so not every PDF viewer can handle them. \cs{pdfsquaretooltip} are an alternative: this is a special invisible square annotation. If you prefer this variant, you can map it to
+the tool tip command with
 \begin{verbatim}
 \RenewCommandCopy\pdftooltip\pdfsquaretooltip
 \end{verbatim}
@@ -675,9 +675,9 @@ With the command \cmd\pdfcommentsetup \margcs{\cmd\pdfcommentsetup\\\oarg{option
 
 \subsubsection{\texorpdfstring{\cs{listofpdfcomments}}{\textbackslash listofpdfcomments}}
 \label{sec:listofpdfcomments}
-The command \cmd\listofpdfcomments\margcs{\cmd\listofpdfcomments\oarg{options}} creates a list of the PDF comments to ease finding them. 
+The command \cmd\listofpdfcomments\margcs{\cmd\listofpdfcomments\oarg{options}} creates a list of the PDF comments to ease finding them.
 
-\textbf{Version 3.0:} With the new code the command no longer forces one column mode. 
+\textbf{Version 3.0:} With the new code the command no longer forces one column mode.
 
 The command offers the following options:
 
@@ -696,7 +696,7 @@ The command offers the following options:
 \item \mco{CommentDeadline}
 \end{itemize}
 
-\textbf{Version 3.0:} With the new code used if the PDF management is loaded the option can be also used in the optional argument of the various comment commands and then change the way they are added to list of PDF comments. An empty value suppresses the entry for this comment. 
+\textbf{Version 3.0:} With the new code used if the PDF management is loaded the option can be also used in the optional argument of the various comment commands and then change the way they are added to list of PDF comments. An empty value suppresses the entry for this comment.
 
 
 
@@ -718,7 +718,7 @@ With the command \cmd\defineliststyle\margcs{\cmd\defineliststyle\\\marg{name}\m
 
 \subsubsection{\texorpdfstring{\cs{defineavatar}}{\textbackslash defineavatar}}
 \label{sec:defineavatar}
-With the command \cmd\defineavatar \margcs{\cmd\defineavatar\marg{name}\marg{options}} you can create named predefined option lists, which can be later used in the comment commands with the option \styleoption{avatar}. With this option, it's easy for several authors of the same document to switch between different avatars, that is their graphical representation. 
+With the command \cmd\defineavatar \margcs{\cmd\defineavatar\marg{name}\marg{options}} you can create named predefined option lists, which can be later used in the comment commands with the option \styleoption{avatar}. With this option, it's easy for several authors of the same document to switch between different avatars, that is their graphical representation.
 
 \subsubsection{\texorpdfstring{\cs{definestyle}}{\textbackslash definestyle}}
 \label{sec:definestyle}
@@ -732,16 +732,16 @@ Please note that only opened popups will be printed!
 
 \section{Tagging support}
 
-Tagging is enabled with \verb+\DocumentMetadata{tagging=on}+. 
+Tagging is enabled with \verb+\DocumentMetadata{tagging=on}+.
 It is not clear yet what is the best tagging and what it actually does for the reading.
 Please report problems! Improvements need tests and feedback from users!
 
 Known restrictions are:
 \begin{itemize}
 \item \cs{pdfmarkupcomment} uses the soul package to get the dimension of the annotation. The soul package is not compatible with the tagging code, and so tagging is suspended in the argument of the command.
-\item Inside a tikz-picture tagging is normally suspended (if you use the \texttt{alt} or \texttt{actualtext} key), and so also annotations are not tagged too. This is allowed by the standard (untagged annotations are artifacts) but some validators complain nevertheless.      
-\item Markup annotations going over more than one line create more than one annotation. These should probably be in one Annot structure, but currently each is tagged independently.    
-\item  In PDF 2.0 annotations should actually have appearances, but this isn't done yet.    
-\end{itemize}    
+\item Inside a tikz-picture tagging is normally suspended (if you use the \texttt{alt} or \texttt{actualtext} key), and so also annotations are not tagged too. This is allowed by the standard (untagged annotations are artifacts) but some validators complain nevertheless.
+\item Markup annotations going over more than one line create more than one annotation. These should probably be in one Annot structure, but currently each is tagged independently.
+\item  In PDF 2.0 annotations should actually have appearances, but this isn't done yet.
+\end{itemize}
 
 \end{document}

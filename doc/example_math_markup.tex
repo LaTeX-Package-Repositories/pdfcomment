@@ -40,7 +40,7 @@ Of course, you can only comment parts of a formula:
 \end{tabular}
 
 \bigskip
-As you can see the size of the PDF annotation is too big! The math content is set into a box to measure the size. Unfortunately, the math context gets lost, which results in a wrong size, as the math snippets are set as inline formula into the box by default. You can correct this with the option \texttt{mathstyle} (\texttt{\string\textstyle, \string\displaystyle, \string\scriptstyle, \string\scriptscriptstyle}) 
+As you can see the size of the PDF annotation is too big! The math content is set into a box to measure the size. Unfortunately, the math context gets lost, which results in a wrong size, as the math snippets are set as inline formula into the box by default. You can correct this with the option \texttt{mathstyle} (\texttt{\string\textstyle, \string\displaystyle, \string\scriptstyle, \string\scriptscriptstyle})
 
 \bigskip
 \begin{tabular}{cc}
@@ -87,7 +87,7 @@ If you use more complex environments like \texttt{eqnarry*}, you can no longer c
 \begin{tabular}{cc}
 \begin{minipage}{0.4\linewidth}
 \begin{eqnarray*}
-\pdfmarkupcomment[style=mathpopup]{\mathrm{left}}{comment} & 
+\pdfmarkupcomment[style=mathpopup]{\mathrm{left}}{comment} &
 \pdfmarkupcomment[style=mathpopup]{\mathrm{middle}}{comment} & \pdfmarkupcomment[style=mathpopup]{\mathrm{right}}{comment}\\
 \pdfmarkupcomment[style=mathpopup,mathstyle=\displaystyle]{\frac{1}{\sqrt{n}}}{comment} = & \pdfmarkupcomment[style=mathpopup,mathstyle=\displaystyle]{\frac{\sqrt{n}}{n}}{comment} = & \pdfmarkupcomment[style=mathpopup,mathstyle=\displaystyle]{\frac{n}{n\sqrt{n}}}{comment}
 \end{eqnarray*}
@@ -96,17 +96,17 @@ If you use more complex environments like \texttt{eqnarry*}, you can no longer c
 \begin{lstlisting}
 \begin{eqnarray*}
 \pdfmarkupcomment[style=mathpopup]
-{\mathrm{left}}{comment} & 
+{\mathrm{left}}{comment} &
 \pdfmarkupcomment[style=mathpopup]
-{\mathrm{middle}}{comment} & 
+{\mathrm{middle}}{comment} &
 \pdfmarkupcomment[style=mathpopup]
 {\mathrm{right}}{comment}\\
 \pdfmarkupcomment[style=mathpopup,
 mathstyle=\displaystyle]
-{\frac{1}{\sqrt{n}}}{comment} = & 
+{\frac{1}{\sqrt{n}}}{comment} = &
 \pdfmarkupcomment[style=mathpopup,
 mathstyle=\displaystyle]
-{\frac{\sqrt{n}}{n}}{comment} = & 
+{\frac{\sqrt{n}}{n}}{comment} = &
 \pdfmarkupcomment[style=mathpopup,
 mathstyle=\displaystyle]
 {\frac{n}{n\sqrt{n}}}{comment}

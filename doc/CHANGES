@@ -6,44 +6,44 @@
 
 -- pdfcomment.sty (v3.0a) (<- v2.4a)
 
-2026-06-12 
-  * Full rewrite to use the PDF management and add tagging support. 
+2026-06-12
+  * Full rewrite to use the PDF management and add tagging support.
   * add \pdfsquaretooltip
   * correct and document \pdfreply
-         
+
 
 -- pdfcomment.sty (v2.4a) (<- v2.4) (Commit: f467678cc1b5aaf7a008a31c29de2f55e98ecc17)
 
 2018/11/01  Bugfix: fix "Wrong driver `hpdftex.def'" warning when using lualatex [jk]
 
-            
-            
+
+
 -- pdfcomment.sty (v2.4) (<- v2.3.2dev 2016/06/13) (Commit: 0ce1f75284cf0cba7956076ebccac32c7f181f31)
 
 2016/05/29  compatibility fix for luatex v0.85+ [jk]
             by loading the luatex85 package
 
 2016/05/29  upgraded obsolete datetime to datetime2 [jk]
-            
+
 2016/06/13  Bugfix: incorrect positions of PDF text annotations with dvips [jk]
-            removed \vspace{\normalbaselineskip}            
-            
-            
-            
+            removed \vspace{\normalbaselineskip}
+
+
+
 -- pdfcomment.sty (v2.3b) (<- v2.3.1dev 2015/04/10) (Commit: 382b38b2e17e4853fbc537250aabc6c42160df2a)
 
 2012/09/30  added 'pdfencoding=auto' while loading hyperref [jk]
             Needed for Unicode bookmarks in XeTeX and LuaTeX
 
 2015/04/10  Bugfix: incorrect vertical position of superscripts in \pdftooltip [jk]
-            
+
             reported and patched by Ross Moore
-            
+
 2015/04/10  Bugfix: change zero width in \pdfcomment and \pdfmargincomment [jk]
             to make the comments visible in both evince and the internal viewer of texstudio
 
             reported by shaniaki (BitBucket #7)
-            
+
 2015/04/23  improve appearance of tooltips with Mac Preview (at least)
 
             feature request by Ross Moore
@@ -51,7 +51,7 @@
 2015/09/08  expand comment argument in \pdftooltip before pushing it through \pdfstringdef
 
             feature request by Robert Terwilliger (BitBucket #18)
-            
+
 2016/03/26  dropped support for \pdfreply
 
 
@@ -76,7 +76,7 @@
 2012/08/11  added support for twocolumn mode in \pdfsidelinecomment [jk]
 
 2012/07/04  added option local to \pdfcommentsetup [jk]
-            
+
             feature request by: Florent Chervet
 
 -- pdfcomment.sty (v2.2a) (<- v2.2 2012/01/25)

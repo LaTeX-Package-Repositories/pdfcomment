@@ -2,8 +2,8 @@
 
 A user-friendly interface to PDF annotations.
 
-Support of PDF annotations by PDF viewers may vary. 
-The package is tagging compatible. 
+Support of PDF annotations by PDF viewers may vary.
+The package is tagging compatible.
 
 
 

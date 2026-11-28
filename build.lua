@@ -19,9 +19,9 @@ installfiles={"pdfcomment.sty","pdfcomment-2018-11-01.sty"}
 sourcefiles={"pdfcomment.dtx","pdfcomment-2018-11-01.sty","pdfcomment.ins"}
 unpackfiles = {"pdfcomment.ins"}
 
-typesetfiles     = 
+typesetfiles     =
   {"pdfcomment.tex",
-   "pdfcomment-code.tex", 
+   "pdfcomment-code.tex",
    "example_math_markup.tex",
    "example.tex",
    "example-lualatex.tex"
@@ -38,7 +38,7 @@ specialtypesetting["example_math_markup.tex"] = {cmd = "pdflatex -interaction=no
 --specialtypesetting["pdfcomment.tex"] = {cmd = "pdflatex -interaction=nonstopmode"}
 
 
-function docinit_hook() 
+function docinit_hook()
 cp("pdfcomment.sty", unpackdir, typesetdir)
 return cp("pdfcomment-2018-11-01.sty", unpackdir, typesetdir) end
 
@@ -51,7 +51,7 @@ tagfiles = {
            }
 
 
-function update_tag (file,content,tagname,tagdate) 
+function update_tag (file,content,tagname,tagdate)
  if string.match (file, "%.dtx$" ) then
   content = string.gsub (content,
                          "\\ProvidesExplPackage {(.-)} {.-} {.-}",
